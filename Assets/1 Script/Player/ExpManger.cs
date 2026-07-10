@@ -9,21 +9,27 @@ public class ExpManger : MonoBehaviour
     [SerializeField] PlayerStatus playerStatus;
     [SerializeField] ExpForLevel expForLevel;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void GetExp(int getExp)
     {
-        
+        playerStatus.AddExp(getExp);
+        while(CheckLevelUp())
+        {
+            playerStatus.AddExp(-expForLevel.nextExpRequired[playerStatus.Level]);
+            playerStatus.AddLevel(1);
+        }
+        SetExpGage();
     }
 
-    // Update is called once per frame
-    void Update()
+    bool CheckLevelUp()
     {
-        
-    }
-
-    void CheckLevelup()
-    {
-
+        if(playerStatus.CurrentExp > expForLevel.nextExpRequired[playerStatus.Level])
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     void SetExpGage()

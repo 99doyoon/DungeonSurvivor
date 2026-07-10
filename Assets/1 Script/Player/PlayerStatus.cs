@@ -51,4 +51,14 @@ public class PlayerStatus : CharacterStatus, IHit
         yield return wait;
         isHit = true;
     }
+
+    public void AddExp(int exp)
+    {
+        CurrentExp += exp;
+    }
+
+    public void AddLevel(int level)
+    {
+        Level += level;
+    }
 }
