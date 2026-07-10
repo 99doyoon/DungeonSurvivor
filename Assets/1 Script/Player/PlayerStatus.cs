@@ -5,24 +5,23 @@ public class PlayerStatus : CharacterStatus, IHit
 {
     PlayerAnimationController playerAnimationController;
 
+    public int Level { get; private set; }
+    public int CurrentExp { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         MoveSpeed = 5;
         maxHp = 100;
         nowHp = maxHp;
+        Level = 1;
+        CurrentExp = 0;
 
         playerAnimationController = GetComponentInChildren<PlayerAnimationController>();
 
         isHit = true;
         takeDamageDelay = 1;
         wait = new WaitForSeconds(takeDamageDelay);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     protected override void Die()
