@@ -1,3 +1,4 @@
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class EnemyBase : CharacterStatus, IPoolable
@@ -29,9 +30,16 @@ public class EnemyBase : CharacterStatus, IPoolable
 
     protected override void Die()
     {
+        GameObject expItem = ObjectPool.instance.GetObject(PoolType.ExpItem);
+        ExpItem exp = expItem.GetComponent<ExpItem>();
+        exp.SetExp(GetExp());
+
+        expItem.transform.position = transform.position;
+
         ObjectPool.instance.ReturnObject(this);
     }
 
+    public int GetExp() => monsterData.Exp;
     public float GetMoveSpeed() => monsterData.moveSpeed;
     public float GetDamage() => monsterData.damage;
     public float GetAttackDistance() => monsterData.attackDistance;

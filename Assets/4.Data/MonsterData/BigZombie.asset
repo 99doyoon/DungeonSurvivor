@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec59c78266a7df947b227dd6ae016595, type: 3}
   m_Name: BigZombie
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
-  monsterName: 
-  poolType: 0
+  monsterName: Big Zombie
+  poolType: 10
   maxHp: 10
   moveSpeed: 2
   damage: 1
