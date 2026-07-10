@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6256995750784229290}
   - component: {fileID: 2217012962440490377}
+  - component: {fileID: 7171150987644129293}
   m_Layer: 7
   m_Name: big_zombie_idle_anim_f0_0
   m_TagString: Untagged
@@ -91,6 +92,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &7171150987644129293
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605493327668332156}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a21802613cc7584c903e87df717805f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7221378658095132723
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,6 +124,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5057771283770147331}
   - component: {fileID: 3156780754283370364}
+  - component: {fileID: -8180576763898099713}
+  - component: {fileID: -3321499213374883474}
+  - component: {fileID: 6767489860335009074}
   m_Layer: 7
   m_Name: BigZombie
   m_TagString: Untagged
@@ -170,3 +196,44 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0335262, y: 1.2179196}
   m_EdgeRadius: 0
+--- !u!114 &-8180576763898099713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221378658095132723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2761d29eabd5ba946b9a93d3f7e8dbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAnimation
+  monsterMoveController: {fileID: -3321499213374883474}
+--- !u!114 &-3321499213374883474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221378658095132723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+--- !u!114 &6767489860335009074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221378658095132723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce270dd728b2394c9f10db403d1f2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
+  maxHp: 0
+  nowHp: 0
+  monsterData: {fileID: 11400000, guid: 8cc39458cbe367140b636698c2a08d4c, type: 2}

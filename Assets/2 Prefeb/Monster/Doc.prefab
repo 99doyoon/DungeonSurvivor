@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6316989162118122022}
   - component: {fileID: 186810441126985322}
+  - component: {fileID: 3053871479024569997}
+  - component: {fileID: 1691429498478420568}
+  - component: {fileID: 4637610527343112282}
   m_Layer: 7
   m_Name: Doc
   m_TagString: Untagged
@@ -79,6 +82,47 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3053871479024569997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293441818235430573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+--- !u!114 &1691429498478420568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293441818235430573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2761d29eabd5ba946b9a93d3f7e8dbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAnimation
+  monsterMoveController: {fileID: 3053871479024569997}
+--- !u!114 &4637610527343112282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293441818235430573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce270dd728b2394c9f10db403d1f2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
+  maxHp: 0
+  nowHp: 0
+  monsterData: {fileID: 11400000, guid: 5d3420155450a0c4ba3f7e69d914b01d, type: 2}
 --- !u!1 &4303794883768500687
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5655051664091702861}
   - component: {fileID: 3661273641603592021}
+  - component: {fileID: 6852060911159394548}
   m_Layer: 7
   m_Name: doc_idle_anim_f0_0
   m_TagString: Untagged
@@ -170,3 +215,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &6852060911159394548
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4303794883768500687}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3e747a24e508a544805763795579938, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

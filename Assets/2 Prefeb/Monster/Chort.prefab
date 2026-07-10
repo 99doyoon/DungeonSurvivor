@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7473044379507633705}
   - component: {fileID: 8587538073990521595}
+  - component: {fileID: 6173272190394086585}
+  - component: {fileID: 8590247116493230564}
+  - component: {fileID: 8887426850026241449}
   m_Layer: 7
   m_Name: Chort
   m_TagString: Untagged
@@ -79,6 +82,47 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6173272190394086585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569447506967827770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+--- !u!114 &8590247116493230564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569447506967827770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2761d29eabd5ba946b9a93d3f7e8dbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAnimation
+  monsterMoveController: {fileID: 6173272190394086585}
+--- !u!114 &8887426850026241449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569447506967827770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce270dd728b2394c9f10db403d1f2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
+  maxHp: 0
+  nowHp: 0
+  monsterData: {fileID: 11400000, guid: 3f3d11aa88fdaad4a916aeb1a1ec75d9, type: 2}
 --- !u!1 &6959282304409867583
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5850926359442998625}
   - component: {fileID: 9220174619074948059}
+  - component: {fileID: 4108977120569512794}
   m_Layer: 7
   m_Name: chort_idle_anim_f0_0
   m_TagString: Untagged
@@ -170,3 +215,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &4108977120569512794
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959282304409867583}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32729b427750ad74082ffc986dff7495, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

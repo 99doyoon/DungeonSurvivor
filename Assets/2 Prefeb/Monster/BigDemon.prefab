@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5156235695679634450}
   - component: {fileID: 3874264882008049907}
   - component: {fileID: -371565392406017542}
+  - component: {fileID: 1342467735875838573}
   m_Layer: 7
   m_Name: BigDemon
   m_TagString: Untagged
@@ -107,6 +108,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
   player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+--- !u!114 &1342467735875838573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441820276649288595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce270dd728b2394c9f10db403d1f2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
+  maxHp: 0
+  nowHp: 0
+  monsterData: {fileID: 11400000, guid: ab54d3247433e094da53c6d891c81174, type: 2}
 --- !u!1 &8709311462362664084
 GameObject:
   m_ObjectHideFlags: 0

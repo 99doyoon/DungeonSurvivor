@@ -1,21 +1,45 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class EnemyHpBar : HpBar
+public class EnemyHpBar : HpBar, IPoolable
 {
-    [SerializeField] Transform target;
+    private EnemyBase target;
+    private Camera mainCam;
 
-    Vector3 offset = Vector3.up;
+    [SerializeField] private Vector3 offset = new Vector3(0f, 1f, 0f);
+
+    public PoolType PoolType => PoolType.EnemyHpBar;
+    public GameObject GameObject => gameObject;
+
+    private void Awake()
+    {
+        mainCam = Camera.main;
+    }
 
     private void LateUpdate()
     {
-        if (target == null)
+        if (target == null || !target.gameObject.activeSelf)
+        {
+            target = null;
+            ObjectPool.instance.ReturnObject(this);
             return;
-        transform.position = target.position + offset;
+        }
+
+        if (mainCam == null)
+            mainCam = Camera.main;
+
+        Vector3 worldPos = target.transform.position + offset;
+        transform.position = mainCam.WorldToScreenPoint(worldPos);
+
+        SetGage(target.CurrentHp / target.GetMaxHp());
     }
 
-    public void SetTarget(Transform t)
+    public void SetTarget(EnemyBase monster)
     {
-        target = t;
+        target = monster;
+
+        if (target == null)
+            return;
+
+        SetGage(target.CurrentHp / target.GetMaxHp());
     }
 }
