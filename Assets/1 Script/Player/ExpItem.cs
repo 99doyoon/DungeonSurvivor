@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class ExpItem : MonoBehaviour
+public class ExpItem : MonoBehaviour, IPoolable
 {
     SpriteRenderer sr;
 
-    int Exp;
+    int exp = 10;
+
+    public PoolType PoolType => PoolType.ExpItem;
+
+    public GameObject GameObject => gameObject;
 
     private void Awake()
     {
@@ -16,16 +20,17 @@ public class ExpItem : MonoBehaviour
         sr.color = color;
     }
 
-    public void SetExp(int exp)
+    public void SetExp(int setExp)
     {
-        Exp = exp;
+        exp = setExp;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-
+            collision.gameObject.GetComponent<ExpManger>().GetExp(exp);
+            ObjectPool.instance.ReturnObject(this);
         }
     }
 }

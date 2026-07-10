@@ -61,4 +61,14 @@ public class PlayerStatus : CharacterStatus, IHit
     {
         Level += level;
     }
+
+    public void SetExp(int exp)
+    {
+        CurrentExp = exp;
+    }
+
+    public void SetLevel(int level)
+    {
+        Level = level;
+    }
 }

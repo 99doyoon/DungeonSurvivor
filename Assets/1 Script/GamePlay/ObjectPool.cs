@@ -18,6 +18,7 @@ public enum PoolType
     Item,
     Arrow,
     Axe,
+    ExpItem,
 
     //UI
     EnemyHpBar,
