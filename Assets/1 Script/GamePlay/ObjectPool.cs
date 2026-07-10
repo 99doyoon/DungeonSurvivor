@@ -26,6 +26,7 @@ public enum PoolType
     //Monster
     BigDemon,
     BigZombie,
+    Chort,
     Doc,
     Goblin,
     Imp,
@@ -118,6 +119,20 @@ public class ObjectPool : MonoBehaviour
 
     public void ReturnObject(GameObject go, PoolType type)
     {
+        if (type == PoolType.None)
+        {
+            Debug.LogError($"{go.name}의 PoolType이 None입니다. 프리팹 Inspector에서 PoolType을 설정해주세요.");
+            go.SetActive(false);
+            return;
+        }
+
+        if (!pools.ContainsKey(type))
+        {
+            Debug.LogError($"풀에 등록되지 않은 PoolType입니다: {type}, Object: {go.name}");
+            go.SetActive(false);
+            return;
+        }
+
         go.SetActive(false);
         pools[type].Enqueue(go);
     }
