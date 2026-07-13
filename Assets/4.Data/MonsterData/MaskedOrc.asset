@@ -17,6 +17,7 @@ MonoBehaviour:
   maxHp: 10
   moveSpeed: 2
   damage: 1
-  attackDistance: 1
+  attackDistance: 4
   projectileSpeed: 5
+  attackDelay: 1
   Exp: 10

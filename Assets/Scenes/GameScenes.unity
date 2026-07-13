@@ -464,6 +464,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6669219415683129043, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -1771,6 +1775,9 @@ MonoBehaviour:
   - type: 6
     prefab: {fileID: 6163855650248894010, guid: dc3d578f13c4ff74cb6fa56c34418557, type: 3}
     poolSize: 50
+  - type: 22
+    prefab: {fileID: 349714314966771410, guid: 0ef27034b4be93b498b434385d072da6, type: 3}
+    poolSize: 10
 --- !u!4 &936111997
 Transform:
   m_ObjectHideFlags: 0
