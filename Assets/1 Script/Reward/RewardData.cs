@@ -32,11 +32,8 @@ public class RewardData : ScriptableObject
 
     public float value;
 
-    [Header("등장 조건")]
+    [Header("최대 강화 횟수")]
     public int maxLevel = 5;
 
     public int weight = 10;
-
-    [Header("최대 강화 횟수")]
-    public int maxSkillLevel = 5;
 }
