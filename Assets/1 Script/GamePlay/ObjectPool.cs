@@ -17,7 +17,6 @@ public enum PoolType
     Effect,
     Item,
     Arrow,
-    Axe,
     ExpItem,
 
     //UI
@@ -37,6 +36,13 @@ public enum PoolType
     Skelet,
     Wizzard,
     Wogol,
+
+    //MonsterBullet
+    Axe,
+    Fireball,
+    Flask,
+    MonsterEffect,
+    ThrowRock
 }
 
 public class ObjectPool : MonoBehaviour

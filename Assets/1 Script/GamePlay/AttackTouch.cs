@@ -3,18 +3,8 @@ using UnityEngine;
 public class AttackTouch : MonoBehaviour
 {
     [SerializeField] protected float damage;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
@@ -25,5 +15,10 @@ public class AttackTouch : MonoBehaviour
                 ps.TakeDamage(damage);
             }
         }
+    }
+
+    protected void SetDamage(float setDamage)
+    {
+        damage = setDamage;
     }
 }

@@ -13,6 +13,9 @@ public class MonsterData : ScriptableObject
     public float damage = 1f;
     public float attackDistance = 1f;
 
+    [Header("원거리 공격")]
+    public float projectileSpeed = 5f;
+
     [Header("처치후 경험치")]
     public int Exp = 10;
 }

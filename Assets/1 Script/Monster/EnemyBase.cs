@@ -45,4 +45,6 @@ public class EnemyBase : CharacterStatus, IPoolable
     public float GetAttackDistance() => monsterData.attackDistance;
     public float GetMaxHp() => monsterData.maxHp;
     public MonsterData GetMonsterData() => monsterData;
+
+    public float GetProjectileSpeed() => monsterData.projectileSpeed;
 }
