@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 249453742718069269}
   - component: {fileID: 4117077863049359133}
   - component: {fileID: -3472029030987974466}
+  - component: {fileID: 3284877975591072890}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -139,6 +140,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatus
   maxHp: 0
   nowHp: 0
+  <Level>k__BackingField: 0
+  <CurrentExp>k__BackingField: 0
+  <Damage>k__BackingField: 10
+  <AttackDelay>k__BackingField: 1
+  <ProjectileCount>k__BackingField: 1
+  <ProjectileSpeed>k__BackingField: 5
+  <HealingAmount>k__BackingField: 0
 --- !u!114 &4117077863049359133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +176,19 @@ MonoBehaviour:
   levelPrint: {fileID: 0}
   playerStatus: {fileID: 249453742718069269}
   expForLevel: {fileID: 11400000, guid: 7e4718bbf66def14bad0d1a89ebf3d48, type: 2}
+--- !u!114 &3284877975591072890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145771548884214406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56775d07640496841978fe6c5e5e28d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RewardApplier
+  playerStatus: {fileID: 249453742718069269}
 --- !u!1 &8990500710195281871
 GameObject:
   m_ObjectHideFlags: 0

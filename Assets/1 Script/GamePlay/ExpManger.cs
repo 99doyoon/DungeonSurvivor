@@ -10,6 +10,11 @@ public class ExpManger : MonoBehaviour
     [SerializeField] PlayerStatus playerStatus;
     [SerializeField] ExpForLevel expForLevel;
 
+    [SerializeField] private RewardManager rewardManager;
+
+    /// <summary>
+    /// 레벨 관련 상태와 ui와 연결
+    /// </summary>
     private void Awake()
     {
         if (expSlider == null)
@@ -46,12 +51,15 @@ public class ExpManger : MonoBehaviour
     public void GetExp(int getExp)
     {
         playerStatus.AddExp(getExp);
-        //2단레벨업을 할경우
+        //2단레벨업을 할경우에도 1번하고 그다음에 또하게
         while(CheckLevelUp())
         {
             playerStatus.AddExp(-expForLevel.nextExpRequired[playerStatus.Level]);
             playerStatus.AddLevel(1);
             SetLevelText();
+
+            // 레벨업 보상 표시
+            rewardManager.OpenReward();
         }
         SetExpGage();
     }
@@ -69,16 +77,19 @@ public class ExpManger : MonoBehaviour
         }
     }
 
+    //레벨프린트
     void SetLevelText()
     {
         levelPrint.text = "LEVEL:" + playerStatus.Level;
     }
 
+    //경험치 게이지 설정
     void SetExpGage()
     {
         expSlider.value = ((float)playerStatus.CurrentExp / (float)expForLevel.nextExpRequired[playerStatus.Level]);
     }
 
+    //게임시작시 경험치및 레벨 초기화 만약 세이브로드로 불러오는 기능추가시 수정할것
     void SetGameStartPlayerLevelAndExp()
     {
         //게임 진행상황을 저장하고 실행할경우 함수를 수정할것
