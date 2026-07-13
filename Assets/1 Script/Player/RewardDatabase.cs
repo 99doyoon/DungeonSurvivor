@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "RewardDatabase",
-    menuName = "DungeonSurvivor/Reward Database")]
+    menuName = "Game/Reward Database")]
 public class RewardDatabase : ScriptableObject
 {
     public List<RewardData> rewards;

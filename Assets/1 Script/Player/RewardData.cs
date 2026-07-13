@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//레벨업 보상종류 설명
 public enum RewardType
 {
     None,
@@ -7,6 +8,7 @@ public enum RewardType
     IncreaseAttackSpeed,
     IncreaseMoveSpeed,
     IncreaseMaxHp,
+    IncreaseNumberOfAttacks,
     Heal,
     AddProjectile,
     IncreaseProjectileSpeed
@@ -14,7 +16,7 @@ public enum RewardType
 
 [CreateAssetMenu(
     fileName = "RewardData",
-    menuName = "Game//Reward Data")]
+    menuName = "Game/Reward Data")]
 public class RewardData : ScriptableObject
 {
     [Header("기본 정보")]
@@ -34,4 +36,7 @@ public class RewardData : ScriptableObject
     public int maxLevel = 5;
 
     public int weight = 10;
+
+    [Header("최대 강화 횟수")]
+    public int maxSkillLevel = 5;
 }
