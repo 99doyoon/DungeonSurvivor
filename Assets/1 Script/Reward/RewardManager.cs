@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class RewardManager : MonoBehaviour
 {
@@ -93,6 +94,8 @@ public class RewardManager : MonoBehaviour
 
     public void SelectReward(RewardData selectedReward)
     {
+        Debug.Log($"RewardManager에서 선택: {selectedReward.rewardName}");
+
         RewardState state = rewardStates.Find(
             rewardState => rewardState.rewardData == selectedReward);
 

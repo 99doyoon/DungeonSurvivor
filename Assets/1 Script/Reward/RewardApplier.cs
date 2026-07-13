@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerStatus))]
 public class RewardApplier : MonoBehaviour
 {
     [SerializeField]
@@ -7,12 +8,22 @@ public class RewardApplier : MonoBehaviour
 
     private void Awake()
     {
+        // RewardApplier와 같은 Player에 있는 PlayerStatus를 가져온다.
+        playerStatus = GetComponent<PlayerStatus>();
+
         if (playerStatus == null)
         {
-            playerStatus = GetComponent<PlayerStatus>();
+            Debug.LogError("같은 오브젝트에서 PlayerStatus를 찾지 못했습니다.");
         }
+
+#if UNITY_EDITOR
+        Debug.Log(
+        $"[RewardApplier] PlayerStatus: {playerStatus.gameObject.name}, " +
+        $"ID: {playerStatus.GetInstanceID()}");
+#endif
     }
 
+    //보상에따른 함수 호출
     public void ApplyReward(RewardData reward)
     {
         if (reward == null)
@@ -27,7 +38,11 @@ public class RewardApplier : MonoBehaviour
                 break;
 
             case RewardType.IncreaseDamage:
+                Debug.Log($"적용 전 Damage: {playerStatus.Damage}");
+
                 playerStatus.IncreaseDamage(reward.value);
+
+                Debug.Log($"적용 후 Damage: {playerStatus.Damage}");
                 break;
 
             case RewardType.IncreaseAttackSpeed:
@@ -49,12 +64,25 @@ public class RewardApplier : MonoBehaviour
                 break;
 
             case RewardType.AddProjectile:
+                Debug.Log($"적용 전 ProjectileCount: {playerStatus.ProjectileCount}");
+
                 playerStatus.AddProjectile(
                     Mathf.RoundToInt(reward.value));
+
+                Debug.Log($"적용 후 ProjectileCount: {playerStatus.ProjectileCount}");
                 break;
 
             case RewardType.IncreaseProjectileSpeed:
                 playerStatus.IncreaseProjectileSpeed(reward.value);
+                break;
+
+            case RewardType.IncreaseAutoHeal:
+                playerStatus.IncreaseAutoHealAmount(
+                    Mathf.RoundToInt(reward.value));
+                break;
+
+            case RewardType.DecreaseAutoHealInterval:
+                playerStatus.DecreaseAutoHealInterval(reward.value);
                 break;
 
             default:

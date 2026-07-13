@@ -68,10 +68,18 @@ public class RewardButton : MonoBehaviour
     // 카드가 클릭되었을 때 실행
     private void SelectReward()
     {
+        Debug.Log("보상 카드 클릭됨");
+
         // 보상 데이터가 없으면 선택할 수 없음
         if (rewardData == null)
         {
             Debug.LogError("RewardData가 없습니다.");
+            return;
+        }
+
+        if (selectAction == null)
+        {
+            Debug.LogError("selectAction이 연결되지 않았습니다.");
             return;
         }
 

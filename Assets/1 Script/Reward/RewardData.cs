@@ -8,10 +8,11 @@ public enum RewardType
     IncreaseAttackSpeed,
     IncreaseMoveSpeed,
     IncreaseMaxHp,
-    IncreaseNumberOfAttacks,
     Heal,
     AddProjectile,
-    IncreaseProjectileSpeed
+    IncreaseProjectileSpeed,
+    IncreaseAutoHeal,
+    DecreaseAutoHealInterval
 }
 
 [CreateAssetMenu(

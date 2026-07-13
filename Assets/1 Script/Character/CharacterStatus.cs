@@ -13,8 +13,15 @@ public abstract class CharacterStatus : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
+#if UNITY_EDITOR
+        Debug.Log(
+       $"[Enemy] 받은 Damage: {damage}, 맞기 전 체력: {nowHp}");
+#endif
         nowHp -= damage;
         CheckHp();
+#if UNITY_EDITOR
+        Debug.Log($"[Enemy] 맞은 후 체력: {nowHp}");
+#endif
     }
 
     void CheckHp()

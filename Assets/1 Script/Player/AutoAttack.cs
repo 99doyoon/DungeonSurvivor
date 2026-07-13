@@ -2,25 +2,40 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerStatus))]
 public class AutoAttack : MonoBehaviour
 {
-    float range;
-    float AttackDelay;
-
     WaitForSeconds wait;
 
     Transform target;
 
+    private PlayerStatus playerStatus;
+
+    private void Awake()
+    {
+        playerStatus = GetComponentInParent<PlayerStatus>();
+
+        if (playerStatus == null)
+        {
+            Debug.LogError("AutoAttack이 PlayerStatus를 찾지 못했습니다.");
+        }
+
+#if UNITY_EDITOR
+        Debug.Log(
+            $"[AutoAttack] PlayerStatus: {playerStatus.gameObject.name}, " +
+            $"ID: {playerStatus.GetInstanceID()}");
+#endif
+    }
+
     private void OnEnable()
     {
-        range = 4f;
-        AttackDelay = 3f;
+
         StartCoroutine(StartAutoAttack());
     }
 
     IEnumerator StartAutoAttack()
     {
-        wait = new WaitForSeconds(AttackDelay);
+        wait = new WaitForSeconds(playerStatus.AttackDelay);
         while (true)
         {
             yield return new WaitUntil(() => ScanEnemy());
@@ -32,7 +47,7 @@ public class AutoAttack : MonoBehaviour
     {
         int EnemyLayerMask = LayerMask.NameToLayer("Enemy");
         int layer = 1 << EnemyLayerMask;
-        Collider2D[] detected = Physics2D.OverlapCircleAll(transform.position, range, layer);
+        Collider2D[] detected = Physics2D.OverlapCircleAll(transform.position, playerStatus.AttackRange, layer);
         if (detected.Length <= 0)
         {
             return false;
@@ -45,15 +60,42 @@ public class AutoAttack : MonoBehaviour
         }
     }
 
-    void Attack()
+    public virtual void Attack()
     {
-        GameObject arr = ObjectPool.instance.GetObject(PoolType.Arrow);
+        if (target == null)
+        {
+            return;
+        }
 
+        int projectileCount = Mathf.Max(1, playerStatus.ProjectileCount);
         Vector2 dir = target.position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        arr.transform.position = transform.position;
+        float angleGap = 15f;
+        float startAngle = -(projectileCount - 1) * angleGap * 0.5f;
 
-        arr.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        for (int i = 0; i < projectileCount; i++)
+        {
+
+            Arrow arrow =
+                ObjectPool.instance.GetObject<Arrow>(PoolType.Arrow);
+
+            float shotAngle =
+                baseAngle + startAngle + angleGap * i;
+
+            arrow.transform.position = transform.position;
+            arrow.transform.rotation =
+                Quaternion.Euler(0f, 0f, shotAngle);
+
+            arrow.Init(
+                playerStatus.Damage,
+                playerStatus.ProjectileSpeed
+            );
+
+#if UNITY_EDITOR
+            Debug.Log(
+    $"[AutoAttack] 화살에 전달한 Damage: {playerStatus.Damage}");
+#endif
+        }
     }
 }

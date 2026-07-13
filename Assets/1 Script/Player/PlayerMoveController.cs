@@ -7,15 +7,7 @@ public class PlayerMoveController : MonoBehaviour
 
     public Vector2 Dir { get; private set; }
 
-    float moveSpeed;
-
     [SerializeField] PlayerStatus playerStatus;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        SetMoveSpeed();
-    }
 
     // Update is called once per frame
     void Update()
@@ -41,11 +33,6 @@ public class PlayerMoveController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.linearVelocity = Dir * moveSpeed;
-    }
-
-    public void SetMoveSpeed()
-    {
-        moveSpeed = playerStatus.MoveSpeed;
+        rb.linearVelocity = Dir * playerStatus.MoveSpeed;
     }
 }

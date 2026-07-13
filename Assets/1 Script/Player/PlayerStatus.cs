@@ -14,34 +14,72 @@ public class PlayerStatus : CharacterStatus, IHit
 
     [Header("플레이어 능력치")]
     [field: SerializeField]
-    public float Damage { get; private set; } = 10f;
+    public float Damage { get; private set; }
 
     [field: SerializeField]
-    public float AttackDelay { get; private set; } = 1f;
+    public float AttackDelay { get; private set; }
 
     [field: SerializeField]
-    public int ProjectileCount { get; private set; } = 1;
+    public int ProjectileCount { get; private set; }
 
     [field: SerializeField]
-    public float ProjectileSpeed { get; private set; } = 5f;
+    public float ProjectileSpeed { get; private set; }
+
+    [Header("자동 회복")]
+    [field: SerializeField]
+    public int AutoHealAmount { get; private set; }
 
     [field: SerializeField]
-    public int HealingAmount { get; private set; } = 0;
+    public float AutoHealInterval { get; private set; }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Coroutine autoHealCoroutine;
+
+    [field: SerializeField]
+    public float AttackRange { get; private set; }
+
     void Start()
     {
-        MoveSpeed = 5;
-        base.maxHp = 100;
-        base.nowHp = base.maxHp;
+        //MoveSpeed = 5;
+        //base.maxHp = 100;
+        //base.nowHp = base.maxHp;
+        //Level = 1;
+        //CurrentExp = 0;
+
+        //playerAnimationController = GetComponentInChildren<PlayerAnimationController>();
+
+        //isHit = true;
+        //takeDamageDelay = 1;
+        //wait = new WaitForSeconds(takeDamageDelay);
+
+        StartGameStatusInit();
+    }
+
+    void StartGameStatusInit()
+    {
+        MoveSpeed = 5f;
+
+        maxHp = 100;
+        nowHp = maxHp;
+
         Level = 1;
         CurrentExp = 0;
 
-        playerAnimationController = GetComponentInChildren<PlayerAnimationController>();
+        Damage = 5f;
+        AttackDelay = 1f;
+        ProjectileCount = 1;
+        ProjectileSpeed = 5f;
+
+        AutoHealAmount = 0;
+        AutoHealInterval = 5f;
+
+        playerAnimationController =
+            GetComponentInChildren<PlayerAnimationController>();
 
         isHit = true;
-        takeDamageDelay = 1;
+        takeDamageDelay = 1f;
         wait = new WaitForSeconds(takeDamageDelay);
+
+        StartAutoHeal();
     }
 
     protected override void Die()
@@ -95,6 +133,11 @@ public class PlayerStatus : CharacterStatus, IHit
     public void IncreaseDamage(float value)
     {
         Damage += value;
+
+#if UNITY_EDITOR
+        Debug.Log(
+         $"[PlayerStatus] 증가량: {value}, 현재 Damage: {Damage}");
+#endif
     }
 
     public void IncreaseAttackSpeed(float value)
@@ -114,19 +157,70 @@ public class PlayerStatus : CharacterStatus, IHit
         nowHp += value;
     }
 
-    public void Heal(int value)
-    {
-        nowHp += value;
-        nowHp = Mathf.Min(nowHp, maxHp);
-    }
 
     public void AddProjectile(int value)
     {
         ProjectileCount += value;
+#if UNITY_EDITOR
+        Debug.Log(
+        $"투사체 증가 완료 / 증가량: {value} / 현재 개수: {ProjectileCount}");
+#endif
     }
 
     public void IncreaseProjectileSpeed(float value)
     {
         ProjectileSpeed += value;
+    }
+    private void StartAutoHeal()
+    {
+        if (autoHealCoroutine != null)
+        {
+            StopCoroutine(autoHealCoroutine);
+        }
+
+        autoHealCoroutine = StartCoroutine(AutoHealRoutine());
+    }
+
+    private IEnumerator AutoHealRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(AutoHealInterval);
+
+            if (AutoHealAmount <= 0)
+            {
+                continue;
+            }
+
+            if (nowHp >= maxHp)
+            {
+                continue;
+            }
+
+            Heal(AutoHealAmount);
+        }
+    }
+
+    public void Heal(int value)
+    {
+        nowHp = Mathf.Min(nowHp + value, maxHp);
+
+#if UNITY_EDITOR
+        Debug.Log($"자동 회복: {value}, 현재 체력: {nowHp}/{maxHp}");
+#endif
+    }
+
+    public void IncreaseAutoHealAmount(int value)
+    {
+        AutoHealAmount += value;
+    }
+
+    public void DecreaseAutoHealInterval(float value)
+    {
+        AutoHealInterval -= value;
+        AutoHealInterval = Mathf.Max(0.5f, AutoHealInterval);
+
+        // WaitForSeconds가 기존 시간으로 만들어져 있을 수 있으므로 재시작
+        StartAutoHeal();
     }
 }

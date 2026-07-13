@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 4117077863049359133}
   - component: {fileID: -3472029030987974466}
   - component: {fileID: 3284877975591072890}
-  m_Layer: 0
+  - component: {fileID: 6669219415683129043}
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +147,9 @@ MonoBehaviour:
   <AttackDelay>k__BackingField: 1
   <ProjectileCount>k__BackingField: 1
   <ProjectileSpeed>k__BackingField: 5
-  <HealingAmount>k__BackingField: 0
+  <AutoHealAmount>k__BackingField: 0
+  <AutoHealInterval>k__BackingField: 5
+  <AttackRange>k__BackingField: 5
 --- !u!114 &4117077863049359133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +179,7 @@ MonoBehaviour:
   levelPrint: {fileID: 0}
   playerStatus: {fileID: 249453742718069269}
   expForLevel: {fileID: 11400000, guid: 7e4718bbf66def14bad0d1a89ebf3d48, type: 2}
+  rewardManager: {fileID: 0}
 --- !u!114 &3284877975591072890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +193,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardApplier
   playerStatus: {fileID: 249453742718069269}
+--- !u!114 &6669219415683129043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145771548884214406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d020484043c19c4e8653c44922cadb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoAttack
+  playerStatus: {fileID: 249453742718069269}
 --- !u!1 &8990500710195281871
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +217,7 @@ GameObject:
   - component: {fileID: 6574341012128993697}
   - component: {fileID: 3296645173898486625}
   - component: {fileID: 6080401808536263079}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: knight_f_idle_anim_f0_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +234,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6846767441360440053}
