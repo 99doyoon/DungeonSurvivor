@@ -26,6 +26,14 @@ public class EnemyBase : CharacterStatus, IPoolable
         }
         maxHp = monsterData.maxHp;
         nowHp = maxHp;
+
+        AttackTouch attackTouch = gameObject.GetComponent<AttackTouch>();
+        if(attackTouch == null)
+        {
+            Debug.LogError($"{gameObject}에 AttackTouch컴포넌트가 없습니다.");
+            return;
+        }
+        attackTouch.SetDamage(monsterData.damage);
     }
 
     protected override void Die()

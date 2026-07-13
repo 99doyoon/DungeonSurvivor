@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PumpkinDude
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: PumpkinDude
-  poolType: 18
+  poolType: 17
   maxHp: 10
   moveSpeed: 2
   damage: 1
-  attackDistance: 1
+  attackDistance: 0
+  projectileSpeed: 5
   Exp: 10

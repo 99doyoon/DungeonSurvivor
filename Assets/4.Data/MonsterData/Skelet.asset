@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Skelet
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Skelet
-  poolType: 19
+  poolType: 18
   maxHp: 10
   moveSpeed: 2
   damage: 1
-  attackDistance: 1
+  attackDistance: 0
+  projectileSpeed: 5
   Exp: 10

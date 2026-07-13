@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 6929903627220442277}
   - component: {fileID: 7207670731234053584}
   - component: {fileID: 8673251704977395595}
+  - component: {fileID: -8575737334765897074}
   m_Layer: 7
   m_Name: Ogre
   m_TagString: Untagged
@@ -208,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  bulletType: 25
   player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
 --- !u!114 &7207670731234053584
 MonoBehaviour:
@@ -237,3 +239,16 @@ MonoBehaviour:
   maxHp: 0
   nowHp: 0
   monsterData: {fileID: 11400000, guid: 10d5135660425f047b3f77d5a509fedf, type: 2}
+--- !u!114 &-8575737334765897074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6195992939996513374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63c2aa87cc6be9479a510acf8d3badc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackTouch
+  damage: 0

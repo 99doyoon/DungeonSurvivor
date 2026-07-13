@@ -17,7 +17,7 @@ public class AttackTouch : MonoBehaviour
         }
     }
 
-    protected void SetDamage(float setDamage)
+    public void SetDamage(float setDamage)
     {
         damage = setDamage;
     }

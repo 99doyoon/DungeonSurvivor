@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3644057165132779599}
   - component: {fileID: 441484077003769796}
   - component: {fileID: 4549855554382290301}
+  - component: {fileID: 7023572711490892804}
   m_Layer: 7
   m_Name: Imp
   m_TagString: Untagged
@@ -94,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  bulletType: 0
   player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
 --- !u!114 &441484077003769796
 MonoBehaviour:
@@ -123,6 +125,19 @@ MonoBehaviour:
   maxHp: 0
   nowHp: 0
   monsterData: {fileID: 11400000, guid: e879afb47e85371448ef41620429217d, type: 2}
+--- !u!114 &7023572711490892804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923747173192975763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63c2aa87cc6be9479a510acf8d3badc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackTouch
+  damage: 0
 --- !u!1 &3662868646203191300
 GameObject:
   m_ObjectHideFlags: 0

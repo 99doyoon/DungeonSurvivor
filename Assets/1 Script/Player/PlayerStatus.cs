@@ -1,5 +1,7 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStatus : CharacterStatus, IHit
 {
@@ -37,6 +39,10 @@ public class PlayerStatus : CharacterStatus, IHit
     [field: SerializeField]
     public float AttackRange { get; private set; }
 
+    //player hp ui
+    [SerializeField] Slider hpSlider;
+    [SerializeField] TMP_Text hpPrint;
+
     void Start()
     {
         //MoveSpeed = 5;
@@ -54,6 +60,8 @@ public class PlayerStatus : CharacterStatus, IHit
         StartGameStatusInit();
     }
 
+
+    //게임 시작시 초기 상태 설정. player데이터도 데이터 설정 방식이 바뀌면 수정할 것 
     void StartGameStatusInit()
     {
         MoveSpeed = 5f;
@@ -79,7 +87,49 @@ public class PlayerStatus : CharacterStatus, IHit
         takeDamageDelay = 1f;
         wait = new WaitForSeconds(takeDamageDelay);
 
+        if (hpSlider == null)
+        {
+            hpSlider = GameObject.Find("HpBar").GetComponent<Slider>();
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.Log($"hpSlider != null");
+#endif
+        }
+
+        if (hpPrint == null)
+        {
+            hpPrint = GameObject.Find("HpPrint").GetComponent<TMP_Text>();
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.Log($"hpPrint != null");
+#endif
+        }
+
         StartAutoHeal();
+        UpdateHpUI();
+    }
+
+    private void UpdateHpUI()
+    {
+        if (hpSlider != null)
+        {
+            hpSlider.value = (float)nowHp / maxHp;
+        }
+
+        if (hpPrint != null)
+        {
+            hpPrint.text = $"HP : {nowHp} / {maxHp}";
+        }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        UpdateHpUI();
     }
 
     protected override void Die()
@@ -155,16 +205,14 @@ public class PlayerStatus : CharacterStatus, IHit
     {
         maxHp += value;
         nowHp += value;
+
+        UpdateHpUI();
     }
 
 
     public void AddProjectile(int value)
     {
         ProjectileCount += value;
-#if UNITY_EDITOR
-        Debug.Log(
-        $"투사체 증가 완료 / 증가량: {value} / 현재 개수: {ProjectileCount}");
-#endif
     }
 
     public void IncreaseProjectileSpeed(float value)
@@ -205,9 +253,7 @@ public class PlayerStatus : CharacterStatus, IHit
     {
         nowHp = Mathf.Min(nowHp + value, maxHp);
 
-#if UNITY_EDITOR
-        Debug.Log($"자동 회복: {value}, 현재 체력: {nowHp}/{maxHp}");
-#endif
+        UpdateHpUI();
     }
 
     public void IncreaseAutoHealAmount(int value)

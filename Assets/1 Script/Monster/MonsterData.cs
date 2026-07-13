@@ -15,6 +15,7 @@ public class MonsterData : ScriptableObject
 
     [Header("원거리 공격")]
     public float projectileSpeed = 5f;
+    public float attackDelay = 1f;
 
     [Header("처치후 경험치")]
     public int Exp = 10;

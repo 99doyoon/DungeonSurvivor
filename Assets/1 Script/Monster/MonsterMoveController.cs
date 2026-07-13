@@ -44,6 +44,7 @@ public class MonsterMoveController : MonoBehaviour
         else
         {
             //공격시 행동
+            RangedAttack();
         }        
     }
 
@@ -64,12 +65,17 @@ public class MonsterMoveController : MonoBehaviour
             return;
         }
 
+        if(bulletType == PoolType.None)
+        {
+            return;
+        }
+
         monsterAttack = ObjectPool.instance.GetObject<MonsterBulletAttackTouch>(bulletType);
 
         if (monsterAttack == null)
         {
             Debug.LogError(
-                $"{monsterAttack} 오브젝트에 Bullet 컴포넌트가 없습니다.");
+                $"{monsterAttack} 오브젝트에 MonsterBulletAttackTouch 컴포넌트가 없습니다.");
             return;
         }
 

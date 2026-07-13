@@ -56,9 +56,5 @@ public class Bullet : MonoBehaviour, IPoolable
         damage = (int)newDamage;
         speed = newSpeed;
         rb.linearVelocity = speed * transform.right;
-#if UNITY_EDITOR
-        Debug.Log(
-        $"[Arrow.Init] 받은 값: {newDamage}, 저장된 값: {damage}");
-#endif
     }
 }

@@ -92,10 +92,6 @@ public class AutoAttack : MonoBehaviour
                 playerStatus.ProjectileSpeed
             );
 
-#if UNITY_EDITOR
-            Debug.Log(
-    $"[AutoAttack] 화살에 전달한 Damage: {playerStatus.Damage}");
-#endif
         }
     }
 }

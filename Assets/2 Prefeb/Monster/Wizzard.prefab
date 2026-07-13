@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2492490740088477134}
   - component: {fileID: -4175967332722641142}
   - component: {fileID: 5050844330431076562}
+  - component: {fileID: -6080910576157790305}
   m_Layer: 7
   m_Name: Wizzard
   m_TagString: Untagged
@@ -94,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  bulletType: 22
   player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
 --- !u!114 &-4175967332722641142
 MonoBehaviour:
@@ -123,6 +125,19 @@ MonoBehaviour:
   maxHp: 0
   nowHp: 0
   monsterData: {fileID: 11400000, guid: 71f241e9d7daab740a801932847fc972, type: 2}
+--- !u!114 &-6080910576157790305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777858098899649541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63c2aa87cc6be9479a510acf8d3badc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackTouch
+  damage: 0
 --- !u!1 &2109514069915976052
 GameObject:
   m_ObjectHideFlags: 0

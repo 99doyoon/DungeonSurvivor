@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4436206568994777217}
   - component: {fileID: 1809500192996379939}
   - component: {fileID: 105446667712826326}
+  - component: {fileID: 4524878692736017073}
   m_Layer: 7
   m_Name: Skelet
   m_TagString: Untagged
@@ -94,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  bulletType: 0
   player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
 --- !u!114 &1809500192996379939
 MonoBehaviour:
@@ -123,6 +125,19 @@ MonoBehaviour:
   maxHp: 0
   nowHp: 0
   monsterData: {fileID: 11400000, guid: a5437a252d3c08f4887498706885dc97, type: 2}
+--- !u!114 &4524878692736017073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524393822630014452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63c2aa87cc6be9479a510acf8d3badc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackTouch
+  damage: 0
 --- !u!1 &9052016927022690121
 GameObject:
   m_ObjectHideFlags: 0
