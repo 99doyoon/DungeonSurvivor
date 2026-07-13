@@ -55,4 +55,6 @@ public class EnemyBase : CharacterStatus, IPoolable
     public MonsterData GetMonsterData() => monsterData;
 
     public float GetProjectileSpeed() => monsterData.projectileSpeed;
+
+    public float GetAttackDelay() => monsterData.attackDelay;
 }

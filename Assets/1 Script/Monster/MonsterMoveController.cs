@@ -1,61 +1,95 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class MonsterMoveController : MonoBehaviour
 {
-    [SerializeField] PoolType bulletType;
+    [SerializeField] private PoolType bulletType;
 
     private MonsterBulletAttackTouch monsterAttack;
 
     public Transform player;
 
-    EnemyBase enemyBase;
+    private EnemyBase enemyBase;
 
-    public bool isTrace {  get; private set; }
+    public bool isTrace { get; private set; }
 
-
-    Rigidbody2D rb;
-
-    SpriteRenderer sr;
+    // 마지막 공격 이후 지난 시간
+    private float attackTimer;
 
     private void Awake()
     {
-        player = GameObject.FindWithTag("Player").transform;
-        enemyBase = gameObject.GetComponent<EnemyBase>();
+        GameObject playerObject = GameObject.FindWithTag("Player");
+
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+
+        enemyBase = GetComponent<EnemyBase>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
+        // 풀에서 다시 나왔을 때 바로 공격하지 않게 초기화
+        attackTimer = 0f;
+    }
+
+    private void Update()
+    {
+        // 매 프레임 공격 대기시간 증가
+        attackTimer += Time.deltaTime;
+
         CheckDistance();
     }
 
-    //특정 거리보다 가까우면 추적 아니면 공격
-    void CheckDistance()
+    private void CheckDistance()
     {
-        float distance;
-        distance = Vector2.Distance(transform.position, player.position);
-        isTrace = distance > enemyBase.GetAttackDistance();
-        //공격거리보다 멀면 따라간다.
-        if(isTrace)
+        if (player == null)
+        {
+            return;
+        }
+
+        float distance =
+            Vector2.Distance(transform.position, player.position);
+
+        isTrace =
+            distance > enemyBase.GetAttackDistance();
+
+        if (isTrace)
         {
             Trace();
         }
         else
         {
-            //공격시 행동
-            RangedAttack();
-        }        
+            TryRangedAttack();
+        }
     }
 
-    void Trace()
+    private void Trace()
     {
         Move();
     }
 
     private void Move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.position, enemyBase.GetMoveSpeed() * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            player.position,
+            enemyBase.GetMoveSpeed() * Time.deltaTime
+        );
+    }
+
+    // 공격 가능 시간이 되었는지 확인
+    private void TryRangedAttack()
+    {
+        if (attackTimer < enemyBase.GetAttackDelay())
+        {
+            return;
+        }
+
+        RangedAttack();
+
+        // 공격 후 타이머 초기화
+        attackTimer = 0f;
     }
 
     public virtual void RangedAttack()
@@ -65,7 +99,7 @@ public class MonsterMoveController : MonoBehaviour
             return;
         }
 
-        if(bulletType == PoolType.None)
+        if (bulletType == PoolType.None)
         {
             return;
         }
@@ -75,16 +109,22 @@ public class MonsterMoveController : MonoBehaviour
         if (monsterAttack == null)
         {
             Debug.LogError(
-                $"{monsterAttack} 오브젝트에 MonsterBulletAttackTouch 컴포넌트가 없습니다.");
+                $"{bulletType} 프리팹에 " +
+                "MonsterBulletAttackTouch 컴포넌트가 없습니다.");
             return;
         }
 
+        Vector2 direction =
+            player.position - transform.position;
 
-        Vector2 dir = player.position - transform.position;
-        float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float angle =
+            Mathf.Atan2(direction.y, direction.x)
+            * Mathf.Rad2Deg;
 
-        monsterAttack.transform.position = transform.position;
-        monsterAttack.transform.rotation = Quaternion.Euler(0f, 0f, baseAngle);
+        monsterAttack.transform.SetPositionAndRotation(
+            transform.position,
+            Quaternion.Euler(0f, 0f, angle)
+        );
 
         monsterAttack.Init(
             enemyBase.GetDamage(),

@@ -118,7 +118,31 @@ public class ObjectPool : MonoBehaviour
 
     public T GetObject<T>(PoolType type) where T : Component
     {
-        return GetObject(type).GetComponent<T>();
+        GameObject go = GetObject(type);
+
+        if (go == null)
+        {
+            Debug.LogError(
+                $"{type} 타입의 오브젝트를 풀에서 가져오지 못했습니다. " +
+                "ObjectPool의 Pool List 등록을 확인하세요.");
+
+            return null;
+        }
+
+        T component = go.GetComponent<T>();
+
+        if (component == null)
+        {
+            Debug.LogError(
+                $"{go.name} 프리팹에 {typeof(T).Name} 컴포넌트가 없습니다.");
+
+            go.SetActive(false);
+            pools[type].Enqueue(go);
+
+            return null;
+        }
+
+        return component;
     }
 
     //이 함수의 목적은"IPoolable을 구현한 오브젝트를 다시 풀에 넣는다."
