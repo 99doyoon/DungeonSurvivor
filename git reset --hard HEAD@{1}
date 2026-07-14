@@ -1,0 +1,47 @@
+[33mb145bf3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/BossMonster[m[33m, [m[1;31morigin/feature/BossMonster[m[33m, [m[1;32mrestore-before-boss-animation[m[33m)[m HEAD@{0}: reset: moving to b145bf38db0daa8678c51dd39fd1fac4640fee83
+[33mb145bf3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/BossMonster[m[33m, [m[1;31morigin/feature/BossMonster[m[33m, [m[1;32mrestore-before-boss-animation[m[33m)[m HEAD@{1}: reset: moving to b145bf38db0daa8678c51dd39fd1fac4640fee83
+[33mb145bf3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/BossMonster[m[33m, [m[1;31morigin/feature/BossMonster[m[33m, [m[1;32mrestore-before-boss-animation[m[33m)[m HEAD@{2}: commit: add both death animation
+[33m75e9c6e[m HEAD@{3}: commit: add boss animation
+[33m8975c1c[m HEAD@{4}: commit: spawn boss
+[33m2d9da88[m HEAD@{5}: commit: make boss
+[33m0c9d39d[m[33m ([m[1;31morigin/feature/monsterAttack[m[33m, [m[1;32mfeature/monsterAttack[m[33m)[m HEAD@{6}: checkout: moving from feature/monsterAttack to feature/BossMonster
+[33m0c9d39d[m[33m ([m[1;31morigin/feature/monsterAttack[m[33m, [m[1;32mfeature/monsterAttack[m[33m)[m HEAD@{7}: commit: The monster's attack flies in the correct direction.
+[33m0dc9b00[m HEAD@{8}: checkout: moving from feature/bossMonster to feature/monsterAttack
+[33m0dc9b00[m HEAD@{9}: checkout: moving from feature/monsterAttack to feature/bossMonster
+[33m0dc9b00[m HEAD@{10}: commit: change attackDistance
+[33mf23e629[m HEAD@{11}: commit: add Attack delay
+[33m6cda9e9[m HEAD@{12}: commit: connect hp bar and hp text and monster do range attack
+[33m12a3850[m HEAD@{13}: commit: Currently creating the function to trigger monster ranged attacks.
+[33m07a5054[m[33m ([m[1;31morigin/feature/makeReward[m[33m, [m[1;32mfeature/makeReward[m[33m)[m HEAD@{14}: checkout: moving from feature/makeReward to feature/monsterAttack
+[33m07a5054[m[33m ([m[1;31morigin/feature/makeReward[m[33m, [m[1;32mfeature/makeReward[m[33m)[m HEAD@{15}: reset: moving to HEAD
+[33m07a5054[m[33m ([m[1;31morigin/feature/makeReward[m[33m, [m[1;32mfeature/makeReward[m[33m)[m HEAD@{16}: commit: connect levelup reward ui and player status
+[33m0091d9c[m HEAD@{17}: commit: make level up ui reaward
+[33m53698eb[m HEAD@{18}: commit: make reward system code
+[33m39830fe[m HEAD@{19}: commit: make Levelup Reward
+[33mdd6d1f0[m HEAD@{20}: commit: makeRewardData
+[33m1650316[m HEAD@{21}: commit: make Levelup Reward UI
+[33m0921908[m[33m ([m[1;31morigin/feature/AddHpAndAnimation[m[33m, [m[1;32mfeature/AddHpAndAnimation[m[33m)[m HEAD@{22}: checkout: moving from feature/AddHpAndAnimation to feature/makeReward
+[33m0921908[m[33m ([m[1;31morigin/feature/AddHpAndAnimation[m[33m, [m[1;32mfeature/AddHpAndAnimation[m[33m)[m HEAD@{23}: checkout: moving from feature/makeLevelUpReward to feature/AddHpAndAnimation
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{24}: checkout: moving from feature/AddHpAndAnimation to feature/makeLevelUpReward
+[33m0921908[m[33m ([m[1;31morigin/feature/AddHpAndAnimation[m[33m, [m[1;32mfeature/AddHpAndAnimation[m[33m)[m HEAD@{25}: checkout: moving from feature/makeLevelUpReward to feature/AddHpAndAnimation
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{26}: checkout: moving from feature/AddHpAndAnimation to feature/makeLevelUpReward
+[33m0921908[m[33m ([m[1;31morigin/feature/AddHpAndAnimation[m[33m, [m[1;32mfeature/AddHpAndAnimation[m[33m)[m HEAD@{27}: checkout: moving from feature/makeLevelUpReward to feature/AddHpAndAnimation
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{28}: checkout: moving from feature/AddHpAndAnimation to feature/makeLevelUpReward
+[33m0921908[m[33m ([m[1;31morigin/feature/AddHpAndAnimation[m[33m, [m[1;32mfeature/AddHpAndAnimation[m[33m)[m HEAD@{29}: checkout: moving from feature/makeReward to feature/AddHpAndAnimation
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{30}: checkout: moving from feature/AddHpAndAnimation to feature/makeReward
+[33m0921908[m[33m ([m[1;31morigin/feature/AddHpAndAnimation[m[33m, [m[1;32mfeature/AddHpAndAnimation[m[33m)[m HEAD@{31}: reset: moving to HEAD
+[33m0921908[m[33m ([m[1;31morigin/feature/AddHpAndAnimation[m[33m, [m[1;32mfeature/AddHpAndAnimation[m[33m)[m HEAD@{32}: commit: monster drop expItem
+[33m5ee77d0[m HEAD@{33}: commit: KeyNotFoundException: clear
+[33m37c265a[m HEAD@{34}: commit: make ExpItem apply Exp System
+[33m3d68da1[m HEAD@{35}: commit: Add GetExp System
+[33mcdbb7fd[m HEAD@{36}: commit: Restore HP and animation changes
+[33md08d549[m HEAD@{37}: checkout: moving from feature/ExpSystem to feature/AddHpAndAnimation
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{38}: checkout: moving from main to feature/ExpSystem
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{39}: checkout: moving from feature/ExpSystem to main
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{40}: checkout: moving from feature/AddHpAndAnimation to feature/ExpSystem
+[33md08d549[m HEAD@{41}: reset: moving to HEAD
+[33md08d549[m HEAD@{42}: commit: Restore monster system setup
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{43}: checkout: moving from main to feature/AddHpAndAnimation
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{44}: reset: moving to HEAD
+[33m63e9013[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{45}: commit: 첫 커밋
+[33m4097b04[m HEAD@{46}: clone: from https://github.com/99doyoon/DungeonSurvivor.git
