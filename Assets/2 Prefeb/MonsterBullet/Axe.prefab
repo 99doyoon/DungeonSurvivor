@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterBulletAttackTouch
   damage: 0
-  poolType: 21
+  poolType: 22
 --- !u!50 &-8321461404908026832
 Rigidbody2D:
   serializedVersion: 5

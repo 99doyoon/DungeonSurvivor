@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
-  bulletType: 23
+  bulletType: 24
   player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
 --- !u!114 &1691429498478420568
 MonoBehaviour:

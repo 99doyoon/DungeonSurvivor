@@ -36,6 +36,7 @@ public enum PoolType
     Skelet,
     Wizzard,
     Wogol,
+    BossMonster,
 
     //MonsterBullet
     Axe,
