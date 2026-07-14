@@ -69,6 +69,7 @@ public class AutoAttack : MonoBehaviour
 
         int projectileCount = Mathf.Max(1, playerStatus.ProjectileCount);
         Vector2 dir = target.position - transform.position;
+        dir.Normalize();
         float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         float angleGap = 15f;

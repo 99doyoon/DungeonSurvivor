@@ -24,6 +24,11 @@ public class MonsterBulletAttackTouch : AttackTouch, IPoolable
         damage = 3;
     }
 
+    void OnEnable()
+    {
+        timer = 0f;
+    }
+
     private void FixedUpdate()
     {
         timer += Time.deltaTime;

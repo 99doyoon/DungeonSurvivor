@@ -116,6 +116,7 @@ public class MonsterMoveController : MonoBehaviour
 
         Vector2 direction =
             player.position - transform.position;
+        direction.Normalize();
 
         float angle =
             Mathf.Atan2(direction.y, direction.x)
