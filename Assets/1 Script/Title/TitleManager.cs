@@ -3,11 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
+    [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject optionPanel;
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScenes");
     }
 
     public void OpenOption()
