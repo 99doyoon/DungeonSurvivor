@@ -25,6 +25,9 @@ public class BossMonster : AttackTouch
     [Header("참조")]
     [SerializeField] private Transform player;
 
+    private EnemyBase enemyBase;
+    private Collider2D bossCollider;
+
     private Rigidbody2D rb;
 
     // 이전 패턴이 끝난 뒤 흐른 시간
@@ -40,6 +43,16 @@ public class BossMonster : AttackTouch
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        enemyBase = GetComponent<EnemyBase>();
+        bossCollider = GetComponent<Collider2D>();
+
+        if (enemyBase == null)
+        {
+            Debug.LogError(
+                $"{gameObject.name}에 EnemyBase가 없습니다.",
+                gameObject
+            );
+        }
 
         if (rb == null)
         {
@@ -69,10 +82,8 @@ public class BossMonster : AttackTouch
         }
     }
 
-    protected void OnEnable()
+    private void OnEnable()
     {
-        FindPlayer();
-
         bossStatus = BossStatus.Idle;
         patternTimer = 0f;
         isPatternRunning = false;
@@ -81,6 +92,16 @@ public class BossMonster : AttackTouch
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
+        }
+
+        if (bossCollider != null)
+        {
+            bossCollider.enabled = true;
+        }
+
+        if (enemyBase != null)
+        {
+            enemyBase.OnDeathRequested += HandleDeath;
         }
     }
 
@@ -104,6 +125,11 @@ public class BossMonster : AttackTouch
 
     private void OnDisable()
     {
+        if (enemyBase != null)
+        {
+            enemyBase.OnDeathRequested -= HandleDeath;
+        }
+
         StopAllCoroutines();
 
         isPatternRunning = false;
@@ -543,6 +569,55 @@ public class BossMonster : AttackTouch
         );
 
         FinishPattern();
+    }
+
+    [SerializeField] private float dieAnimationTime = 2f;
+
+    private void HandleDeath(EnemyBase deadEnemy)
+    {
+        if (bossStatus == BossStatus.Die)
+            return;
+
+        bossStatus = BossStatus.Die;
+
+        // 실행 중인 이동 및 패턴 중지
+        StopAllCoroutines();
+
+        isPatternRunning = false;
+        rb.linearVelocity = Vector2.zero;
+
+        // 죽은 뒤 충돌하지 않도록 처리
+        if (bossCollider != null)
+        {
+            bossCollider.enabled = false;
+        }
+
+        // 죽음 애니메이션 재생
+        bossAnimation?.PlayDie();
+    }
+
+    /// <summary>
+    /// 죽음 애니메이션 마지막 프레임의
+    /// Animation Event에서 호출된다.
+    /// </summary>
+    public void CompleteBossDeath()
+    {
+        if (bossStatus != BossStatus.Die)
+            return;
+
+        if (enemyBase == null)
+        {
+            Debug.LogError(
+                $"{gameObject.name}에 EnemyBase가 없습니다.",
+                gameObject
+            );
+
+            gameObject.SetActive(false);
+            return;
+        }
+
+        // 경험치 생성 후 보스를 풀에 반환
+        enemyBase.CompleteDeath();
     }
 
     /// <summary>

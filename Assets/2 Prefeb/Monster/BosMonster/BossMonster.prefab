@@ -54,6 +54,7 @@ MonoBehaviour:
   bossStatus: 0
   bossAnimation: {fileID: 0}
   player: {fileID: 0}
+  dieAnimationTime: 2
 --- !u!50 &9020287268216352411
 Rigidbody2D:
   serializedVersion: 5
@@ -168,6 +169,7 @@ GameObject:
   - component: {fileID: 8077972111231749696}
   - component: {fileID: 3966198900817774018}
   - component: {fileID: 2008953947950526236}
+  - component: {fileID: 1402843691749467612}
   m_Layer: 0
   m_Name: Frame_0
   m_TagString: Untagged
@@ -271,3 +273,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1402843691749467612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8663691827401581645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ee890e017961c4dabdef9145518961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventRelay

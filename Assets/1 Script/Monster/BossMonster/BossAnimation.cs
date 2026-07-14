@@ -133,4 +133,16 @@ public class BossAnimation : ChracterAnimation
 
         anim.SetTrigger(dieHash);
     }
+
+    /// <summary>
+    /// 죽음 애니메이션의 마지막 프레임에서
+    /// Animation Event로 호출한다.
+    /// </summary>
+    public void OnDieAnimationEnd()
+    {
+        if (bossMonster == null)
+            return;
+
+        bossMonster.CompleteBossDeath();
+    }
 }
