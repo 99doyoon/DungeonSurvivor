@@ -19,6 +19,9 @@ public class BossMonster : AttackTouch
     [Header("현재 상태")]
     [SerializeField] private BossStatus bossStatus;
 
+    [Header("애니메이션")]
+    [SerializeField] private BossAnimation bossAnimation;
+
     [Header("참조")]
     [SerializeField] private Transform player;
 
@@ -58,12 +61,19 @@ public class BossMonster : AttackTouch
 
             enabled = false;
         }
+
+        if (bossAnimation == null)
+        {
+            bossAnimation =
+                GetComponent<BossAnimation>();
+        }
     }
 
-    private void OnEnable()
+    protected void OnEnable()
     {
-        bossStatus = BossStatus.Idle;
+        FindPlayer();
 
+        bossStatus = BossStatus.Idle;
         patternTimer = 0f;
         isPatternRunning = false;
         previousPattern = -1;
@@ -72,9 +82,24 @@ public class BossMonster : AttackTouch
         {
             rb.linearVelocity = Vector2.zero;
         }
+    }
 
-        //보스와 충돌시 데미지 설정
-        SetDamage(patternData.bulletDamage);
+    private void FindPlayer()
+    {
+        GameObject playerObject =
+            GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject == null)
+        {
+            Debug.LogError(
+                $"{gameObject.name}: Player 태그를 가진 오브젝트를 찾을 수 없습니다."
+            );
+
+            player = null;
+            return;
+        }
+
+        player = playerObject.transform;
     }
 
     private void OnDisable()
@@ -235,6 +260,7 @@ public class BossMonster : AttackTouch
 
         isPatternRunning = false;
         rb.linearVelocity = Vector2.zero;
+
     }
 
     /// <summary>
@@ -417,6 +443,9 @@ public class BossMonster : AttackTouch
         // 패턴 중에는 보스 이동 정지
         rb.linearVelocity = Vector2.zero;
 
+        // 특수 패턴 애니메이션 실행
+        bossAnimation?.PlayHit();
+
         // 공격 예고 시간
         yield return new WaitForSeconds(
             patternData.patternWarningTime
@@ -446,6 +475,8 @@ public class BossMonster : AttackTouch
 
         rb.linearVelocity = Vector2.zero;
 
+        bossAnimation?.PlayAttack();
+
         // 공격 예고 시간
         yield return new WaitForSeconds(
             patternData.patternWarningTime
@@ -473,6 +504,8 @@ public class BossMonster : AttackTouch
         isPatternRunning = true;
 
         rb.linearVelocity = Vector2.zero;
+
+        bossAnimation?.PlayPattern();
 
         if (player == null)
         {
