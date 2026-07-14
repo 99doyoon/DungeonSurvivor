@@ -32,6 +32,8 @@ public class RewardApplier : MonoBehaviour
             return;
         }
 
+        GameResultManager.Instance?.AddSkillLevel(reward.rewardName);
+
         switch (reward.rewardType)
         {
             case RewardType.None:

@@ -72,6 +72,9 @@ public class EnemyBase : CharacterStatus, IPoolable
         isDead = true;
         nowHp = 0f;
 
+        //gameover시 킬을 보여주기위해
+        GameResultManager.Instance?.AddKill();
+
         /*
          * BossMonster처럼 사망 이벤트를 구독한 컴포넌트가 있다면
          * 죽음 애니메이션과 풀 반환을 해당 컴포넌트에 맡긴다.
