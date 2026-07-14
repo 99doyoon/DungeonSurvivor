@@ -80,6 +80,8 @@ public class BossMonster : AttackTouch
             bossAnimation =
                 GetComponent<BossAnimation>();
         }
+
+        FindPlayer();
     }
 
     private void OnEnable()

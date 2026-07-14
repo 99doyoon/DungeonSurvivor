@@ -16,7 +16,7 @@ MonoBehaviour:
   patternCooldown: 5
   patternWarningTime: 1
   patternAfterDelay: 1
-  bulletPoolType: 1
+  bulletPoolType: 26
   bulletDamage: 5
   circleBulletCount: 12
   circleBulletSpeed: 4
