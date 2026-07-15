@@ -7,7 +7,7 @@ public class PlayerStatus : CharacterStatus, IHit
 {
     PlayerAnimationController playerAnimationController;
 
-    [SerializeField] private GameOverUI gameOverUI;
+    [SerializeField] private ResultPanelUI resultPanelUI;
 
     [Header("레벨 및 경험치")]
     [field: SerializeField]
@@ -139,7 +139,7 @@ public class PlayerStatus : CharacterStatus, IHit
 #if UNITY_EDITOR
         Debug.Log("Player Die");
 #endif
-        gameOverUI.ShowGameOver(Level);
+        resultPanelUI.Show(ResultType.GameOver,Level);
     }
     public bool Hit()
     {

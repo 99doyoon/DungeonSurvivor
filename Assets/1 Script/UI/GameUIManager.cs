@@ -2,6 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum ResultType
+{
+    GameOver,
+    Clear
+}
+
 public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager Instance { get; private set; }
@@ -10,10 +16,11 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject clearPanel;
+    [SerializeField] private GameObject optionPanel;
 
-    [Header("Clear Result")]
-    [SerializeField] private TMP_Text clearKillText;
-    [SerializeField] private TMP_Text clearTimeText;
+    [SerializeField] private ResultPanelUI resultPanelUI;
+    [SerializeField] private PausePanelUI pausePanelUI;
+    [SerializeField] private PlayerStatus playerStatus;
 
     public GameState CurrentState { get; private set; }
         = GameState.Playing;
@@ -37,13 +44,21 @@ public class GameUIManager : MonoBehaviour
 
     public void TogglePause()
     {
-        if (CurrentState == GameState.Playing)
+        if (optionPanel.activeSelf)
         {
-            PauseGame();
+            CloseOption();
+            return;
         }
-        else if (CurrentState == GameState.Paused)
+
+        switch (CurrentState)
         {
-            ResumeGame();
+            case GameState.Playing:
+                PauseGame();
+                break;
+
+            case GameState.Paused:
+                ResumeGame();
+                break;
         }
     }
 
@@ -56,16 +71,7 @@ public class GameUIManager : MonoBehaviour
 
         CurrentState = GameState.Paused;
 
-#if UNITY_EDITOR
-        Debug.Log($"PausePanel 연결 상태: {pausePanel}");
-#endif
-        pausePanel.SetActive(true);
-        pausePanel.transform.SetAsLastSibling();
-
-        Debug.Log(
-            $"PausePanel activeSelf: {pausePanel.activeSelf}, " +
-            $"activeInHierarchy: {pausePanel.activeInHierarchy}"
-        );
+        pausePanelUI.Show(playerStatus.Level);
 
         Time.timeScale = 0f;
     }
@@ -77,17 +83,15 @@ public class GameUIManager : MonoBehaviour
             return;
         }
 
-        pausePanel.SetActive(false);
+        pausePanelUI.Hide();
 
         Time.timeScale = 1f;
-
         CurrentState = GameState.Playing;
     }
 
     public void ShowGameOver()
     {
-        if (CurrentState == GameState.GameOver ||
-            CurrentState == GameState.Clear)
+        if (CurrentState != GameState.Playing)
         {
             return;
         }
@@ -97,15 +101,18 @@ public class GameUIManager : MonoBehaviour
         GameResultManager.Instance?.StopRecord();
 
         pausePanel.SetActive(false);
-        gameOverPanel.SetActive(true);
+
+        resultPanelUI.Show(
+            ResultType.GameOver,
+            playerStatus.Level
+        );
 
         Time.timeScale = 0f;
     }
 
     public void ShowClear()
     {
-        if (CurrentState == GameState.Clear ||
-            CurrentState == GameState.GameOver)
+        if (CurrentState != GameState.Playing)
         {
             return;
         }
@@ -115,36 +122,13 @@ public class GameUIManager : MonoBehaviour
         GameResultManager.Instance?.StopRecord();
 
         pausePanel.SetActive(false);
-        clearPanel.SetActive(true);
 
-        SetClearResult();
+        resultPanelUI.Show(
+            ResultType.Clear,
+            playerStatus.Level
+        );
 
         Time.timeScale = 0f;
-    }
-
-    private void SetClearResult()
-    {
-        if (GameResultManager.Instance == null)
-        {
-            clearKillText.text = "Kill : 0";
-            clearTimeText.text = "Clear Time : 00:00";
-            return;
-        }
-
-        int killCount =
-            GameResultManager.Instance.KillCount;
-
-        float totalTime =
-            GameResultManager.Instance.SurvivalTime;
-
-        int minutes = Mathf.FloorToInt(totalTime / 60f);
-        int seconds = Mathf.FloorToInt(totalTime % 60f);
-
-        clearKillText.text =
-            $"Kill : {killCount}";
-
-        clearTimeText.text =
-            $"Clear Time : {minutes:00}:{seconds:00}";
     }
 
     public void RetryGame()
@@ -161,5 +145,28 @@ public class GameUIManager : MonoBehaviour
         Time.timeScale = 1f;
 
         SceneManager.LoadScene("GameStartScenes");
+    }
+
+    public void OpenOption()
+    {
+        if (CurrentState != GameState.Paused)
+        {
+            return;
+        }
+
+        pausePanelUI.Hide();
+
+        optionPanel.SetActive(true);
+        optionPanel.transform.SetAsLastSibling();
+    }
+
+    public void CloseOption()
+    {
+        optionPanel.SetActive(false);
+
+        if (CurrentState == GameState.Paused)
+        {
+            pausePanelUI.Show(playerStatus.Level);
+        }
     }
 }
