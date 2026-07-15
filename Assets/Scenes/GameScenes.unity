@@ -407,6 +407,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 249453742718069269, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      propertyPath: gameOverUI
+      value: 
+      objectReference: {fileID: 346298993}
     - target: {fileID: 6669219415683129043, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -898,6 +902,7 @@ GameObject:
   - component: {fileID: 346298990}
   - component: {fileID: 346298992}
   - component: {fileID: 346298991}
+  - component: {fileID: 346298993}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: Untagged
@@ -964,6 +969,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346298989}
   m_CullTransparentMesh: 1
+--- !u!114 &346298993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346298989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a28730d5d166d04ab647398d2b5029c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverUI
+  gameOverPanel: {fileID: 346298989}
+  killText: {fileID: 388858702}
+  survivalTimeText: {fileID: 237605270}
+  playerLevelText: {fileID: 1087469936}
+  skillResultText: {fileID: 1542807282}
 --- !u!1 &388858700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,7 +1378,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 526420982}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 346298993}
+        m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+        m_MethodName: GoToTitle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &526420982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4573,7 +4607,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1974310422}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 346298993}
+        m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+        m_MethodName: RetryGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1974310422
 MonoBehaviour:
   m_ObjectHideFlags: 0

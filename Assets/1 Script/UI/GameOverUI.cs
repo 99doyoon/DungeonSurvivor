@@ -39,7 +39,7 @@ public class GameOverUI : MonoBehaviour
             ? GameResultManager.Instance.KillCount
             : 0;
 
-        killText.text = $"처치한 몬스터 : {kills}";
+        killText.text = $"kills : {kills}";
     }
 
     private void SetSurvivalTimeText()
@@ -52,12 +52,12 @@ public class GameOverUI : MonoBehaviour
         int seconds = Mathf.FloorToInt(totalTime % 60f);
 
         survivalTimeText.text =
-            $"생존 시간 : {minutes:00}:{seconds:00}";
+            $"Survival time : {minutes:00}:{seconds:00}";
     }
 
     private void SetPlayerLevelText(int playerLevel)
     {
-        playerLevelText.text = $"최종 레벨 : Lv.{playerLevel}";
+        playerLevelText.text = $"Level : Lv.{playerLevel}";
     }
 
     private void SetSkillResultText()
@@ -65,13 +65,13 @@ public class GameOverUI : MonoBehaviour
         if (GameResultManager.Instance == null ||
             GameResultManager.Instance.SkillLevels.Count == 0)
         {
-            skillResultText.text = "획득한 스킬이 없습니다.";
+            skillResultText.text = "No skills acquired.";
             return;
         }
 
         StringBuilder builder = new StringBuilder();
 
-        builder.AppendLine("획득한 스킬");
+        builder.AppendLine("Acquired Skill");
 
         foreach (var skill in GameResultManager.Instance.SkillLevels)
         {

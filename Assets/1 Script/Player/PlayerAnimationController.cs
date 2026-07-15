@@ -4,68 +4,89 @@ using UnityEngine.InputSystem;
 
 public class PlayerAnimationController : ChracterAnimation
 {
-    [SerializeField] PlayerMoveController playerMoveController;
+    [SerializeField] private PlayerMoveController playerMoveController;
 
-    int isHitHash = Animator.StringToHash("isHit");
+    private readonly int isHitHash = Animator.StringToHash("isHit");
 
     private Color originColor;
+    private Sequence hitSequence;
 
     private void Awake()
     {
         SettingAnimation();
-        originColor = sr.color;
+
+        if (sr != null)
+        {
+            originColor = sr.color;
+        }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         CheckFlip();
         CheckMove();
     }
 
-    //마우스커서의 x축에따라 캐릭터가 왼쪽을 볼지 오른쪽을 볼지 선택
     public override void CheckFlip()
     {
+        if (sr == null || Camera.main == null || Mouse.current == null)
+        {
+            return;
+        }
+
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        if (transform.position.x < worldPos.x)
-        {
-            sr.flipX = false;
-        }
-        else
-        {
-            sr.flipX = true;
-        }
+        sr.flipX = transform.position.x >= worldPos.x;
     }
 
-    //움직일경우 isMove를 통해 moveAnimation동작
     public override void CheckMove()
     {
-
-        if (playerMoveController.Dir==Vector2.zero)
+        if (anim == null || playerMoveController == null)
         {
-            //안움직일 때 애니매이션 동작
-            anim.SetBool(isMoveHash, false);
-        }
-        else
-        {
-            //움직일때 동작
-            anim.SetBool(isMoveHash, true);
+            return;
         }
 
+        anim.SetBool(
+            isMoveHash,
+            playerMoveController.Dir != Vector2.zero
+        );
     }
 
     public void HitAnimation()
     {
+        if (anim == null || sr == null)
+        {
+            return;
+        }
+
         anim.SetTrigger(isHitHash);
-        sr.DOColor(Color.red, 0.5f)
-      .OnComplete(() => sr.DOColor(originColor, 0.5f));
+
+        // 기존 피격 색상 Tween이 남아 있다면 제거
+        hitSequence?.Kill();
+
+        sr.color = originColor;
+
+        hitSequence = DOTween.Sequence()
+            .Append(sr.DOColor(Color.red, 0.15f))
+            .Append(sr.DOColor(originColor, 0.15f))
+            .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+    }
+
+    private void OnDisable()
+    {
+        hitSequence?.Kill();
+        hitSequence = null;
+
+        if (sr != null)
+        {
+            sr.color = originColor;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        hitSequence?.Kill();
+        hitSequence = null;
     }
 }

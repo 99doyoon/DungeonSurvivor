@@ -68,12 +68,21 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
+        if (instance != null && instance != this)
+        {
             Destroy(gameObject);
+            return;
+        }
 
-        DontDestroyOnLoad(gameObject);
+        instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
     }
 
     private void Start()
@@ -97,23 +106,35 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetObject(PoolType type)
     {
-        if (!pools.ContainsKey(type))
+        if (!pools.TryGetValue(type, out Queue<GameObject> pool))
+        {
+            Debug.LogError($"{type} 타입의 풀이 등록되어 있지 않습니다.");
             return null;
-
-        GameObject go;
-
-        if (pools[type].Count > 0)
-        {
-            go = pools[type].Dequeue();
         }
-        else
+
+        GameObject go = null;
+
+        // Queue 안에 남아 있는 파괴된 참조를 모두 건너뛴다.
+        while (pool.Count > 0 && go == null)
         {
-            GameObject prefab = poolList.Find(x => x.type == type).prefab;
-            go = Instantiate(prefab);
+            go = pool.Dequeue();
+        }
+
+        // 사용할 수 있는 오브젝트가 없으면 새로 생성한다.
+        if (go == null)
+        {
+            PoolData poolData = poolList.Find(x => x.type == type);
+
+            if (poolData == null || poolData.prefab == null)
+            {
+                Debug.LogError($"{type} 타입의 프리팹이 Pool List에 등록되지 않았습니다.");
+                return null;
+            }
+
+            go = Instantiate(poolData.prefab);
         }
 
         go.SetActive(true);
-
         return go;
     }
 
@@ -130,9 +151,7 @@ public class ObjectPool : MonoBehaviour
             return null;
         }
 
-        T component = go.GetComponent<T>();
-
-        if (component == null)
+        if (!go.TryGetComponent(out T component))
         {
             Debug.LogError(
                 $"{go.name} 프리팹에 {typeof(T).Name} 컴포넌트가 없습니다.");

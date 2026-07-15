@@ -54,7 +54,10 @@ public class ExpManger : MonoBehaviour
         //2단레벨업을 할경우에도 1번하고 그다음에 또하게
         while(CheckLevelUp())
         {
-            playerStatus.AddExp(-expForLevel.nextExpRequired[playerStatus.Level]);
+            int requiredExp =
+            expForLevel.nextExpRequired[playerStatus.Level];
+
+            playerStatus.AddExp(-requiredExp);
             playerStatus.AddLevel(1);
             SetLevelText();
 
@@ -67,14 +70,16 @@ public class ExpManger : MonoBehaviour
     //레벨업량 체크
     bool CheckLevelUp()
     {
-        if(playerStatus.CurrentExp >= expForLevel.nextExpRequired[playerStatus.Level])
-        {
-            return true;
-        }
-        else
+        // 현재 레벨로 경험치 테이블에 접근할 수 없다면 만렙
+        if (playerStatus.Level >= expForLevel.nextExpRequired.Count)
         {
             return false;
         }
+
+        int requiredExp =
+            expForLevel.nextExpRequired[playerStatus.Level];
+
+        return playerStatus.CurrentExp >= requiredExp;
     }
 
     //레벨프린트
@@ -84,9 +89,27 @@ public class ExpManger : MonoBehaviour
     }
 
     //경험치 게이지 설정
-    void SetExpGage()
+    private void SetExpGage()
     {
-        expSlider.value = ((float)playerStatus.CurrentExp / (float)expForLevel.nextExpRequired[playerStatus.Level]);
+        bool isMaxLevel =
+            playerStatus.Level >= expForLevel.nextExpRequired.Count;
+
+        if (isMaxLevel)
+        {
+            // 만렙 이후에도 경험치 획득량을 보여주고 싶다면
+            // Slider가 계속 가득 찬 상태로 표시
+            expSlider.value = 1f;
+            levelPrint.text = $"Lv.{playerStatus.Level} MAX";
+            return;
+        }
+
+        int requiredExp =
+            expForLevel.nextExpRequired[playerStatus.Level];
+
+        expSlider.value =
+            (float)playerStatus.CurrentExp / requiredExp;
+
+        levelPrint.text = $"Lv.{playerStatus.Level}";
     }
 
     //게임시작시 경험치및 레벨 초기화 만약 세이브로드로 불러오는 기능추가시 수정할것
