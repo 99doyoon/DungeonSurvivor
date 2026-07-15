@@ -61,8 +61,8 @@ public class RewardApplier : MonoBehaviour
                 break;
 
             case RewardType.Heal:
-                playerStatus.Heal(
-                    Mathf.RoundToInt(reward.value));
+                     playerStatus.IncreaseAutoHealAmount(
+                        Mathf.RoundToInt(reward.value));
                 break;
 
             case RewardType.AddProjectile:
