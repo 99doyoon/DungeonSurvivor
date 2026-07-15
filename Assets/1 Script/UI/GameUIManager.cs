@@ -14,8 +14,7 @@ public class GameUIManager : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] private GameObject pausePanel;
-    [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private GameObject clearPanel;
+    [SerializeField] private GameObject resultPanel;
     [SerializeField] private GameObject optionPanel;
 
     [SerializeField] private ResultPanelUI resultPanelUI;
@@ -37,9 +36,20 @@ public class GameUIManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        pausePanel.SetActive(false);
-        gameOverPanel.SetActive(false);
-        clearPanel.SetActive(false);
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (resultPanel != null)
+        {
+            resultPanel.SetActive(false);
+        }
+
+        if (optionPanel != null)
+        {
+            optionPanel.SetActive(false);
+        }
     }
 
     public void TogglePause()

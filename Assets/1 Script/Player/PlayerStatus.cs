@@ -139,7 +139,13 @@ public class PlayerStatus : CharacterStatus, IHit
 #if UNITY_EDITOR
         Debug.Log("Player Die");
 #endif
-        resultPanelUI.Show(ResultType.GameOver,Level);
+        if (GameUIManager.Instance == null)
+        {
+            Debug.LogError("GameUIManager.Instance가 null입니다.");
+            return;
+        }
+
+        GameUIManager.Instance.ShowGameOver();
     }
     public bool Hit()
     {
