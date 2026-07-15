@@ -80,20 +80,4 @@ public class GameOverUI : MonoBehaviour
 
         skillResultText.text = builder.ToString();
     }
-
-    public void RetryGame()
-    {
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().buildIndex
-        );
-    }
-
-    public void GoToTitle()
-    {
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene("GameStartScenes");
-    }
 }

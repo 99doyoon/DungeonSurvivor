@@ -620,6 +620,9 @@ public class BossMonster : AttackTouch
 
         // 경험치 생성 후 보스를 풀에 반환
         enemyBase.CompleteDeath();
+
+        // 사망 애니메이션의 마지막 프레임에서 clear panal 호출
+        GameUIManager.Instance?.ShowClear();
     }
 
     /// <summary>
