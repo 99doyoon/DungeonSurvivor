@@ -225,6 +225,9 @@ public class MonsterSpawnManager : MonoBehaviour
             $"{bossData.bossPrefab.name} 보스가 등장했습니다."
         );
 
+        // 보스 음악으로 변경
+        SoundManager.Instance.PlayBgm(BGMType.Boss);
+
         return true;
     }
 

@@ -541,7 +541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758751ed0ec5fd64283411477ffe8d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleBgmPlayer
-  titleBgm: {fileID: 0}
 --- !u!4 &435365910
 Transform:
   m_ObjectHideFlags: 0
@@ -1027,8 +1026,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   bgmSource: {fileID: 975725324}
   sfxSource: {fileID: 975725323}
-  bgmVolume: 1
-  sfxVolume: 1
+  bgmList:
+  - type: 0
+    clip: {fileID: 8300000, guid: 94d8206588a7fec4db40659672c1e1e1, type: 3}
+  - type: 1
+    clip: {fileID: 8300000, guid: 83db2e44ef18f284296644fcf11a1b04, type: 3}
+  - type: 2
+    clip: {fileID: 8300000, guid: 172b758d1517f4d4780e825f2e49aaa3, type: 3}
+  - type: 3
+    clip: {fileID: 8300000, guid: 572d529d2428ac940a19681e3a92ddf4, type: 3}
+  sfxList:
+  - type: 0
+    clip: {fileID: 8300000, guid: 4fdb19df8d8759945845e45743c4c6f2, type: 3}
+  - type: 1
+    clip: {fileID: 8300000, guid: d8830e2ddb6c125429d0a5e8113cb51d, type: 3}
+  - type: 2
+    clip: {fileID: 8300000, guid: 1b5d293acd6b3254994dfefb43f4942d, type: 3}
+  - type: 3
+    clip: {fileID: 8300000, guid: b0207aa9d8c34cf449998f1c2f6fa58b, type: 3}
+  - type: 4
+    clip: {fileID: 8300000, guid: 30eccd51cf2e14d40b07fc9ad8c603e0, type: 3}
+  - type: 5
+    clip: {fileID: 8300000, guid: 3d2d76965b4543c4fbd7ef69d663295c, type: 3}
+  - type: 6
+    clip: {fileID: 8300000, guid: 905d19730a552f442858c53c3293480f, type: 3}
 --- !u!82 &975725323
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1847,6 +1868,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 329796992957518000, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 842678126378739670, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1931,6 +1956,46 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 164513430}
+    - target: {fileID: 4652935695502182532, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4652935695502182532, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897814426992598635, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897814426992598635, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897814426992598635, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704499237726708706, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704499237726708706, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103664779533148744, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103664779533148744, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103664779533148744, guid: 9b557d1b95dcc1342a3cf21d618087ce, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

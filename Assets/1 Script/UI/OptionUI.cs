@@ -22,12 +22,12 @@ public class OptionUI : MonoBehaviour
 
     private void ChangeBgmVolume(float value)
     {
-        SoundManager.Instance.SetBgmVolume(value);
+        SoundManager.Instance.SetBGMVolume(value);
     }
 
     private void ChangeSfxVolume(float value)
     {
-        SoundManager.Instance.SetSfxVolume(value);
+        SoundManager.Instance.SetSFXVolume(value);
     }
 
     private void OnDestroy()

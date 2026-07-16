@@ -1077,8 +1077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUIManager
   pausePanel: {fileID: 901401409}
-  gameOverPanel: {fileID: 346298989}
-  clearPanel: {fileID: 346298989}
+  resultPanel: {fileID: 0}
   optionPanel: {fileID: 1381229031}
   resultPanelUI: {fileID: 346298993}
   pausePanelUI: {fileID: 901401414}
@@ -6532,6 +6531,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725848967}
   m_CullTransparentMesh: 1
+--- !u!1 &1770468981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1770468983}
+  - component: {fileID: 1770468982}
+  m_Layer: 0
+  m_Name: GameBgmPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1770468982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770468981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8c018ba06343141846c94f7e44a54e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameBgmPlayer
+--- !u!4 &1770468983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770468981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.68096, y: 0.16716, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1779066865
 GameObject:
   m_ObjectHideFlags: 0
@@ -7486,3 +7529,4 @@ SceneRoots:
   - {fileID: 638201980}
   - {fileID: 661254792}
   - {fileID: 284424886}
+  - {fileID: 1770468983}

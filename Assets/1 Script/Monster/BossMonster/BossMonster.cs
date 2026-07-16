@@ -144,13 +144,21 @@ public class BossMonster : AttackTouch
 
     private void Update()
     {
-        // 사망 상태라면 패턴 타이머를 계산하지 않는다.
-        if (bossStatus != BossStatus.Die)
+        // 보스가 사망한 상태라면 더 이상 AI를 실행하지 않는다.
+        if (bossStatus == BossStatus.Die)
         {
-            UpdatePatternTimer();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+
+            return;
         }
 
-        // 현재 상태에 해당하는 동작 실행
+        // 패턴 재사용 시간을 계산한다.
+        UpdatePatternTimer();
+
+        // 현재 상태에 맞는 AI 행동을 실행한다.
         UpdateBossState();
     }
 
@@ -191,10 +199,6 @@ public class BossMonster : AttackTouch
 
             case BossStatus.Damage:
                 DamageUpdate();
-                break;
-
-            case BossStatus.Die:
-                DieUpdate();
                 break;
         }
     }
@@ -263,32 +267,6 @@ public class BossMonster : AttackTouch
         rb.linearVelocity = Vector2.zero;
 
         bossStatus = BossStatus.Idle;
-    }
-
-    /// <summary>
-    /// 사망 상태에서는 이동만 정지한다.
-    /// </summary>
-    private void DieUpdate()
-    {
-        rb.linearVelocity = Vector2.zero;
-    }
-
-    /// <summary>
-    /// 보스를 사망 상태로 변경한다.
-    /// 체력이 0 이하가 되는 순간 한 번 호출해야 한다.
-    /// </summary>
-    public void Die()
-    {
-        if (bossStatus == BossStatus.Die)
-            return;
-
-        bossStatus = BossStatus.Die;
-
-        StopAllCoroutines();
-
-        isPatternRunning = false;
-        rb.linearVelocity = Vector2.zero;
-
     }
 
     /// <summary>
@@ -573,37 +551,62 @@ public class BossMonster : AttackTouch
         FinishPattern();
     }
 
-    [SerializeField] private float dieAnimationTime = 2f;
-
+    /// <summary>
+    /// EnemyBase의 체력이 0이 되었을 때 호출되는 보스 사망 처리 함수.
+    /// OnEnable에서 EnemyBase.OnDeathRequested 이벤트에 등록된다.
+    /// </summary>
     private void HandleDeath(EnemyBase deadEnemy)
     {
+        // 이미 사망 처리를 시작했다면 중복 실행하지 않는다.
         if (bossStatus == BossStatus.Die)
             return;
 
+        // 보스를 사망 상태로 변경한다.
         bossStatus = BossStatus.Die;
 
-        // 실행 중인 이동 및 패턴 중지
+        // 실행 중이던 모든 공격 및 패턴 코루틴을 중지한다.
         StopAllCoroutines();
 
+        // 패턴 실행 여부를 초기화한다.
         isPatternRunning = false;
-        rb.linearVelocity = Vector2.zero;
 
-        // 죽은 뒤 충돌하지 않도록 처리
+        // 보스의 이동을 즉시 정지한다.
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        // 사망 이후 플레이어나 투사체와 충돌하지 않도록 한다.
         if (bossCollider != null)
         {
             bossCollider.enabled = false;
         }
 
-        // 죽음 애니메이션 재생
+        // 보스전 음악을 클리어 음악으로 변경한다.
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBgm(BGMType.Clear);
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"{gameObject.name}: SoundManager가 없어 Clear BGM을 재생하지 못했습니다.",
+                gameObject
+            );
+        }
+
+        // 보스 사망 애니메이션을 재생한다.
+        // 애니메이션 마지막 프레임에서 CompleteBossDeath를 호출해야 한다.
         bossAnimation?.PlayDie();
     }
 
     /// <summary>
-    /// 죽음 애니메이션 마지막 프레임의
-    /// Animation Event에서 호출된다.
+    /// 보스 사망 애니메이션이 끝난 뒤 실행되는 최종 사망 처리 함수.
+    /// 사망 애니메이션 마지막 프레임의 Animation Event에서 호출한다.
     /// </summary>
     public void CompleteBossDeath()
     {
+        // 사망 상태가 아니라면 실행하지 않는다.
         if (bossStatus != BossStatus.Die)
             return;
 
@@ -614,14 +617,16 @@ public class BossMonster : AttackTouch
                 gameObject
             );
 
+            // EnemyBase가 없어도 오브젝트가 계속 남지 않도록 비활성화한다.
             gameObject.SetActive(false);
             return;
         }
 
-        // 경험치 생성 후 보스를 풀에 반환
+        // 경험치 아이템 생성, HP 바 정리, 오브젝트 풀 반환 등
+        // EnemyBase의 최종 사망 처리를 실행한다.
         enemyBase.CompleteDeath();
 
-        // 사망 애니메이션의 마지막 프레임에서 clear panal 호출
+        // 게임 클리어 패널을 표시한다.
         GameUIManager.Instance?.ShowClear();
     }
 
