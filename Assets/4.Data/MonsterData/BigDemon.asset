@@ -20,4 +20,4 @@ MonoBehaviour:
   attackDistance: 4
   projectileSpeed: 5
   attackDelay: 1
-  Exp: 150
+  Exp: 10
