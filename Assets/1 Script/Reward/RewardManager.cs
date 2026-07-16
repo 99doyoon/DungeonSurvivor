@@ -4,6 +4,9 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class RewardManager : MonoBehaviour
 {
+    [Header("경험치 획득 매니저")]
+    [SerializeField] private ExpManger expManager;
+
     [Header("보상 데이터")]
     [SerializeField] private List<RewardData> rewardDataList;
 
@@ -70,6 +73,9 @@ public class RewardManager : MonoBehaviour
 
         // 게임 시간 정상화
         Time.timeScale = 1f;
+
+        // 보상 선택 완료를 ExpManger에 전달
+        expManager?.CompleteRewardSelection();
     }
 
     private List<RewardData> GetRandomRewards(int count)

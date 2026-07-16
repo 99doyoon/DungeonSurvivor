@@ -669,6 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61cd947138f6fb04cbf9f460c7dbc029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardManager
+  expManager: {fileID: 2005569296}
   rewardDataList:
   - {fileID: 11400000, guid: d22ef99febd0bee4686f47042be199e2, type: 2}
   - {fileID: 11400000, guid: 05ae4c1ed02867f44989bf2e44081031, type: 2}
@@ -3399,6 +3400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStartCountdown
   countdownText: {fileID: 1386396226}
+  startDelay: 0.8
   startCount: 3
   countInterval: 1
   startTextDuration: 0.7
@@ -7303,6 +7305,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac411f9d834ff34f9c0582819e4248e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMoveController
+--- !u!114 &2005569296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3472029030987974466, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+  m_PrefabInstance: {fileID: 77301701}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27036f76b347044896c2da73fa0b9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExpManger
 --- !u!1 &2050397034
 GameObject:
   m_ObjectHideFlags: 0
