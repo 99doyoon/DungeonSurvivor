@@ -27,4 +27,6 @@ public class MapChunk : MonoBehaviour
         ChunkPosition = Vector2Int.zero;
         gameObject.SetActive(false);
     }
+
+
 }
