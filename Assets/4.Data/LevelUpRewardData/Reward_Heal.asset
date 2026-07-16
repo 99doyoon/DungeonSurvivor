@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Reward_Heal
   m_EditorClassIdentifier: Assembly-CSharp::RewardData
   rewardName: Heal
-  description: Heals every 5 seconds; the maximum level is 5.
+  description: Heals every 5 seconds; the maximum level is 10.
   icon: {fileID: 21300000, guid: 7092324b93851a14c858530cca4a6b26, type: 3}
   rewardType: 5
   value: 5
-  maxLevel: 5
+  maxLevel: 10
   weight: 10
