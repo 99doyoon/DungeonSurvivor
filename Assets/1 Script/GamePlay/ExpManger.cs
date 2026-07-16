@@ -61,6 +61,9 @@ public class ExpManger : MonoBehaviour
             playerStatus.AddLevel(1);
             SetLevelText();
 
+            //Levelup 사운드 재생
+            SoundManager.Instance?.PlaySfx(SFXType.LevelUp);
+
             // 레벨업 보상 표시
             rewardManager.OpenReward();
         }

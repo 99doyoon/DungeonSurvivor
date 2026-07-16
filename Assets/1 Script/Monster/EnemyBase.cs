@@ -75,6 +75,9 @@ public class EnemyBase : CharacterStatus, IPoolable
         //gameover시 킬을 보여주기위해
         GameResultManager.Instance?.AddKill();
 
+        //몬스터 사망 사운드 재생
+        SoundManager.Instance?.PlaySfx(SFXType.EnemyDie);
+
         /*
          * BossMonster처럼 사망 이벤트를 구독한 컴포넌트가 있다면
          * 죽음 애니메이션과 풀 반환을 해당 컴포넌트에 맡긴다.
@@ -137,6 +140,19 @@ public class EnemyBase : CharacterStatus, IPoolable
 
         exp.SetExp(GetExp());
         expItem.transform.position = transform.position;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+
+        //몬스터 피격시 사운드재생
+        if (nowHp > 0)
+        {
+            SoundManager.Instance?.PlaySfx(
+                SFXType.EnemyHit
+            );
+        }
     }
 
     public int GetExp() =>

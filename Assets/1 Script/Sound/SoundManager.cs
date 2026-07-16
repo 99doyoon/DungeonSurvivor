@@ -73,17 +73,21 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBgm(BGMType type)
     {
+        if (bgmSource == null)
+            return;
+
         if (!bgmDictionary.TryGetValue(type, out AudioClip clip))
         {
-            Debug.LogWarning($"등록되지 않은 BGM입니다: {type}");
+            Debug.LogWarning($"{type} BGM이 등록되어 있지 않습니다.");
             return;
         }
 
-        // 같은 음악이 이미 재생 중이면 다시 시작하지 않는다.
-        if (currentBGM == type && bgmSource.isPlaying)
+        if (clip == null)
             return;
 
-        currentBGM = type;
+        // 이미 같은 음악이 재생 중이면 다시 시작하지 않는다.
+        if (bgmSource.clip == clip && bgmSource.isPlaying)
+            return;
 
         bgmSource.Stop();
         bgmSource.clip = clip;
@@ -97,26 +101,27 @@ public class SoundManager : MonoBehaviour
         currentBGM = null;
     }
 
-    public void PlaySFX(SFXType type)
+    public void PlaySfx(SFXType type)
     {
-        if (!sfxDictionary.TryGetValue(type, out AudioClip clip))
+        if (sfxSource == null)
         {
-            Debug.LogWarning($"등록되지 않은 SFX입니다: {type}");
+            Debug.LogError("SFX AudioSource가 연결되지 않았습니다.");
             return;
         }
+
+        if (!sfxDictionary.TryGetValue(type, out AudioClip clip))
+        {
+            Debug.LogWarning(
+                $"{type} 효과음이 등록되지 않았습니다."
+            );
+
+            return;
+        }
+
+        if (clip == null)
+            return;
 
         sfxSource.PlayOneShot(clip);
-    }
-
-    public void PlaySFX(SFXType type, float volumeScale)
-    {
-        if (!sfxDictionary.TryGetValue(type, out AudioClip clip))
-        {
-            Debug.LogWarning($"등록되지 않은 SFX입니다: {type}");
-            return;
-        }
-
-        sfxSource.PlayOneShot(clip, volumeScale);
     }
 
     public void SetBGMVolume(float volume)

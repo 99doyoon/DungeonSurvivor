@@ -151,6 +151,9 @@ public class PlayerStatus : CharacterStatus, IHit
     {
         if(isHit)
         {
+            //맞을때소리 재생
+            SoundManager.Instance.PlaySfx(SFXType.PlayerHit);
+
             StartCoroutine(SetIsHit());
             playerAnimationController.HitAnimation();
             return true;

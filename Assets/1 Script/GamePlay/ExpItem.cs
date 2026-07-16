@@ -29,6 +29,9 @@ public class ExpItem : MonoBehaviour, IPoolable
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            //아이템획득시 소리재생
+            SoundManager.Instance?.PlaySfx(SFXType.ItemPickup);
+
             collision.gameObject.GetComponent<ExpManger>().GetExp(exp);
             ObjectPool.instance.ReturnObject(this);
         }

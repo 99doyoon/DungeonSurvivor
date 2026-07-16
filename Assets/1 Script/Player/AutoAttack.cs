@@ -67,6 +67,11 @@ public class AutoAttack : MonoBehaviour
             return;
         }
 
+        //화살발사 사운드
+        SoundManager.Instance?.PlaySfx(
+            SFXType.PlayerAttack
+        );
+
         int projectileCount = Mathf.Max(1, playerStatus.ProjectileCount);
         Vector2 dir = target.position - transform.position;
         dir.Normalize();
