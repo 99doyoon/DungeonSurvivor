@@ -40,11 +40,7 @@ public class RewardApplier : MonoBehaviour
                 break;
 
             case RewardType.IncreaseDamage:
-                Debug.Log($"적용 전 Damage: {playerStatus.Damage}");
-
                 playerStatus.IncreaseDamage(reward.value);
-
-                Debug.Log($"적용 후 Damage: {playerStatus.Damage}");
                 break;
 
             case RewardType.IncreaseAttackSpeed:
@@ -66,12 +62,8 @@ public class RewardApplier : MonoBehaviour
                 break;
 
             case RewardType.AddProjectile:
-                Debug.Log($"적용 전 ProjectileCount: {playerStatus.ProjectileCount}");
-
                 playerStatus.AddProjectile(
                     Mathf.RoundToInt(reward.value));
-
-                Debug.Log($"적용 후 ProjectileCount: {playerStatus.ProjectileCount}");
                 break;
 
             case RewardType.IncreaseProjectileSpeed:

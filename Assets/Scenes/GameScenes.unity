@@ -548,6 +548,18 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 346298993}
+    - target: {fileID: 249453742718069269, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      propertyPath: resultPanelUI
+      value: 
+      objectReference: {fileID: 346298993}
+    - target: {fileID: 249453742718069269, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      propertyPath: moveController
+      value: 
+      objectReference: {fileID: 2005569293}
+    - target: {fileID: 249453742718069269, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      propertyPath: attackController
+      value: 
+      objectReference: {fileID: 2005569293}
     - target: {fileID: 3296645173898486625, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -2359,6 +2371,7 @@ MonoBehaviour:
   chunkSize: 20
   viewDistance: 2
   mapSeed: 0
+  regionScale: 0.15
 --- !u!4 &638201980
 Transform:
   m_ObjectHideFlags: 0
@@ -7092,6 +7105,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf58a9fa4c05bd48b7d02d44d301bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatus
+--- !u!114 &2005569293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2236528682060186255, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+  m_PrefabInstance: {fileID: 77301701}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac411f9d834ff34f9c0582819e4248e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMoveController
 --- !u!1 &2050397034
 GameObject:
   m_ObjectHideFlags: 0

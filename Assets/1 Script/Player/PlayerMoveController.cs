@@ -34,5 +34,13 @@ public class PlayerMoveController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.linearVelocity = Dir * playerStatus.MoveSpeed;
+
+        if(playerStatus.isDead)
+        {
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+        }
     }
 }

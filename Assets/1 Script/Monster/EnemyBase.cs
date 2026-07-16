@@ -22,7 +22,7 @@ public class EnemyBase : CharacterStatus, IPoolable
     /// </summary>
     public event Action<EnemyBase> OnDeathRequested;
 
-    private bool isDead;
+    public bool isDead { get; private set; }
 
     protected virtual void OnEnable()
     {
