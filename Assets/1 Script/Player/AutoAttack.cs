@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -93,9 +94,15 @@ public class AutoAttack : MonoBehaviour
             arrow.transform.rotation =
                 Quaternion.Euler(0f, 0f, shotAngle);
 
+            List<IProjectileEffect> effects = new List<IProjectileEffect>();
+
+            effects.Add(
+                new ExplosionEffect(2f,playerStatus.Damage * 0.5f));
+
             arrow.Init(
                 playerStatus.Damage,
-                playerStatus.ProjectileSpeed
+                playerStatus.ProjectileSpeed,
+                effects
             );
 
         }
