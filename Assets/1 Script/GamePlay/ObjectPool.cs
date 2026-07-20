@@ -43,7 +43,10 @@ public enum PoolType
     Fireball,
     Flask,
     MonsterEffect,
-    ThrowRock
+    ThrowRock,
+
+    //Effect
+    ExplosionEffect
 }
 
 public class ObjectPool : MonoBehaviour

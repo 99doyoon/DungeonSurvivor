@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerStatus))]
 public class AutoAttack : MonoBehaviour
 {
+    [SerializeField]
+    private ProjectileEffectManager projectileEffectManager;
+
     WaitForSeconds wait;
 
     Transform target;
@@ -16,15 +19,24 @@ public class AutoAttack : MonoBehaviour
     {
         playerStatus = GetComponentInParent<PlayerStatus>();
 
+        playerStatus = GetComponentInParent<PlayerStatus>();
+        projectileEffectManager =
+            GetComponentInParent<ProjectileEffectManager>();
+#if UNITY_EDITOR
         if (playerStatus == null)
         {
             Debug.LogError("AutoAttack이 PlayerStatus를 찾지 못했습니다.");
         }
-
-#if UNITY_EDITOR
         Debug.Log(
             $"[AutoAttack] PlayerStatus: {playerStatus.gameObject.name}, " +
             $"ID: {playerStatus.GetInstanceID()}");
+
+        if (projectileEffectManager == null)
+        {
+            Debug.LogError(
+                "AutoAttack이 ProjectileEffectManager를 찾지 못했습니다."
+            );
+        }
 #endif
     }
 
@@ -94,10 +106,7 @@ public class AutoAttack : MonoBehaviour
             arrow.transform.rotation =
                 Quaternion.Euler(0f, 0f, shotAngle);
 
-            List<IProjectileEffect> effects = new List<IProjectileEffect>();
-
-            effects.Add(
-                new ExplosionEffect(2f,playerStatus.Damage * 0.5f));
+            List<IProjectileEffect> effects = projectileEffectManager.CreateEffects(playerStatus.Damage);
 
             arrow.Init(
                 playerStatus.Damage,

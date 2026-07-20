@@ -12,7 +12,8 @@ public enum RewardType
     AddProjectile,
     IncreaseProjectileSpeed,
     IncreaseAutoHeal,
-    DecreaseAutoHealInterval
+    DecreaseAutoHealInterval,
+    ExplosionProjectile
 }
 
 [CreateAssetMenu(

@@ -6,6 +6,9 @@ public class RewardApplier : MonoBehaviour
     [SerializeField]
     private PlayerStatus playerStatus;
 
+    [SerializeField]
+    private ProjectileEffectManager projectileEffectManager;
+
     private void Awake()
     {
         // RewardApplier와 같은 Player에 있는 PlayerStatus를 가져온다.
@@ -77,6 +80,10 @@ public class RewardApplier : MonoBehaviour
 
             case RewardType.DecreaseAutoHealInterval:
                 playerStatus.DecreaseAutoHealInterval(reward.value);
+                break;
+
+            case RewardType.ExplosionProjectile:
+                projectileEffectManager.AddExplosion();
                 break;
 
             default:

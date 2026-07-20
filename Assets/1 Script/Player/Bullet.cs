@@ -77,6 +77,7 @@ public class Bullet : MonoBehaviour, IPoolable
     List<IProjectileEffect> newEffects)
     {
         this.damage = (int)damage;
+        this.speed = newSpeed;
 
         effects.Clear();
 
@@ -85,7 +86,7 @@ public class Bullet : MonoBehaviour, IPoolable
             effects.AddRange(newEffects);
         }
 
-        speed = newSpeed;
+        gameObject.SetActive(true);
         rb.linearVelocity = speed * transform.right;
     }
 }

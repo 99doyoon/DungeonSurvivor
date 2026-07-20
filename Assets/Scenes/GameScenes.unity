@@ -560,6 +560,10 @@ PrefabInstance:
       propertyPath: attackController
       value: 
       objectReference: {fileID: 2005569293}
+    - target: {fileID: 3284877975591072890, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      propertyPath: projectileEffectManager
+      value: 
+      objectReference: {fileID: 2005569298}
     - target: {fileID: 3296645173898486625, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -619,7 +623,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 145771548884214406, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2005569298}
   m_SourcePrefab: {fileID: 100100000, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
 --- !u!1 &127379428
 GameObject:
@@ -676,6 +683,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a02a0fc738e57ec4daca796027780852, type: 2}
   - {fileID: 11400000, guid: 263e2cdc9fb4ab94c81a5d1f36b00f24, type: 2}
   - {fileID: 11400000, guid: bb373df8cd0cf4b4cba8a9a6c7fe03a7, type: 2}
+  - {fileID: 11400000, guid: e902cd50330488c4081fd51f8b103676, type: 2}
   rewardApplier: {fileID: 2005569284}
   rewardPanel: {fileID: 1427330738}
   rewardButtons:
@@ -3218,6 +3226,9 @@ MonoBehaviour:
   - type: 21
     prefab: {fileID: 7615249838802568893, guid: 21e188ba965252048857271b8476fb06, type: 3}
     poolSize: 2
+  - type: 27
+    prefab: {fileID: 4794043405585894037, guid: 881fb683e34cb6c4cb18d9d4766e5b21, type: 3}
+    poolSize: 10
 --- !u!4 &936111997
 Transform:
   m_ObjectHideFlags: 0
@@ -3420,6 +3431,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1077947464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 145771548884214406, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+  m_PrefabInstance: {fileID: 77301701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1087469934
 GameObject:
   m_ObjectHideFlags: 0
@@ -7215,7 +7231,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3284877975591072890, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
   m_PrefabInstance: {fileID: 77301701}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1077947464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56775d07640496841978fe6c5e5e28d8, type: 3}
@@ -7231,7 +7247,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 249453742718069269, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
   m_PrefabInstance: {fileID: 77301701}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1077947464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daf58a9fa4c05bd48b7d02d44d301bd8, type: 3}
@@ -7242,7 +7258,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -2236528682060186255, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
   m_PrefabInstance: {fileID: 77301701}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1077947464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cac411f9d834ff34f9c0582819e4248e, type: 3}
@@ -7253,12 +7269,27 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -3472029030987974466, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
   m_PrefabInstance: {fileID: 77301701}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1077947464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d27036f76b347044896c2da73fa0b9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExpManger
+--- !u!114 &2005569298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077947464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0064c3b9b3c4f7142964ac38018a2971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileEffectManager
+  explosionRadius: 2
+  explosionDamageRatio: 0.5
+  explosionEffectPoolType: 27
 --- !u!1 &2050397034
 GameObject:
   m_ObjectHideFlags: 0
