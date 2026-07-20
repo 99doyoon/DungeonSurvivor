@@ -41,24 +41,42 @@ public class Bullet : MonoBehaviour, IPoolable
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             ObjectPool.instance.ReturnObject(this);
+            return;
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy"))
         {
-            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+            return;
+        }
 
-            foreach (IProjectileEffect effect in effects)
+        EnemyBase enemy =
+            collision.GetComponentInParent<EnemyBase>();
+
+        if (enemy == null)
+        {
+            return;
+        }
+
+        enemy.TakeDamage(damage);
+
+        bool keepFlying = false;
+
+        foreach (IProjectileEffect effect in effects)
+        {
+            if (effect.OnHit(this, enemy))
             {
-                effect.OnHit(this, enemy);
+                keepFlying = true;
             }
+        }
 
+        if (!keepFlying)
+        {
             ObjectPool.instance.ReturnObject(this);
-            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(damage);
         }
     }
 
@@ -88,5 +106,23 @@ public class Bullet : MonoBehaviour, IPoolable
 
         gameObject.SetActive(true);
         rb.linearVelocity = speed * transform.right;
+    }
+
+    //불렛이 방향을 바꾸기위한 함수
+    public void ChangeDirection(Vector2 dir)
+    {
+        dir.Normalize();
+
+        float angle =
+            Mathf.Atan2(dir.y, dir.x) *
+            Mathf.Rad2Deg;
+
+        transform.rotation =
+            Quaternion.Euler(0f, 0f, angle);
+
+        // 현재 Arrow의 이동 방식에 맞춰 속도도 갱신
+        rb.linearVelocity = dir.normalized * speed;
+
+        transform.position += (Vector3)(dir * 0.05f);
     }
 }

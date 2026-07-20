@@ -86,6 +86,10 @@ public class RewardApplier : MonoBehaviour
                 projectileEffectManager.AddExplosion();
                 break;
 
+            case RewardType.BounceProjectile:
+                projectileEffectManager.AddBounce();
+                break;
+
             default:
                 Debug.LogWarning(
                     $"처리되지 않은 보상입니다: {reward.rewardType}");

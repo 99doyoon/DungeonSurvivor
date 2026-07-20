@@ -5,7 +5,7 @@ public class ExplosionEffect : IProjectileEffect
 {
     private readonly float radius;
     private readonly float damage;
-    private readonly PoolType effectPoolType;
+    private readonly PoolType effectPoolType = PoolType.ExplosionEffect;
 
     public ExplosionEffect(
         float radius,
@@ -17,7 +17,7 @@ public class ExplosionEffect : IProjectileEffect
         this.effectPoolType = effectPoolType;
     }
 
-    public void OnHit(Bullet bullet, EnemyBase target)
+    public bool OnHit(Bullet bullet, EnemyBase target)
     {
         Vector3 explosionPosition = target.transform.position;
 
@@ -29,6 +29,8 @@ public class ExplosionEffect : IProjectileEffect
 
         PlayEffect(explosionPosition);
         ApplyExplosionDamage(explosionPosition, target);
+
+        return false;
     }
 
     private void PlayEffect(Vector3 position)

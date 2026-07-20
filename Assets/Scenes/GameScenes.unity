@@ -572,6 +572,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6669219415683129043, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+      propertyPath: projectileEffectManager
+      value: 
+      objectReference: {fileID: 2005569298}
     - target: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -684,6 +688,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 263e2cdc9fb4ab94c81a5d1f36b00f24, type: 2}
   - {fileID: 11400000, guid: bb373df8cd0cf4b4cba8a9a6c7fe03a7, type: 2}
   - {fileID: 11400000, guid: e902cd50330488c4081fd51f8b103676, type: 2}
+  - {fileID: 11400000, guid: a7df005801fe40842b5a1edad97d0980, type: 2}
   rewardApplier: {fileID: 2005569284}
   rewardPanel: {fileID: 1427330738}
   rewardButtons:
@@ -7287,9 +7292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0064c3b9b3c4f7142964ac38018a2971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileEffectManager
-  explosionRadius: 2
-  explosionDamageRatio: 0.5
-  explosionEffectPoolType: 27
+  baseExplosionCount: 1
+  baseBounceCount: 1
+  bounceSearchRadius: 5
 --- !u!1 &2050397034
 GameObject:
   m_ObjectHideFlags: 0

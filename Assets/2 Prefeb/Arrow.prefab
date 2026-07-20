@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4489116470419531505}
   - component: {fileID: 4760720554997708243}
   - component: {fileID: 2548115194157323418}
-  - component: {fileID: 8622864347443562910}
+  - component: {fileID: -2020191695959274111}
   m_Layer: 8
   m_Name: Arrow
   m_TagString: Untagged
@@ -78,7 +78,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -94,7 +94,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.1910944, y: 0.57284796}
   m_EdgeRadius: 0
---- !u!50 &8622864347443562910
+--- !u!50 &-2020191695959274111
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!1 &5278858285088011219
 GameObject:

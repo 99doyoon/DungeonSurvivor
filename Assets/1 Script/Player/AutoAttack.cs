@@ -28,7 +28,7 @@ public class AutoAttack : MonoBehaviour
             Debug.LogError("AutoAttack이 PlayerStatus를 찾지 못했습니다.");
         }
         Debug.Log(
-            $"[AutoAttack] PlayerStatus: {playerStatus.gameObject.name}, " +
+            $"[AutoAttack] 9erStatus: {playerStatus.gameObject.name}, " +
             $"ID: {playerStatus.GetInstanceID()}");
 
         if (projectileEffectManager == null)
