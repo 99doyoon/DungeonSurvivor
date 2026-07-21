@@ -46,7 +46,8 @@ public enum PoolType
     ThrowRock,
 
     //Effect
-    ExplosionEffect
+    ExplosionEffect,
+    DamageText
 }
 
 public class ObjectPool : MonoBehaviour

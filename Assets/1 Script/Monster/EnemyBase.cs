@@ -153,6 +153,12 @@ public class EnemyBase : CharacterStatus, IPoolable
 
         monsterAnimation.HitAnimation();
 
+#if UNITY_EDITOR
+        Debug.Log($"피해 발생: {damage}");
+#endif
+
+        ShowDamageText(damage);
+
         //몬스터 피격시 사운드재생
         if (nowHp > 0)
         {
@@ -160,6 +166,34 @@ public class EnemyBase : CharacterStatus, IPoolable
                 SFXType.EnemyHit
             );
         }
+    }
+
+    private void ShowDamageText(float damage)
+    {
+#if UNITY_EDITOR
+        Debug.Log($"ShowDamageText 호출: {damage}");
+#endif
+
+        DamageText text =
+            ObjectPool.instance.GetObject<DamageText>(
+                PoolType.DamageText
+            );
+
+        if (text == null)
+        {
+#if UNITY_EDITOR
+            Debug.LogError("DamageText를 풀에서 가져오지 못했습니다.");
+#endif
+            return;
+        }
+
+        Vector3 spawnPosition =
+            transform.position + Vector3.up;
+#if UNITY_EDITOR
+        Debug.Log($"DamageText 생성 위치: {spawnPosition}");
+#endif
+        spawnPosition.z = -1f;
+        text.Play(spawnPosition, damage);
     }
 
     public int GetExp() =>
