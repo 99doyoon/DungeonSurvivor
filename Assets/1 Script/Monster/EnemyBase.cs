@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyBase : CharacterStatus, IPoolable
 {
     [Header("몬스터 데이터")]
     [SerializeField] private MonsterData monsterData;
+
+    MonsterAnimation monsterAnimation;
 
     public MonsterData Data => monsterData;
     public float CurrentHp => nowHp;
@@ -58,6 +61,8 @@ public class EnemyBase : CharacterStatus, IPoolable
                 gameObject
             );
         }
+
+        monsterAnimation=GetComponent<MonsterAnimation>();
     }
 
     /// <summary>
@@ -145,6 +150,8 @@ public class EnemyBase : CharacterStatus, IPoolable
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+
+        monsterAnimation.HitAnimation();
 
         //몬스터 피격시 사운드재생
         if (nowHp > 0)

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public abstract class ChracterAnimation : MonoBehaviour
 {
@@ -7,8 +8,12 @@ public abstract class ChracterAnimation : MonoBehaviour
     protected SpriteRenderer sr;
     protected Camera camera;
 
+    private Color originColor;
+    private Sequence hitSequence;
+
     protected readonly int isMoveHash =
         Animator.StringToHash("isMove");
+    private readonly int isHitHash = Animator.StringToHash("isHit");
 
     [Header("사망 연출")]
     [SerializeField] private float fallAngle = 90f;
@@ -44,6 +49,11 @@ public abstract class ChracterAnimation : MonoBehaviour
 
         visualTransform = sr.transform;
         originalRotation = visualTransform.localRotation;
+
+        if (sr != null)
+        {
+            originColor = sr.color;
+        }
     }
 
     /// <summary>
@@ -157,5 +167,43 @@ public abstract class ChracterAnimation : MonoBehaviour
             visualTransform.localRotation =
                 originalRotation;
         }
+    }
+
+
+    public void HitAnimation()
+    {
+        if (anim == null || sr == null)
+        {
+            return;
+        }
+
+        anim.SetTrigger(isHitHash);
+
+        // 기존 피격 색상 Tween이 남아 있다면 제거
+        hitSequence?.Kill();
+
+        sr.color = originColor;
+
+        hitSequence = DOTween.Sequence()
+            .Append(sr.DOColor(Color.red, 0.15f))
+            .Append(sr.DOColor(originColor, 0.15f))
+            .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+    }
+
+    private void OnDisable()
+    {
+        hitSequence?.Kill();
+        hitSequence = null;
+
+        if (sr != null)
+        {
+            sr.color = originColor;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        hitSequence?.Kill();
+        hitSequence = null;
     }
 }

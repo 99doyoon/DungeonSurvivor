@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 using UnityEngine.InputSystem;
 
 public class MonsterAnimation : ChracterAnimation
@@ -7,12 +8,10 @@ public class MonsterAnimation : ChracterAnimation
 
     int isHitHash = Animator.StringToHash("isHit");
 
-    private Color originColor;
 
     private void Awake()
     {
         SettingAnimation();
-        originColor = sr.color;
         monsterMoveController= GetComponentInChildren<MonsterMoveController>();
     }
 

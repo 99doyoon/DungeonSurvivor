@@ -20,17 +20,10 @@ public class BossAnimation : ChracterAnimation
     private readonly int dieHash =
         Animator.StringToHash("Die");
 
-    private Color originColor;
-
     private void Awake()
     {
         // 부모 클래스에서 Animator, SpriteRenderer 등을 설정
         SettingAnimation();
-
-        if (sr != null)
-        {
-            originColor = sr.color;
-        }
 
         // Inspector에 연결하지 않은 경우 자동으로 찾음
         if (bossMonster == null)
