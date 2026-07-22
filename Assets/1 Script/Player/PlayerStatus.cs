@@ -61,6 +61,7 @@ public class PlayerStatus : CharacterStatus, IHit
     [SerializeField] Slider hpSlider;
     [SerializeField] TMP_Text hpPrint;
 
+    [SerializeField] private HitFlashUI hitFlashUI;
     void Start()
     {
         //MoveSpeed = 5;
@@ -256,6 +257,8 @@ public class PlayerStatus : CharacterStatus, IHit
         StartCoroutine(SetIsHit());
 
         playerAnimationController?.HitAnimation();
+
+        HitFlashUI.Instance?.Play();
 
         return true;
     }
