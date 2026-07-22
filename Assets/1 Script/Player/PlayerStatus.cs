@@ -257,6 +257,7 @@ public class PlayerStatus : CharacterStatus, IHit
         StartCoroutine(SetIsHit());
 
         playerAnimationController?.HitAnimation();
+        CameraShake.Instance?.Play();
 
         HitFlashUI.Instance?.Play();
 
