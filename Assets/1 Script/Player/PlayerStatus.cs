@@ -62,6 +62,8 @@ public class PlayerStatus : CharacterStatus, IHit
     [SerializeField] TMP_Text hpPrint;
 
     [SerializeField] private HitFlashUI hitFlashUI;
+
+    [SerializeField] private PlayerHpBar playerHpBar;
     void Start()
     {
         //MoveSpeed = 5;
@@ -89,6 +91,8 @@ public class PlayerStatus : CharacterStatus, IHit
 
         maxHp = 100;
         nowHp = maxHp;
+
+        playerHpBar.Init(maxHp, nowHp);
 
         Level = 1;
         CurrentExp = 0;
@@ -139,14 +143,14 @@ public class PlayerStatus : CharacterStatus, IHit
 
     private void UpdateHpUI()
     {
-        if (hpSlider != null)
-        {
-            hpSlider.value = (float)nowHp / maxHp;
-        }
-
         if (hpPrint != null)
         {
             hpPrint.text = $"HP : {nowHp} / {maxHp}";
+        }
+
+        if (playerHpBar != null)
+        {
+            playerHpBar.SetHp(nowHp);
         }
     }
 
@@ -313,7 +317,12 @@ public class PlayerStatus : CharacterStatus, IHit
         maxHp += value;
         nowHp += value;
 
-        UpdateHpUI();
+        playerHpBar?.SetMaxHp(maxHp, nowHp);
+
+        if (hpPrint != null)
+        {
+            hpPrint.text = $"HP : {nowHp} / {maxHp}";
+        }
     }
 
 
