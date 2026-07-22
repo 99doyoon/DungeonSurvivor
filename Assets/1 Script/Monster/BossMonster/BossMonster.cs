@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+using UnityEngine.InputSystem;
+
 public enum BossStatus
 {
     Idle,      // 대기 상태
@@ -24,6 +26,20 @@ public class BossMonster : AttackTouch
 
     [Header("참조")]
     [SerializeField] private Transform player;
+
+    [Header("보스공격경고")]
+    [SerializeField] private float circleAttackRadius = 2.5f;
+    [SerializeField] private float patternWarningTime = 1f;
+    [SerializeField] private float circleAttackDamage = 20f;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private BossAttackWarning circleWarning;
+    private Vector3 debugAttackPosition;
+    private bool showAttackGizmo;
+    [SerializeField] private float scaleMultiplier = 1f;
+    private Vector3 lastAttackPosition;
+    private bool showAttackRange;
+
+    private bool isCircleAttackRunning;
 
     private EnemyBase enemyBase;
     private Collider2D bossCollider;
@@ -144,6 +160,19 @@ public class BossMonster : AttackTouch
 
     private void Update()
     {
+        if (Keyboard.current == null)
+        {
+            return;
+        }
+
+        if (Keyboard.current.tKey.wasPressedThisFrame &&
+            !isCircleAttackRunning)
+        {
+            StartCoroutine(
+                TestCircleAttack()
+            );
+        }
+
         // 보스가 사망한 상태라면 더 이상 AI를 실행하지 않는다.
         if (bossStatus == BossStatus.Die)
         {
@@ -160,6 +189,16 @@ public class BossMonster : AttackTouch
 
         // 현재 상태에 맞는 AI 행동을 실행한다.
         UpdateBossState();
+    }
+
+    //테스트 코루틴
+    private IEnumerator TestCircleAttack()
+    {
+        isCircleAttackRunning = true;
+
+        yield return CircleAttackPattern();
+
+        isCircleAttackRunning = false;
     }
 
     /// <summary>
@@ -325,6 +364,11 @@ public class BossMonster : AttackTouch
         while (selectedPattern == previousPattern);
 
         previousPattern = selectedPattern;
+
+        Vector3 attackPosition = player.position;
+
+        lastAttackPosition = attackPosition;
+        showAttackRange = true;
 
         switch (selectedPattern)
         {
@@ -595,6 +639,13 @@ public class BossMonster : AttackTouch
             );
         }
 
+        if (circleWarning != null)
+        {
+            circleWarning.Hide();
+        }
+
+        isCircleAttackRunning = false;
+
         // 보스 사망 애니메이션을 재생한다.
         // 애니메이션 마지막 프레임에서 CompleteBossDeath를 호출해야 한다.
         bossAnimation?.PlayDie();
@@ -645,5 +696,89 @@ public class BossMonster : AttackTouch
 
         // 다시 일반 행동으로 돌아간다.
         bossStatus = BossStatus.Idle;
+    }
+
+    private IEnumerator CircleAttackPattern()
+    {
+        if (player == null)
+        {
+            Debug.LogWarning("Player가 연결되지 않았습니다.");
+            yield break;
+        }
+
+        if (circleWarning == null)
+        {
+            Debug.LogWarning("CircleWarning이 연결되지 않았습니다.");
+            yield break;
+        }
+
+        Vector3 attackPosition = player.position;
+
+        circleWarning.Show(
+            attackPosition,
+            circleAttackRadius,
+            patternWarningTime
+        );
+
+        yield return new WaitForSeconds(
+            patternWarningTime
+        );
+
+        circleWarning.Hide();
+
+        ApplyCircleAttack(
+            attackPosition,
+            circleAttackRadius,
+            circleAttackDamage
+        );
+    }
+
+    private void ApplyCircleAttack(
+    Vector3 attackPosition,
+    float radius,
+    float damage)
+    {
+        Collider2D target =
+            Physics2D.OverlapCircle(
+                attackPosition,
+                radius,
+                playerLayer
+            );
+
+        if (target == null)
+        {
+            Debug.Log("플레이어가 공격 범위 밖에 있습니다.");
+            return;
+        }
+
+        PlayerStatus playerStatus =
+            target.GetComponentInParent<PlayerStatus>();
+
+        if (playerStatus == null)
+        {
+            Debug.LogWarning(
+                "PlayerStatus를 찾지 못했습니다.",
+                target
+            );
+
+            return;
+        }
+
+        playerStatus.TakeDamage(damage);
+
+        Debug.Log($"보스 장판 공격 적중: {damage}");
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!showAttackGizmo)
+        {
+            return;
+        }
+
+        Gizmos.DrawWireSphere(
+            debugAttackPosition,
+            circleAttackRadius
+        );
     }
 }

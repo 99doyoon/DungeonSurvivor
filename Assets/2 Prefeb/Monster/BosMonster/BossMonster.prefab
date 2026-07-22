@@ -53,8 +53,15 @@ MonoBehaviour:
   patternData: {fileID: 11400000, guid: 58107418480138543bf55a6fb27bacd5, type: 2}
   bossStatus: 0
   bossAnimation: {fileID: 0}
-  player: {fileID: 0}
-  dieAnimationTime: 2
+  player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
+  circleAttackRadius: 2.5
+  patternWarningTime: 1
+  circleAttackDamage: 20
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  circleWarning: {fileID: 2105806282417354998, guid: 479733dfd8ae58f48a11008eff34caae, type: 3}
+  scaleMultiplier: 1
 --- !u!50 &9020287268216352411
 Rigidbody2D:
   serializedVersion: 5
@@ -155,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47292737d5c8e974a94faac3d8472abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAnimation
+  fallAngle: 90
+  fallDuration: 0.3
   bossMonster: {fileID: 0}
   rb: {fileID: 0}
   player: {fileID: 0}
