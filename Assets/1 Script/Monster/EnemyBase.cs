@@ -62,7 +62,7 @@ public class EnemyBase : CharacterStatus, IPoolable
             );
         }
 
-        monsterAnimation=GetComponent<MonsterAnimation>();
+        monsterAnimation= GetComponentInChildren<MonsterAnimation>();
     }
 
     /// <summary>
@@ -151,7 +151,10 @@ public class EnemyBase : CharacterStatus, IPoolable
     {
         base.TakeDamage(damage);
 
-        monsterAnimation.HitAnimation();
+        if (monsterAnimation != null)
+        {
+            monsterAnimation.HitAnimation();
+        }
 
 #if UNITY_EDITOR
         Debug.Log($"피해 발생: {damage}");
