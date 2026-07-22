@@ -103,6 +103,11 @@ public class EnemyBase : CharacterStatus, IPoolable
     /// </summary>
     public void CompleteDeath()
     {
+#if UNITY_EDITOR
+        Debug.Log($"CompleteDeath 호출: {name}", gameObject);
+#endif
+        PlayDeathEffect();
+
         DropExp();
 
         ObjectPool.instance.ReturnObject(this);
@@ -197,6 +202,37 @@ public class EnemyBase : CharacterStatus, IPoolable
 #endif
         spawnPosition.z = -1f;
         text.Play(spawnPosition, damage);
+    }
+
+    private void PlayDeathEffect()
+    {
+        EnemyDeathEffect effect =
+            ObjectPool.instance.GetObject<EnemyDeathEffect>(
+                PoolType.EnemyDeathEffect
+            );
+
+        if (effect == null)
+        {
+            return;
+        }
+
+        SpriteRenderer spriteRenderer =
+            GetComponentInChildren<SpriteRenderer>();
+
+        Color effectColor =
+            spriteRenderer != null
+            ? spriteRenderer.color
+            : Color.white;
+
+        effect.Play(
+            transform.position,
+            effectColor
+        );
+    }
+
+    public void ClearDeathRequest()
+    {
+        OnDeathRequested = null;
     }
 
     public int GetExp() =>
