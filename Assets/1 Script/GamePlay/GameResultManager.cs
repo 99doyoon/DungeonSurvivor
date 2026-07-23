@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -106,5 +107,18 @@ public class GameResultManager : MonoBehaviour
 
         killCountText.text =
             $"KILL : {KillCount}";
+
+        killCountText.transform.DOKill();
+
+        killCountText.transform.localScale =
+            Vector3.one;
+
+        killCountText.transform
+            .DOPunchScale(
+                Vector3.one * 0.2f,
+                0.2f,
+                5,
+                0.5f
+            );
     }
 }
