@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -8,33 +9,49 @@ public class BossWarningUI : MonoBehaviour
     [SerializeField] private GameObject warningPanel;
     [SerializeField] private TMP_Text warningText;
 
+    private Tween blinkTween;
+
     private void Awake()
     {
         Instance = this;
-
-        if (warningPanel == null)
-        {
-            warningPanel = gameObject;
-        }
-
         Hide();
     }
 
-    public void Show(string message = "WARNING")
+    public void Show(string message)
     {
-        if (warningPanel != null)
+        if (warningPanel == null ||
+            warningText == null)
         {
-            warningPanel.SetActive(true);
+            return;
         }
 
-        if (warningText != null)
-        {
-            warningText.text = message;
-        }
+        warningPanel.SetActive(true);
+        warningText.text = message;
+        warningText.alpha = 1f;
+
+        blinkTween?.Kill();
+
+        blinkTween = warningText
+            .DOFade(0.2f, 0.25f)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetUpdate(true)
+            .SetLink(
+                warningText.gameObject,
+                LinkBehaviour.KillOnDestroy
+            );
     }
 
     public void Hide()
     {
+        blinkTween?.Kill();
+        blinkTween = null;
+
+        if (warningText != null)
+        {
+            warningText.DOKill();
+            warningText.alpha = 1f;
+        }
+
         if (warningPanel != null)
         {
             warningPanel.SetActive(false);

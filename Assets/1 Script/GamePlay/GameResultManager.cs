@@ -119,6 +119,19 @@ public class GameResultManager : MonoBehaviour
                 0.2f,
                 5,
                 0.5f
+            ).SetLink(
+                killCountText.gameObject,
+                LinkBehaviour.KillOnDestroy
             );
+    }
+
+    private void OnDisable()
+    {
+        if (killCountText != null)
+        {
+            killCountText.transform.DOKill();
+            killCountText.transform.localScale =
+                Vector3.one;
+        }
     }
 }

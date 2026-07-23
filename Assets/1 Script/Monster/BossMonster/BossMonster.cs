@@ -113,6 +113,7 @@ public class BossMonster : AttackTouch
         }
 
         StartCoroutine(BossIntroRoutine());
+        CameraShake.Instance?.Play();
     }
 
     private void HandleHpChanged(
