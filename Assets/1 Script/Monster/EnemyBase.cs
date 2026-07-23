@@ -27,6 +27,9 @@ public class EnemyBase : CharacterStatus, IPoolable
 
     public bool isDead { get; private set; }
 
+    public event Action<float, float> OnHpChanged;
+    public event Action<EnemyBase> OnInitialized;
+
     protected virtual void OnEnable()
     {
         Init();
@@ -63,6 +66,10 @@ public class EnemyBase : CharacterStatus, IPoolable
         }
 
         monsterAnimation= GetComponentInChildren<MonsterAnimation>();
+
+        OnInitialized?.Invoke(this);
+
+        OnHpChanged?.Invoke(nowHp, maxHp);
     }
 
     /// <summary>
@@ -156,6 +163,8 @@ public class EnemyBase : CharacterStatus, IPoolable
     {
         base.TakeDamage(damage);
 
+        OnHpChanged?.Invoke(nowHp, maxHp);
+
         if (monsterAnimation != null)
         {
             monsterAnimation.HitAnimation();
@@ -244,6 +253,28 @@ public class EnemyBase : CharacterStatus, IPoolable
     public void ClearDeathRequest()
     {
         OnDeathRequested = null;
+    }
+
+    public string GetMonsterName()
+    {
+        if (monsterData == null)
+        {
+            return gameObject.name.Replace(
+                "(Clone)",
+                ""
+            );
+        }
+
+        if (string.IsNullOrWhiteSpace(
+            monsterData.monsterName))
+        {
+            return gameObject.name.Replace(
+                "(Clone)",
+                ""
+            );
+        }
+
+        return monsterData.monsterName;
     }
 
     public int GetExp() =>

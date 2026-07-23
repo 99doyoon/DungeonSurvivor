@@ -104,7 +104,37 @@ public class BossMonster : AttackTouch
         if (enemyBase != null)
         {
             enemyBase.OnDeathRequested += HandleDeath;
+            enemyBase.OnHpChanged += HandleHpChanged;
         }
+
+        StartCoroutine(ShowBossHpNextFrame());
+    }
+
+    private IEnumerator ShowBossHpNextFrame()
+    {
+        // EnemyBase.OnEnable의 Init이 끝날 때까지 한 프레임 기다린다.
+        yield return null;
+
+        if (enemyBase == null)
+        {
+            yield break;
+        }
+
+        BossHpUI.Instance?.Show(
+            enemyBase.GetMonsterName(),
+            enemyBase.CurrentHp,
+            enemyBase.GetMaxHp()
+        );
+    }
+
+    private void HandleHpChanged(
+    float currentHp,
+    float maxHp)
+    {
+        BossHpUI.Instance?.SetHp(
+            currentHp,
+            maxHp
+        );
     }
 
     private void FindPlayer()
@@ -130,6 +160,7 @@ public class BossMonster : AttackTouch
         if (enemyBase != null)
         {
             enemyBase.OnDeathRequested -= HandleDeath;
+            enemyBase.OnHpChanged -= HandleHpChanged;
         }
 
         StopAllCoroutines();
@@ -140,6 +171,8 @@ public class BossMonster : AttackTouch
         {
             rb.linearVelocity = Vector2.zero;
         }
+
+        BossHpUI.Instance?.Hide();
     }
 
     private void Update()
@@ -161,6 +194,8 @@ public class BossMonster : AttackTouch
         // 현재 상태에 맞는 AI 행동을 실행한다.
         UpdateBossState();
     }
+
+
 
     /// <summary>
     /// 특수 패턴을 다시 사용할 수 있도록 시간을 계산한다.
@@ -621,6 +656,8 @@ public class BossMonster : AttackTouch
             gameObject.SetActive(false);
             return;
         }
+        //보스사망시 보스 hp를 숨긴다.
+        BossHpUI.Instance?.Hide();
 
         // 경험치 아이템 생성, HP 바 정리, 오브젝트 풀 반환 등
         // EnemyBase의 최종 사망 처리를 실행한다.
