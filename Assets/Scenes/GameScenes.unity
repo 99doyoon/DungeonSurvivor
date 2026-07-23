@@ -4342,15 +4342,15 @@ MonoBehaviour:
     weight: 5
   - monsterType: 12
     startTime: 0
-    endTime: 9999
+    endTime: 150
     weight: 5
   - monsterType: 13
     startTime: 0
-    endTime: 9999
+    endTime: 150
     weight: 5
   - monsterType: 14
     startTime: 30
-    endTime: 9999
+    endTime: 300
     weight: 5
   - monsterType: 15
     startTime: 90
@@ -4362,7 +4362,7 @@ MonoBehaviour:
     weight: 5
   - monsterType: 17
     startTime: 0
-    endTime: 9999
+    endTime: 150
     weight: 5
   - monsterType: 18
     startTime: 30
@@ -4374,7 +4374,7 @@ MonoBehaviour:
     weight: 5
   - monsterType: 20
     startTime: 0
-    endTime: 9999
+    endTime: 150
     weight: 5
   bossSpawnSchedule: {fileID: 11400000, guid: d7b9533d3c04b714190016010790bfca, type: 2}
 --- !u!1 &1319006691

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossSpawnSchedule
   bossSpawnList:
   - bossPrefab: {fileID: 7615249838802568893, guid: 21e188ba965252048857271b8476fb06, type: 3}
-    spawnTime: 20
+    spawnTime: 300
     minSpawnDistance: 8
     maxSpawnDistance: 12

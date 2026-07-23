@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Boss
   poolType: 21
-  maxHp: 200
+  maxHp: 800
   moveSpeed: 2
   damage: 100
   attackDistance: 1
