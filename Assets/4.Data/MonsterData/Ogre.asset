@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Ogre
   poolType: 16
-  maxHp: 10
+  maxHp: 45
   moveSpeed: 2
   damage: 15
   attackDistance: 3

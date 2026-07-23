@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Doc
   poolType: 11
-  maxHp: 10
+  maxHp: 40
   moveSpeed: 2
   damage: 30
   attackDistance: 4

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum BossStatus
 {
+    Intro,     // 등장 연출
     Idle,      // 대기 상태
     Chase,     // 플레이어 추적 상태
     Attack,    // 일반 공격 상태
@@ -21,6 +22,10 @@ public class BossMonster : AttackTouch
 
     [Header("애니메이션")]
     [SerializeField] private BossAnimation bossAnimation;
+
+    [Header("보스 등장 연출")]
+    [SerializeField] private float warningDuration = 1.5f;
+    [SerializeField] private float introDelay = 0.5f;
 
     [Header("참조")]
     [SerializeField] private Transform player;
@@ -86,7 +91,7 @@ public class BossMonster : AttackTouch
 
     private void OnEnable()
     {
-        bossStatus = BossStatus.Idle;
+        bossStatus = BossStatus.Intro;
         patternTimer = 0f;
         isPatternRunning = false;
         previousPattern = -1;
@@ -107,24 +112,7 @@ public class BossMonster : AttackTouch
             enemyBase.OnHpChanged += HandleHpChanged;
         }
 
-        StartCoroutine(ShowBossHpNextFrame());
-    }
-
-    private IEnumerator ShowBossHpNextFrame()
-    {
-        // EnemyBase.OnEnable의 Init이 끝날 때까지 한 프레임 기다린다.
-        yield return null;
-
-        if (enemyBase == null)
-        {
-            yield break;
-        }
-
-        BossHpUI.Instance?.Show(
-            enemyBase.GetMonsterName(),
-            enemyBase.CurrentHp,
-            enemyBase.GetMaxHp()
-        );
+        StartCoroutine(BossIntroRoutine());
     }
 
     private void HandleHpChanged(
@@ -171,14 +159,15 @@ public class BossMonster : AttackTouch
         {
             rb.linearVelocity = Vector2.zero;
         }
-
+        BossWarningUI.Instance?.Hide();
         BossHpUI.Instance?.Hide();
     }
 
     private void Update()
     {
-        // 보스가 사망한 상태라면 더 이상 AI를 실행하지 않는다.
-        if (bossStatus == BossStatus.Die)
+        // 보스가 사망이나 인트로중인 상태라면 더 이상 AI를 실행하지 않는다.
+        if (bossStatus == BossStatus.Intro ||
+       bossStatus == BossStatus.Die)
         {
             if (rb != null)
             {
@@ -681,6 +670,51 @@ public class BossMonster : AttackTouch
         isPatternRunning = false;
 
         // 다시 일반 행동으로 돌아간다.
+        bossStatus = BossStatus.Idle;
+    }
+
+    //보스등장시 인트로 재생
+    private IEnumerator BossIntroRoutine()
+    {
+        bossStatus = BossStatus.Intro;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        BossHpUI.Instance?.Hide();
+
+        BossWarningUI.Instance?.Show("WARNING");
+
+        yield return new WaitForSecondsRealtime(
+            warningDuration
+        );
+
+        BossWarningUI.Instance?.Hide();
+
+        if (enemyBase != null)
+        {
+            BossHpUI.Instance?.Show(
+                enemyBase.GetMonsterName(),
+                enemyBase.CurrentHp,
+                enemyBase.GetMaxHp()
+            );
+        }
+
+        SoundManager.Instance?.PlayBgm(
+            BGMType.Boss
+        );
+
+        yield return new WaitForSecondsRealtime(
+            introDelay
+        );
+
+        if (bossCollider != null)
+        {
+            bossCollider.enabled = true;
+        }
+
         bossStatus = BossStatus.Idle;
     }
 }

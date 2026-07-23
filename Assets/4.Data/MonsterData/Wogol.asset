@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Wogol
   poolType: 20
-  maxHp: 10
-  moveSpeed: 2
+  maxHp: 30
+  moveSpeed: 3
   damage: 10
   attackDistance: 4
   projectileSpeed: 5

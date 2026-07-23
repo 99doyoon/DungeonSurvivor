@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Imp
   poolType: 13
-  maxHp: 3
-  moveSpeed: 2
+  maxHp: 20
+  moveSpeed: 4
   damage: 10
   attackDistance: 0
   projectileSpeed: 5

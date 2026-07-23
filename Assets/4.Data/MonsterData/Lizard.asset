@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Lizard
   poolType: 14
-  maxHp: 10
+  maxHp: 35
   moveSpeed: 2
   damage: 10
   attackDistance: 0

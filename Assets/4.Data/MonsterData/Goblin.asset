@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Goblin
   poolType: 12
-  maxHp: 10
+  maxHp: 20
   moveSpeed: 2
   damage: 10
   attackDistance: 0

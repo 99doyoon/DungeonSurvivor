@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Big Zombie
   poolType: 9
-  maxHp: 10
+  maxHp: 100
   moveSpeed: 2
   damage: 15
   attackDistance: 0

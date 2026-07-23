@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: MaskedOrc
   poolType: 15
-  maxHp: 10
+  maxHp: 40
   moveSpeed: 2
   damage: 20
   attackDistance: 4
