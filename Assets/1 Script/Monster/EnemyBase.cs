@@ -206,6 +206,12 @@ public class EnemyBase : CharacterStatus, IPoolable
 
     private void PlayDeathEffect()
     {
+#if UNITY_EDITOR
+        Debug.Log(
+            $"사망 이펙트 요청: {name}, 위치: {transform.position}",
+            gameObject
+        );
+#endif
         EnemyDeathEffect effect =
             ObjectPool.instance.GetObject<EnemyDeathEffect>(
                 PoolType.EnemyDeathEffect
@@ -215,7 +221,12 @@ public class EnemyBase : CharacterStatus, IPoolable
         {
             return;
         }
-
+#if UNITY_EDITOR
+        Debug.Log(
+           $"사망 이펙트 가져오기 성공: {effect.name}",
+           effect.gameObject
+       );
+#endif
         SpriteRenderer spriteRenderer =
             GetComponentInChildren<SpriteRenderer>();
 

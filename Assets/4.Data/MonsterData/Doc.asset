@@ -16,7 +16,7 @@ MonoBehaviour:
   poolType: 11
   maxHp: 10
   moveSpeed: 2
-  damage: 1
+  damage: 30
   attackDistance: 4
   projectileSpeed: 5
   attackDelay: 1
