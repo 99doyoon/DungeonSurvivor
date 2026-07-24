@@ -91,7 +91,12 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
         isExploded = true;
 
         DamageNearbyEnemies();
+        DamageNearbyBarrels();
         PlayExplosionEffect();
+
+        SoundManager.Instance?.PlaySfx(
+            SFXType.Explosion
+        );
 
         CameraShake.Instance?.Play();
 
@@ -127,6 +132,31 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
             }
 
             enemy.TakeDamage(explosionDamage);
+        }
+    }
+
+    private void DamageNearbyBarrels()
+    {
+        Collider2D[] hits =
+            Physics2D.OverlapCircleAll(
+                transform.position,
+                explosionRadius
+            );
+
+        foreach (Collider2D hit in hits)
+        {
+            ExplosiveBarrel barrel =
+                hit.GetComponentInParent<ExplosiveBarrel>();
+
+            if (barrel == null ||
+                barrel == this)
+            {
+                continue;
+            }
+
+            barrel.TakeDamage(
+                explosionDamage
+            );
         }
     }
 

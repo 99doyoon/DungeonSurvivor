@@ -16,5 +16,6 @@ public enum SFXType
     LevelUp,
     ItemPickup,
     Countdown,
-    GameStart
+    GameStart,
+    Explosion
 }
