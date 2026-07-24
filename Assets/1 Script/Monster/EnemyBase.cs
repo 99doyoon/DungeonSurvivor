@@ -12,10 +12,18 @@ public class EnemyBase : CharacterStatus, IPoolable
     public MonsterData Data => monsterData;
     public float CurrentHp => nowHp;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float knockbackDuration = 0.15f;
+    [Header("넉백")]
+    [SerializeField]
+    private Rigidbody2D rb;
+
+    [SerializeField]
+    private float knockbackDuration = 0.2f;
 
     private bool isKnockback;
+
+    public bool IsKnockback => isKnockback;
+
+    private Coroutine knockbackCoroutine;
 
     public PoolType PoolType =>
         monsterData != null
@@ -31,8 +39,6 @@ public class EnemyBase : CharacterStatus, IPoolable
     public event Action<EnemyBase> OnDeathRequested;
 
     public bool isDead { get; private set; }
-
-    public bool IsKnockback => isKnockback;
 
     public event Action<float, float> OnHpChanged;
     public event Action<EnemyBase> OnInitialized;
@@ -298,9 +304,20 @@ public class EnemyBase : CharacterStatus, IPoolable
             return;
         }
 
-        StartCoroutine(
-            KnockbackRoutine(direction, force)
-        );
+        if (knockbackCoroutine != null)
+        {
+            StopCoroutine(
+                knockbackCoroutine
+            );
+        }
+
+        knockbackCoroutine =
+            StartCoroutine(
+                KnockbackRoutine(
+                    direction,
+                    force
+                )
+            );
     }
 
     private IEnumerator KnockbackRoutine(
@@ -309,16 +326,20 @@ public class EnemyBase : CharacterStatus, IPoolable
     {
         isKnockback = true;
 
+        direction.Normalize();
+
         rb.linearVelocity =
-            direction.normalized * force;
+            direction * force;
 
         yield return new WaitForSeconds(
             knockbackDuration
         );
 
-        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity =
+            Vector2.zero;
 
         isKnockback = false;
+        knockbackCoroutine = null;
     }
 
     public int GetExp() =>

@@ -234,11 +234,17 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
             explosionRangeObject.SetActive(false);
         }
 
+        GameEffectManager.Instance?
+            .PlayExplosionTimeEffect();
+
+        GameEffectManager.Instance?
+            .RegisterExplosion();
+
         DamageNearbyEnemies();
         DamageNearbyBarrels();
-        PlayExplosionEffect();
-
         DamagePlayer();
+
+        PlayExplosionEffect();
 
         SoundManager.Instance?.PlaySfx(
             SFXType.Explosion
