@@ -3475,6 +3475,9 @@ MonoBehaviour:
   - type: 29
     prefab: {fileID: 5873394527042362308, guid: 13f5ad28b4199bb47a73d221dac2a7db, type: 3}
     poolSize: 20
+  - type: 30
+    prefab: {fileID: 5436539404390603656, guid: 52e76b00fe1981649ab8e20384a708b1, type: 3}
+    poolSize: 50
 --- !u!4 &936111997
 Transform:
   m_ObjectHideFlags: 0
@@ -4306,7 +4309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1261045054
 Transform:
   m_ObjectHideFlags: 0

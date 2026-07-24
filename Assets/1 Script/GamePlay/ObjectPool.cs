@@ -50,6 +50,7 @@ public enum PoolType
     DamageText,
     EnemyDeathEffect,
 
+    //Block Object
     ExplosiveBarrel
 }
 

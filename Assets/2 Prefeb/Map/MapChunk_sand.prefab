@@ -5853,6 +5853,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9147430fb23713949b383f18cf9d6d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapChunk
+  minBarrelCount: 0
+  maxBarrelCount: 2
+  barrelSpawnChance: 0.7
+  spawnPadding: 2
+  overlapCheckRadius: 0.6
+  blockedLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   groundTilemap: {fileID: 0}
   decorationTilemap: {fileID: 0}
   obstacleTilemap: {fileID: 0}

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class ExplosiveBarrel : MonoBehaviour, IPoolable
 {
@@ -35,6 +36,8 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
     [Header("풀링")]
     [SerializeField]
     private PoolType poolType = PoolType.ExplosiveBarrel;
+
+    public event Action<ExplosiveBarrel> OnReturnedToPool;
 
     private float currentHp;
     private bool isExploded;
@@ -227,8 +230,6 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
 
         CameraShake.Instance?.Play();
 
-        gameObject.SetActive(false);
-
         ReturnToPool();
     }
 
@@ -328,6 +329,13 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
 
     private void ReturnToPool()
     {
+        OnReturnedToPool?.Invoke(this);
+
+        // 다음 사용자를 위해 기존 구독을 모두 제거
+        OnReturnedToPool = null;
+
+        transform.SetParent(null);
+
         if (ObjectPool.instance != null)
         {
             ObjectPool.instance.ReturnObject(this);
