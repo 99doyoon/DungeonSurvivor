@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class ExplosiveBarrel : MonoBehaviour, IPoolable
@@ -13,6 +14,23 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
 
     [Header("참조")]
     [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [Header("폭발 지연")]
+    [SerializeField] private float fuseDuration = 0.5f;
+    [SerializeField] private float blinkInterval = 0.1f;
+
+    private bool isIgnited;
+
+    [SerializeField]
+    private Vector2 fuseDurationRange =
+    new Vector2(0.25f, 0.55f);
+
+    [Header("폭발 범위 표시")]
+    [SerializeField]
+    private GameObject explosionRangeObject;
+
+    [SerializeField]
+    private SpriteRenderer explosionRangeRenderer;
 
     [Header("풀링")]
     [SerializeField]
@@ -31,22 +49,37 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
             spriteRenderer =
                 GetComponentInChildren<SpriteRenderer>();
         }
+
+        SetupExplosionRange();
     }
 
     private void OnEnable()
     {
         currentHp = maxHp;
+
+        isIgnited = false;
         isExploded = false;
+
+        transform.localScale =
+            Vector3.one;
 
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color =
+                Color.white;
+        }
+
+        if (explosionRangeObject != null)
+        {
+            explosionRangeObject.SetActive(false);
+
+            SetupExplosionRange();
         }
     }
 
     public void TakeDamage(float damage)
     {
-        if (isExploded)
+        if (isExploded || isIgnited)
         {
             return;
         }
@@ -57,8 +90,97 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
 
         if (currentHp <= 0f)
         {
-            Explode();
+            Ignite();
         }
+    }
+
+    private void Ignite()
+    {
+        if (isIgnited || isExploded)
+        {
+            return;
+        }
+
+        isIgnited = true;
+
+        if (explosionRangeObject != null)
+        {
+            explosionRangeObject.SetActive(true);
+        }
+
+        StartCoroutine(FuseRoutine());
+    }
+
+    private IEnumerator FuseRoutine()
+    {
+        float timer = 0f;
+        bool isRed = false;
+
+        Vector3 originalBarrelScale =
+            transform.localScale;
+
+        Vector3 originalRangeScale =
+            explosionRangeObject != null
+                ? explosionRangeObject.transform.localScale
+                : Vector3.one;
+
+        while (timer < fuseDuration)
+        {
+            timer += blinkInterval;
+
+            float progress = Mathf.Clamp01(
+                timer / fuseDuration
+            );
+
+            isRed = !isRed;
+
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color =
+                    isRed
+                        ? Color.red
+                        : Color.white;
+            }
+
+            transform.localScale =
+                originalBarrelScale *
+                Mathf.Lerp(
+                    1f,
+                    1.15f,
+                    progress
+                );
+
+            if (explosionRangeRenderer != null)
+            {
+                Color rangeColor =
+                    explosionRangeRenderer.color;
+
+                rangeColor.a =
+                    Mathf.Lerp(
+                        0.2f,
+                        0.7f,
+                        progress
+                    );
+
+                explosionRangeRenderer.color =
+                    rangeColor;
+            }
+
+            yield return new WaitForSeconds(
+                blinkInterval
+            );
+        }
+
+        transform.localScale =
+            originalBarrelScale;
+
+        if (explosionRangeObject != null)
+        {
+            explosionRangeObject.transform.localScale =
+                originalRangeScale;
+        }
+
+        Explode();
     }
 
     private void PlayHitFeedback()
@@ -90,6 +212,11 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
 
         isExploded = true;
 
+        if (explosionRangeObject != null)
+        {
+            explosionRangeObject.SetActive(false);
+        }
+
         DamageNearbyEnemies();
         DamageNearbyBarrels();
         PlayExplosionEffect();
@@ -99,6 +226,8 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
         );
 
         CameraShake.Instance?.Play();
+
+        gameObject.SetActive(false);
 
         ReturnToPool();
     }
@@ -180,6 +309,23 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
         );
     }
 
+    private void SetupExplosionRange()
+    {
+        if (explosionRangeObject == null)
+        {
+            return;
+        }
+
+        float diameter = explosionRadius * 2f;
+
+        explosionRangeObject.transform.localScale =
+            new Vector3(
+                diameter,
+                diameter,
+                1f
+            );
+    }
+
     private void ReturnToPool()
     {
         if (ObjectPool.instance != null)
@@ -194,11 +340,24 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
 
     private void OnDisable()
     {
+        StopAllCoroutines();
         CancelInvoke();
+
+        isIgnited = false;
+        isExploded = false;
+
+        transform.localScale =
+            Vector3.one;
 
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color =
+                Color.white;
+        }
+
+        if (explosionRangeObject != null)
+        {
+            explosionRangeObject.SetActive(false);
         }
     }
 
