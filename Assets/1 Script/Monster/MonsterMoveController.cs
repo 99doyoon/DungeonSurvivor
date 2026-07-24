@@ -75,6 +75,12 @@ public class MonsterMoveController : MonoBehaviour
 
     private void Update()
     {
+        if (enemyBase != null &&
+       enemyBase.IsKnockback)
+        {
+            return;
+        }
+
         // 사망 중에는 추적이나 공격을 실행하지 않는다.
         if (enemyBase.isDead)
             return;
@@ -110,6 +116,12 @@ public class MonsterMoveController : MonoBehaviour
 
     private void Trace()
     {
+        if (enemyBase != null &&
+        enemyBase.IsKnockback)
+        {
+            return;
+        }
+
         Move();
     }
 

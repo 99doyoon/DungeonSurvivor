@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: -3321499213374883474}
   - component: {fileID: 6767489860335009074}
   - component: {fileID: 1215731553099066195}
+  - component: {fileID: 6606315891992260356}
   m_Layer: 7
   m_Name: BigZombie
   m_TagString: Untagged
@@ -209,6 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2761d29eabd5ba946b9a93d3f7e8dbbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterAnimation
+  fallAngle: 90
+  fallDuration: 0.3
   monsterMoveController: {fileID: -3321499213374883474}
 --- !u!114 &-3321499213374883474
 MonoBehaviour:
@@ -222,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08580e2a31e24141be8777854c310b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMoveController
+  monsterAnimation: {fileID: 0}
   bulletType: 0
   player: {fileID: 6846767441360440053, guid: 7b37a87068086ba4f8e574c4c353ec62, type: 3}
 --- !u!114 &6767489860335009074
@@ -239,6 +243,8 @@ MonoBehaviour:
   maxHp: 0
   nowHp: 0
   monsterData: {fileID: 11400000, guid: 8cc39458cbe367140b636698c2a08d4c, type: 2}
+  rb: {fileID: 0}
+  knockbackDuration: 0.15
 --- !u!114 &1215731553099066195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +258,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackTouch
   damage: 0
+--- !u!50 &6606315891992260356
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221378658095132723}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

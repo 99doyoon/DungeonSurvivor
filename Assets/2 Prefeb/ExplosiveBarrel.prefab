@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168449fb40710644b7956d3f0d3bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosiveBarrel
-  maxHp: 30
+  maxHp: 15
   explosionDamage: 50
   explosionRadius: 3
   enemyLayer:
@@ -208,6 +208,7 @@ MonoBehaviour:
   fuseDuration: 0.5
   blinkInterval: 0.1
   fuseDurationRange: {x: 0.25, y: 0.55}
+  explosionKnockbackForce: 8
   canDamagePlayer: 1
   playerExplosionDamage: 20
   playerLayer:

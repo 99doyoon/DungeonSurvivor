@@ -26,6 +26,10 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
     private Vector2 fuseDurationRange =
     new Vector2(0.25f, 0.55f);
 
+    [Header("폭발 넉백")]
+    [SerializeField]
+    private float explosionKnockbackForce = 8f;
+
     [Header("플레이어 피해")]
     [SerializeField]
     private bool canDamagePlayer = true;
@@ -274,6 +278,24 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
             }
 
             enemy.TakeDamage(explosionDamage);
+
+            Vector2 direction =
+            enemy.transform.position -
+            transform.position;
+
+            if (direction.sqrMagnitude < 0.01f)
+            {
+                direction = UnityEngine.Random.insideUnitCircle.normalized;
+            }
+            else
+            {
+                direction.Normalize();
+            }
+
+            enemy.ApplyKnockback(
+                direction,
+                explosionKnockbackForce
+            );
         }
     }
 
