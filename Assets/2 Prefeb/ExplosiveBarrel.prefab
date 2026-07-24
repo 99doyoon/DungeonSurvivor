@@ -208,6 +208,11 @@ MonoBehaviour:
   fuseDuration: 0.5
   blinkInterval: 0.1
   fuseDurationRange: {x: 0.25, y: 0.55}
+  canDamagePlayer: 1
+  playerExplosionDamage: 20
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
   explosionRangeObject: {fileID: 6903156825851537544}
   explosionRangeRenderer: {fileID: 1213408175910288180}
   poolType: 30

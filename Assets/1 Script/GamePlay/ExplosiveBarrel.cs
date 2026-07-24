@@ -26,6 +26,16 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
     private Vector2 fuseDurationRange =
     new Vector2(0.25f, 0.55f);
 
+    [Header("플레이어 피해")]
+    [SerializeField]
+    private bool canDamagePlayer = true;
+
+    [SerializeField]
+    private float playerExplosionDamage = 20f;
+
+    [SerializeField]
+    private LayerMask playerLayer;
+
     [Header("폭발 범위 표시")]
     [SerializeField]
     private GameObject explosionRangeObject;
@@ -224,6 +234,8 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
         DamageNearbyBarrels();
         PlayExplosionEffect();
 
+        DamagePlayer();
+
         SoundManager.Instance?.PlaySfx(
             SFXType.Explosion
         );
@@ -288,6 +300,38 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
                 explosionDamage
             );
         }
+    }
+
+    private void DamagePlayer()
+    {
+        if (!canDamagePlayer)
+        {
+            return;
+        }
+
+        Collider2D playerCollider =
+            Physics2D.OverlapCircle(
+                transform.position,
+                explosionRadius,
+                playerLayer
+            );
+
+        if (playerCollider == null)
+        {
+            return;
+        }
+
+        PlayerStatus player =
+            playerCollider.GetComponentInParent<PlayerStatus>();
+
+        if (player == null)
+        {
+            return;
+        }
+
+        player.TakeDamage(
+            playerExplosionDamage
+        );
     }
 
     private void PlayExplosionEffect()
