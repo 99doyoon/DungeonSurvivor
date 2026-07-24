@@ -48,7 +48,9 @@ public enum PoolType
     //Effect
     ExplosionEffect,
     DamageText,
-    EnemyDeathEffect
+    EnemyDeathEffect,
+
+    ExplosiveBarrel
 }
 
 public class ObjectPool : MonoBehaviour

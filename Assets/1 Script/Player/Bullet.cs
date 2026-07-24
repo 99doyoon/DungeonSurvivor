@@ -43,6 +43,19 @@ public class Bullet : MonoBehaviour, IPoolable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        ExplosiveBarrel barrel =
+        collision.GetComponentInParent<
+            ExplosiveBarrel
+        >();
+
+        if (barrel != null)
+        {
+            barrel.TakeDamage(damage);
+
+            ObjectPool.instance.ReturnObject(this);
+            return;
+        }
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             ObjectPool.instance.ReturnObject(this);

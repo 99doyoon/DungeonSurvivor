@@ -57,4 +57,15 @@ public class BossWarningUI : MonoBehaviour
             warningPanel.SetActive(false);
         }
     }
+
+    private void OnDisable()
+    {
+        blinkTween?.Kill();
+        blinkTween = null;
+
+        if (warningText != null)
+        {
+            warningText.DOKill();
+        }
+    }
 }
