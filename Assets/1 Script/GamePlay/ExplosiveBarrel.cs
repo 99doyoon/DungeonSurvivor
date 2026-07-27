@@ -56,7 +56,7 @@ public class ExplosiveBarrel : MonoBehaviour, IPoolable
     private float currentHp;
     private bool isExploded;
 
-    public PoolType PoolType => poolType;
+    public PoolType PoolType => PoolType.ExplosiveBarrel;
     public GameObject GameObject => gameObject;
 
     private void Awake()

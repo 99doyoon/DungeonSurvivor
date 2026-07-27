@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +23,10 @@ public class GameUIManager : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private PlayerStatus playerStatus;
+
+    [Header("Timer")]
+    [SerializeField] private TMP_Text survivalTimeText;
+    [SerializeField] private GameTimer gameTimer;
 
     /// <summary>
     /// 현재 게임의 진행 상태.
@@ -265,5 +270,33 @@ public class GameUIManager : MonoBehaviour
         {
             pausePanelUI.Show(playerStatus.Level);
         }
+    }
+
+    public void OpenGameOver()
+    {
+        gameTimer.StopTimer();
+        ShowSurvivalTime();
+
+        Time.timeScale = 0f;
+        resultPanel.SetActive(true);
+    }
+
+
+    public void OpenClear()
+    {
+        gameTimer.StopTimer();
+
+        Time.timeScale = 0f;
+        resultPanel.SetActive(true);
+    }
+
+    private void ShowSurvivalTime()
+    {
+        int totalSeconds = Mathf.FloorToInt(gameTimer.ElapsedTime);
+
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        survivalTimeText.text = $"생존 시간 {minutes:00}:{seconds:00}";
     }
 }

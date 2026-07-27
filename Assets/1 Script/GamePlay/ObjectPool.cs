@@ -81,7 +81,7 @@ public class ObjectPool : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        InitializePools();
         instance = this;
     }
 
@@ -108,6 +108,39 @@ public class ObjectPool : MonoBehaviour
                 pools[data.type].Enqueue(go);
 
                 allObjectPool.Enqueue(go);
+            }
+        }
+    }
+
+    private void InitializePools()
+    {
+        pools.Clear();
+
+        foreach (PoolData poolData in poolList)
+        {
+            if (poolData.type == PoolType.None)
+            {
+                continue;
+            }
+
+            if (poolData.prefab == null)
+            {
+                continue;
+            }
+
+            if (pools.ContainsKey(poolData.type))
+            {
+                continue;
+            }
+
+            Queue<GameObject> queue = new Queue<GameObject>();
+            pools.Add(poolData.type, queue);
+
+            for (int i = 0; i < poolData.poolSize; i++)
+            {
+                GameObject obj = Instantiate(poolData.prefab, transform);
+                obj.SetActive(false);
+                queue.Enqueue(obj);
             }
         }
     }
