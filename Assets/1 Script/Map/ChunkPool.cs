@@ -53,7 +53,6 @@ public class ChunkPool : MonoBehaviour
     {
         if (prefab == null)
         {
-            Debug.LogError("가져올 청크 프리팹이 null입니다.");
             return null;
         }
 
@@ -87,9 +86,6 @@ public class ChunkPool : MonoBehaviour
 
         if (!prefabLookup.TryGetValue(chunk, out MapChunk prefab))
         {
-            Debug.LogWarning(
-                $"{chunk.name}의 원본 프리팹 정보를 찾지 못했습니다.");
-
             chunk.gameObject.SetActive(false);
             return;
         }

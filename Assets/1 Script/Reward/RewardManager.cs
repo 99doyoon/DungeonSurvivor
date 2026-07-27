@@ -100,20 +100,16 @@ public class RewardManager : MonoBehaviour
 
     public void SelectReward(RewardData selectedReward)
     {
-        Debug.Log($"RewardManager에서 선택: {selectedReward.rewardName}");
-
         RewardState state = rewardStates.Find(
             rewardState => rewardState.rewardData == selectedReward);
 
         if (state == null)
         {
-            Debug.LogError("선택한 보상 데이터를 찾을 수 없습니다.");
             return;
         }
 
         if (!state.CanLevelUp())
         {
-            Debug.Log($"{selectedReward.rewardName}은 최대 레벨입니다.");
             return;
         }
 
@@ -121,10 +117,5 @@ public class RewardManager : MonoBehaviour
         state.LevelUp();
         CloseReward();
 
-#if UNITY_EDITOR
-        Debug.Log(
-            $"{selectedReward.rewardName} 선택 " +
-            $"현재 레벨: {state.currentLevel}/{selectedReward.maxLevel}");
-#endif
     }
 }

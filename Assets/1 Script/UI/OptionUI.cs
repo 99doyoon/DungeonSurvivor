@@ -57,10 +57,6 @@ public class OptionUI : MonoBehaviour
         if (cameraShakeToggle == null ||
             cameraShakeSlider == null)
         {
-            Debug.LogError(
-                "OptionUI에 카메라 흔들림 Toggle 또는 Slider가 연결되지 않았습니다.",
-                this
-            );
 
             return;
         }
@@ -133,15 +129,11 @@ public class OptionUI : MonoBehaviour
     private void OnCameraShakeToggleChanged(
         bool enabled)
     {
-#if ENABLE_UNITYEVENTS
-        Debug.Log($"카메라 흔들림 토글 변경: {enabled}");
-
         if (CameraShake.Instance == null)
         {
-            Debug.LogError("CameraShake.Instance가 null입니다.");
             return;
         }
-#endif
+
         CameraShake.Instance?
             .SetShakeEnabled(enabled);
 
@@ -151,15 +143,12 @@ public class OptionUI : MonoBehaviour
     private void OnCameraShakeStrengthChanged(
         float value)
     {
-#if ENABLE_UNITYEVENTS
-        Debug.Log($"카메라 흔들림 세기 변경: {value}");
 
         if (CameraShake.Instance == null)
         {
-            Debug.LogError("CameraShake.Instance가 null입니다.");
             return;
         }
-#endif
+
         CameraShake.Instance?
             .SetStrengthMultiplier(value);
     }

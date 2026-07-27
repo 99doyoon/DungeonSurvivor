@@ -21,12 +21,6 @@ public class ExplosionEffect : IProjectileEffect
     {
         Vector3 explosionPosition = target.transform.position;
 
-#if UNITY_EDITOR
-        Debug.Log(
-        $"폭발 효과 실행: 위치 {explosionPosition}, 피해량 {damage}"
-    );
-#endif
-
         PlayEffect(explosionPosition);
         ApplyExplosionDamage(explosionPosition, target);
 
@@ -42,9 +36,6 @@ public class ExplosionEffect : IProjectileEffect
 
         if (effect == null)
         {
-            Debug.LogWarning(
-                $"{effectPoolType} 이펙트를 풀에서 가져오지 못했습니다."
-            );
 
             return;
         }

@@ -57,10 +57,6 @@ public class BossHpUI : MonoBehaviour
         if (bossHpPanel == null ||
             bossHpSlider == null)
         {
-            Debug.LogError(
-                "BossHpUI의 Panel 또는 Slider가 연결되지 않았습니다.",
-                gameObject
-            );
 
             return;
         }

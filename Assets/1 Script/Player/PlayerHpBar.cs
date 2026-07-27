@@ -21,7 +21,6 @@ public class PlayerHpBar : MonoBehaviour
     {
         if (hpSlider == null)
         {
-            Debug.LogError("PlayerHpBar에 Slider가 없습니다.", gameObject);
             return;
         }
 

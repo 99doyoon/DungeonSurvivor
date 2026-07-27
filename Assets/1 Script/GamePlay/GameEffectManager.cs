@@ -70,8 +70,6 @@ public class GameEffectManager : MonoBehaviour
         chainCount++;
         lastExplosionTime = Time.unscaledTime;
 
-        Debug.Log($"폭발 카운트: {chainCount}");
-
         if (chainCount < 2)
         {
             return;
@@ -155,15 +153,11 @@ public class GameEffectManager : MonoBehaviour
     {
         isTimeEffectPlaying = true;
 
-        Debug.Log("히트스톱 시작");
-
         Time.timeScale = 0f;
 
         yield return new WaitForSecondsRealtime(
             hitStopDuration
         );
-
-        Debug.Log("슬로모션 시작");
 
         Time.timeScale = slowTimeScale;
 
@@ -172,8 +166,6 @@ public class GameEffectManager : MonoBehaviour
         );
 
         Time.timeScale = 1f;
-
-        Debug.Log("시간 정상화");
 
         isTimeEffectPlaying = false;
         timeEffectCoroutine = null;

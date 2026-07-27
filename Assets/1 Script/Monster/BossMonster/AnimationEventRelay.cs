@@ -12,10 +12,7 @@ public class AnimationEventRelay : MonoBehaviour
 
         if (bossMonster == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}의 부모에서 BossMonster를 찾을 수 없습니다.",
-                gameObject
-            );
+
         }
     }
 

@@ -24,10 +24,7 @@ public class EnemyDeathEffect : MonoBehaviour, IPoolable
 
         if (particle == null)
         {
-            Debug.LogError(
-                $"{name}에서 ParticleSystem을 찾지 못했습니다.",
-                gameObject
-            );
+
         }
     }
 

@@ -19,9 +19,7 @@ public class HitFlashUI : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-#if UNITY_EDITOR
-        Debug.Log($"HitFlashUI 등록: {name}", gameObject);
-#endif
+
         if (flashImage == null)
         {
             flashImage = GetComponent<Image>();
@@ -32,9 +30,7 @@ public class HitFlashUI : MonoBehaviour
 
     public void Play()
     {
-#if UNITY_EDITOR
-        Debug.Log("HitFlashUI.Play 호출됨", gameObject);
-#endif
+
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);

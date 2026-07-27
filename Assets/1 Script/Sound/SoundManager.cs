@@ -78,7 +78,6 @@ public class SoundManager : MonoBehaviour
 
         if (!bgmDictionary.TryGetValue(type, out AudioClip clip))
         {
-            Debug.LogWarning($"{type} BGM이 등록되어 있지 않습니다.");
             return;
         }
 
@@ -105,16 +104,11 @@ public class SoundManager : MonoBehaviour
     {
         if (sfxSource == null)
         {
-            Debug.LogError("SFX AudioSource가 연결되지 않았습니다.");
             return;
         }
 
         if (!sfxDictionary.TryGetValue(type, out AudioClip clip))
         {
-            Debug.LogWarning(
-                $"{type} 효과음이 등록되지 않았습니다."
-            );
-
             return;
         }
 

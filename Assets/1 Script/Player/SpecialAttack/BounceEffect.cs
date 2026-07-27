@@ -29,9 +29,7 @@ public class BounceEffect : IProjectileEffect
         // 2. 남은 횟수가 있는지 확인
         if (remainBounceCount <= 0)
         {
-#if UNITY_EDITOR
-            Debug.Log("남은 튕김 횟수 없음");
-#endif
+
             return false;
         }
         // 3. 주변 Collider 탐색
@@ -40,9 +38,7 @@ public class BounceEffect : IProjectileEffect
         // 4. 가장 가까운 새로운 적 찾기
         if (nextTarget == null)
         {
-#if UNITY_EDITOR
-            Debug.Log("다음 적을 찾지 못함");
-#endif
+
             return false;
         }
 
@@ -61,11 +57,7 @@ public class BounceEffect : IProjectileEffect
 
         // 8. 남은 횟수 감소
         remainBounceCount--;
-#if UNITY_EDITOR
-        Debug.Log(
-       $"{target.name}에서 {nextTarget.name}으로 튕김"
-        );
-#endif
+
         // 9. 화살이 풀로 반환되지 않게 표시
         return true;
     }

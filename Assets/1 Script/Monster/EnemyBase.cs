@@ -54,11 +54,6 @@ public class EnemyBase : CharacterStatus, IPoolable
 
         if (monsterData == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}의 MonsterData가 연결되지 않았습니다.",
-                gameObject
-            );
-
             return;
         }
 
@@ -69,13 +64,6 @@ public class EnemyBase : CharacterStatus, IPoolable
         if (TryGetComponent(out AttackTouch attackTouch))
         {
             attackTouch.SetDamage(monsterData.damage);
-        }
-        else
-        {
-            Debug.LogWarning(
-                $"{gameObject.name}에 AttackTouch 컴포넌트가 없습니다.",
-                gameObject
-            );
         }
 
         monsterAnimation= GetComponentInChildren<MonsterAnimation>();
@@ -128,9 +116,6 @@ public class EnemyBase : CharacterStatus, IPoolable
     /// </summary>
     public void CompleteDeath()
     {
-#if UNITY_EDITOR
-        Debug.Log($"CompleteDeath 호출: {name}", gameObject);
-#endif
         PlayDeathEffect();
 
         DropExp();
@@ -148,20 +133,11 @@ public class EnemyBase : CharacterStatus, IPoolable
 
         if (expItem == null)
         {
-            Debug.LogWarning(
-                "ExpItem을 오브젝트 풀에서 가져오지 못했습니다."
-            );
-
             return;
         }
 
         if (!expItem.TryGetComponent(out ExpItem exp))
         {
-            Debug.LogError(
-                $"{expItem.name}에 ExpItem 컴포넌트가 없습니다.",
-                expItem
-            );
-
             IPoolable poolable =
                 expItem.GetComponent<IPoolable>();
 
@@ -188,10 +164,6 @@ public class EnemyBase : CharacterStatus, IPoolable
             monsterAnimation.HitAnimation();
         }
 
-#if UNITY_EDITOR
-        Debug.Log($"피해 발생: {damage}");
-#endif
-
         ShowDamageText(damage);
 
         //몬스터 피격시 사운드재생
@@ -205,9 +177,6 @@ public class EnemyBase : CharacterStatus, IPoolable
 
     private void ShowDamageText(float damage)
     {
-#if UNITY_EDITOR
-        Debug.Log($"ShowDamageText 호출: {damage}");
-#endif
 
         DamageText text =
             ObjectPool.instance.GetObject<DamageText>(
@@ -216,29 +185,18 @@ public class EnemyBase : CharacterStatus, IPoolable
 
         if (text == null)
         {
-#if UNITY_EDITOR
-            Debug.LogError("DamageText를 풀에서 가져오지 못했습니다.");
-#endif
             return;
         }
 
         Vector3 spawnPosition =
             transform.position + Vector3.up;
-#if UNITY_EDITOR
-        Debug.Log($"DamageText 생성 위치: {spawnPosition}");
-#endif
+
         spawnPosition.z = -1f;
         text.Play(spawnPosition, damage);
     }
 
     private void PlayDeathEffect()
     {
-#if UNITY_EDITOR
-        Debug.Log(
-            $"사망 이펙트 요청: {name}, 위치: {transform.position}",
-            gameObject
-        );
-#endif
         EnemyDeathEffect effect =
             ObjectPool.instance.GetObject<EnemyDeathEffect>(
                 PoolType.EnemyDeathEffect
@@ -248,12 +206,7 @@ public class EnemyBase : CharacterStatus, IPoolable
         {
             return;
         }
-#if UNITY_EDITOR
-        Debug.Log(
-           $"사망 이펙트 가져오기 성공: {effect.name}",
-           effect.gameObject
-       );
-#endif
+
         SpriteRenderer spriteRenderer =
             GetComponentInChildren<SpriteRenderer>();
 

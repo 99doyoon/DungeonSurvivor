@@ -48,24 +48,15 @@ public class InfiniteMapManager : MonoBehaviour
 
     private void Start()
     {
-#if UNITY_EDITOR
+
         if (player == null)
         {
-            Debug.LogError(
-                "InfiniteMapManager에 Player가 연결되지 않았습니다.",
-                gameObject
-            );
-
             enabled = false;
             return;
         }
 
         if (chunkPool == null)
         {
-            Debug.LogError(
-                "InfiniteMapManager에 ChunkPool이 연결되지 않았습니다.",
-                gameObject
-            );
 
             enabled = false;
             return;
@@ -73,15 +64,10 @@ public class InfiniteMapManager : MonoBehaviour
 
         if (chunkSize <= 0f)
         {
-            Debug.LogError(
-                "Chunk Size는 0보다 커야 합니다.",
-                gameObject
-            );
 
             enabled = false;
             return;
         }
-#endif
 
         previousPlayerChunk = GetPlayerChunkPosition();
         UpdateChunks();
@@ -142,10 +128,6 @@ public class InfiniteMapManager : MonoBehaviour
 
         if (selectedPrefab == null)
         {
-            Debug.LogError(
-                $"{chunkPosition}에 사용할 청크가 없습니다."
-            );
-
             return;
         }
 
@@ -206,11 +188,6 @@ public class InfiniteMapManager : MonoBehaviour
 
         if (chunkList == null || chunkList.Count == 0)
         {
-            Debug.LogError(
-                "ChunkPool에 사용할 청크 데이터가 없습니다.",
-                gameObject
-            );
-
             return null;
         }
 
@@ -231,11 +208,6 @@ public class InfiniteMapManager : MonoBehaviour
 
         if (totalWeight <= 0)
         {
-            Debug.LogError(
-                "청크 가중치의 합이 0 이하입니다.",
-                gameObject
-            );
-
             return null;
         }
 

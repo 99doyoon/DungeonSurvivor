@@ -176,10 +176,6 @@ public class PlayerStatus : CharacterStatus, IHit
 
         isDead = true;
 
-#if UNITY_EDITOR
-        Debug.Log("Player Die");
-#endif
-
         // 자동 회복 중지
         if (autoHealCoroutine != null)
         {
@@ -232,11 +228,6 @@ public class PlayerStatus : CharacterStatus, IHit
 
         if (GameUIManager.Instance == null)
         {
-            Debug.LogError(
-                "GameUIManager.Instance가 null입니다.",
-                gameObject
-            );
-
             yield break;
         }
 

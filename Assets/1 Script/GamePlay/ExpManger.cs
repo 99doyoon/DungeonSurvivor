@@ -20,13 +20,6 @@ public class ExpManger : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-#if UNITY_EDITOR
-        Debug.Log(
-        $"ExpManger Awake: {gameObject.name}, " +
-        $"PlayerStatus: {playerStatus?.gameObject.name}",
-        gameObject
-        );
-#endif
 
         if (expSlider == null)
         {
@@ -34,9 +27,7 @@ public class ExpManger : MonoBehaviour
         }
         else
         {
-#if UNITY_EDITOR
-            Debug.Log($"expSlider != null");
-#endif
+
         }
 
         if(levelPrint == null)
@@ -45,9 +36,7 @@ public class ExpManger : MonoBehaviour
         }
         else
         {
-#if UNITY_EDITOR
-            Debug.Log($"levelPrint != null");
-#endif
+
         }
     }
 
@@ -102,16 +91,6 @@ public class ExpManger : MonoBehaviour
         int requiredExp =
             expForLevel.nextExpRequired[levelIndex];
 
-#if UNITY_EDITOR
-        Debug.Log(
-            $"[레벨업 전 검사] " +
-            $"레벨: {playerStatus.Level}, " +
-            $"경험치: {playerStatus.CurrentExp}, " +
-            $"필요 경험치: {requiredExp}, " +
-            $"인덱스: {levelIndex}",
-            playerStatus
-        );
-#endif
 
         if (!CheckLevelUp())
             return;
@@ -119,26 +98,9 @@ public class ExpManger : MonoBehaviour
         // 필요한 경험치 차감
         playerStatus.AddExp(-requiredExp);
 
-#if UNITY_EDITOR
-        Debug.Log(
-            $"[경험치 차감 후] " +
-            $"레벨: {playerStatus.Level}, " +
-            $"경험치: {playerStatus.CurrentExp}",
-            playerStatus
-        );
-#endif
-
         // 레벨 1 증가
         playerStatus.AddLevel(1);
 
-#if UNITY_EDITOR
-        Debug.Log(
-            $"[레벨 증가 후] " +
-            $"레벨: {playerStatus.Level}, " +
-            $"경험치: {playerStatus.CurrentExp}",
-            playerStatus
-        );
-#endif
 
         SetLevelText();
         SetExpGage();
@@ -203,13 +165,6 @@ public class ExpManger : MonoBehaviour
     //게임시작시 경험치및 레벨 초기화 만약 세이브로드로 불러오는 기능추가시 수정할것
     void SetGameStartPlayerLevelAndExp()
     {
-#if UNITY_EDITOR
-        Debug.Log(
-            $"레벨과 경험치를 초기화합니다. " +
-            $"오브젝트: {gameObject.name}",
-            gameObject
-        );
-#endif
         //게임 진행상황을 저장하고 실행할경우 함수를 수정할것
         playerStatus.SetExp(0);
         playerStatus.SetLevel(1);

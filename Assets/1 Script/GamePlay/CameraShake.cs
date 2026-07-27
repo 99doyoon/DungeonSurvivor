@@ -28,13 +28,6 @@ public class CameraShake : MonoBehaviour
 
     public void Play()
     {
-#if UNITY_EDITOR
-        Debug.Log(
-            $"흔들림 요청 - 활성화: {IsShakeEnabled}, " +
-            $"기본 세기: {shakeStrength}, " +
-            $"배율: {StrengthMultiplier}"
-        );
-#endif
         if (!IsShakeEnabled)
         {
             return;
@@ -109,8 +102,6 @@ public class CameraShake : MonoBehaviour
     {
         IsShakeEnabled = enabled;
 
-        Debug.Log($"CameraShake 활성 상태 변경: {IsShakeEnabled}");
-
         if (save)
         {
             PlayerPrefs.SetInt(
@@ -133,10 +124,6 @@ public class CameraShake : MonoBehaviour
     {
         StrengthMultiplier =
             Mathf.Clamp01(value);
-
-        Debug.Log(
-            $"CameraShake 배율 변경: {StrengthMultiplier}"
-        );
 
         if (save)
         {

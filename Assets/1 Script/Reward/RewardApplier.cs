@@ -16,14 +16,9 @@ public class RewardApplier : MonoBehaviour
 
         if (playerStatus == null)
         {
-            Debug.LogError("같은 오브젝트에서 PlayerStatus를 찾지 못했습니다.");
+
         }
 
-#if UNITY_EDITOR
-        Debug.Log(
-        $"[RewardApplier] PlayerStatus: {playerStatus.gameObject.name}, " +
-        $"ID: {playerStatus.GetInstanceID()}");
-#endif
     }
 
     //보상에따른 함수 호출
@@ -31,7 +26,6 @@ public class RewardApplier : MonoBehaviour
     {
         if (reward == null)
         {
-            Debug.LogError("RewardData가 null입니다.");
             return;
         }
 
@@ -91,8 +85,6 @@ public class RewardApplier : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning(
-                    $"처리되지 않은 보상입니다: {reward.rewardType}");
                 break;
         }
     }

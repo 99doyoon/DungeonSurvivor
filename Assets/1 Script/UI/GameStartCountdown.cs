@@ -32,10 +32,6 @@ public class GameStartCountdown : MonoBehaviour
     {
         if (countdownText == null)
         {
-            Debug.LogError(
-                "GameStartCountdown에 Countdown Text가 연결되지 않았습니다.",
-                gameObject
-            );
 
             Time.timeScale = 1f;
             yield break;

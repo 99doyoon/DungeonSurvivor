@@ -22,22 +22,7 @@ public class AutoAttack : MonoBehaviour
         playerStatus = GetComponentInParent<PlayerStatus>();
         projectileEffectManager =
             GetComponentInParent<ProjectileEffectManager>();
-#if UNITY_EDITOR
-        if (playerStatus == null)
-        {
-            Debug.LogError("AutoAttack이 PlayerStatus를 찾지 못했습니다.");
-        }
-        Debug.Log(
-            $"[AutoAttack] 9erStatus: {playerStatus.gameObject.name}, " +
-            $"ID: {playerStatus.GetInstanceID()}");
 
-        if (projectileEffectManager == null)
-        {
-            Debug.LogError(
-                "AutoAttack이 ProjectileEffectManager를 찾지 못했습니다."
-            );
-        }
-#endif
     }
 
     private void OnEnable()

@@ -149,7 +149,6 @@ public class ObjectPool : MonoBehaviour
     {
         if (!pools.TryGetValue(type, out Queue<GameObject> pool))
         {
-            Debug.LogError($"{type} 타입의 풀이 등록되어 있지 않습니다.");
             return null;
         }
 
@@ -168,7 +167,6 @@ public class ObjectPool : MonoBehaviour
 
             if (poolData == null || poolData.prefab == null)
             {
-                Debug.LogError($"{type} 타입의 프리팹이 Pool List에 등록되지 않았습니다.");
                 return null;
             }
 
@@ -185,18 +183,11 @@ public class ObjectPool : MonoBehaviour
 
         if (go == null)
         {
-            Debug.LogError(
-                $"{type} 타입의 오브젝트를 풀에서 가져오지 못했습니다. " +
-                "ObjectPool의 Pool List 등록을 확인하세요.");
-
             return null;
         }
 
         if (!go.TryGetComponent(out T component))
         {
-            Debug.LogError(
-                $"{go.name} 프리팹에 {typeof(T).Name} 컴포넌트가 없습니다.");
-
             go.SetActive(false);
             pools[type].Enqueue(go);
 
@@ -212,14 +203,12 @@ public class ObjectPool : MonoBehaviour
     {
         if (type == PoolType.None)
         {
-            Debug.LogError($"{go.name}의 PoolType이 None입니다. 프리팹 Inspector에서 PoolType을 설정해주세요.");
             go.SetActive(false);
             return;
         }
 
         if (!pools.ContainsKey(type))
         {
-            Debug.LogError($"풀에 등록되지 않은 PoolType입니다: {type}, Object: {go.name}");
             go.SetActive(false);
             return;
         }

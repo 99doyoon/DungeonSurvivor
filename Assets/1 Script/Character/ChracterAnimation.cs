@@ -39,11 +39,6 @@ public abstract class ChracterAnimation : MonoBehaviour
 
         if (sr == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}: SpriteRenderer를 찾지 못했습니다.",
-                gameObject
-            );
-
             return;
         }
 
@@ -64,11 +59,6 @@ public abstract class ChracterAnimation : MonoBehaviour
     {
         if (visualTransform == null)
         {
-            Debug.LogWarning(
-                $"{gameObject.name}: SettingAnimation이 호출되지 않았거나 " +
-                "SpriteRenderer가 없습니다.",
-                gameObject
-            );
 
             return;
         }

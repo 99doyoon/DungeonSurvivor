@@ -152,11 +152,6 @@ public class MapChunk : MonoBehaviour
 
         if (barrel == null)
         {
-            Debug.LogWarning(
-                "폭발 배럴을 풀에서 가져오지 못했습니다.",
-                gameObject
-            );
-
             return;
         }
 

@@ -53,18 +53,11 @@ public class BossMonster : AttackTouch
 
         if (enemyBase == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}에 EnemyBase가 없습니다.",
-                gameObject
-            );
+
         }
 
         if (rb == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}에 Rigidbody2D가 없습니다.",
-                gameObject
-            );
 
             enabled = false;
             return;
@@ -72,10 +65,6 @@ public class BossMonster : AttackTouch
 
         if (patternData == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}에 BossPatternData가 연결되지 않았습니다.",
-                gameObject
-            );
 
             enabled = false;
         }
@@ -133,9 +122,7 @@ public class BossMonster : AttackTouch
 
         if (playerObject == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}: Player 태그를 가진 오브젝트를 찾을 수 없습니다."
-            );
+
 
             player = null;
             return;
@@ -614,10 +601,7 @@ public class BossMonster : AttackTouch
         }
         else
         {
-            Debug.LogWarning(
-                $"{gameObject.name}: SoundManager가 없어 Clear BGM을 재생하지 못했습니다.",
-                gameObject
-            );
+
         }
 
         // 보스 사망 애니메이션을 재생한다.
@@ -637,10 +621,6 @@ public class BossMonster : AttackTouch
 
         if (enemyBase == null)
         {
-            Debug.LogError(
-                $"{gameObject.name}에 EnemyBase가 없습니다.",
-                gameObject
-            );
 
             // EnemyBase가 없어도 오브젝트가 계속 남지 않도록 비활성화한다.
             gameObject.SetActive(false);

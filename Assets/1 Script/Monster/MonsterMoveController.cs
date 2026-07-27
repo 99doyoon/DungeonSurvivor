@@ -164,9 +164,6 @@ public class MonsterMoveController : MonoBehaviour
 
         if (monsterAttack == null)
         {
-            Debug.LogError(
-                $"{bulletType} 프리팹에 " +
-                "MonsterBulletAttackTouch 컴포넌트가 없습니다.");
             return;
         }
 
