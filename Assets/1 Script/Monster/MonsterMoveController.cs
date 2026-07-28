@@ -23,10 +23,14 @@ public class MonsterMoveController : MonoBehaviour
     // 이 컨트롤러에서 사망 처리를 이미 시작했는지 확인
     private bool deathHandled;
 
+    private Rigidbody2D rb;
+    private Vector2 moveDirection;
+
     private void Awake()
     {
         GameObject playerObject = GameObject.FindWithTag("Player");
         monsterCollider = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         if (playerObject != null)
         {
@@ -75,31 +79,66 @@ public class MonsterMoveController : MonoBehaviour
 
     private void Update()
     {
-        if (enemyBase != null &&
-       enemyBase.IsKnockback)
+        if (enemyBase == null)
         {
             return;
         }
 
-        // 사망 중에는 추적이나 공격을 실행하지 않는다.
-        if (enemyBase.isDead)
+        if (enemyBase.IsKnockback)
+        {
+            moveDirection = Vector2.zero;
             return;
+        }
 
-        // 매 프레임 공격 대기시간 증가
+        if (enemyBase.isDead)
+        {
+            moveDirection = Vector2.zero;
+            return;
+        }
+
         attackTimer += Time.deltaTime;
 
         CheckDistance();
     }
 
-    private void CheckDistance()
+    private void FixedUpdate()
     {
-        if (player == null)
+        if (rb == null || enemyBase == null)
         {
             return;
         }
 
+        if (enemyBase.isDead)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (enemyBase.IsKnockback)
+        {
+            return;
+        }
+
+        if (!isTrace)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        rb.linearVelocity =
+            moveDirection * enemyBase.GetMoveSpeed();
+    }
+
+    private void CheckDistance()
+    {
+        if (player == null || enemyBase == null)
+        {
+            moveDirection = Vector2.zero;
+            return;
+        }
+
         float distance =
-            Vector2.Distance(transform.position, player.position);
+            Vector2.Distance(rb.position, player.position);
 
         isTrace =
             distance > enemyBase.GetAttackDistance();
@@ -110,6 +149,7 @@ public class MonsterMoveController : MonoBehaviour
         }
         else
         {
+            moveDirection = Vector2.zero;
             TryRangedAttack();
         }
     }
@@ -127,11 +167,14 @@ public class MonsterMoveController : MonoBehaviour
 
     private void Move()
     {
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            player.position,
-            enemyBase.GetMoveSpeed() * Time.deltaTime
-        );
+        if (player == null)
+        {
+            moveDirection = Vector2.zero;
+            return;
+        }
+
+        moveDirection =
+            ((Vector2)player.position - rb.position).normalized;
     }
 
     // 공격 가능 시간이 되었는지 확인
@@ -202,6 +245,13 @@ public class MonsterMoveController : MonoBehaviour
 
         // 추적 상태 해제
         isTrace = false;
+
+        moveDirection = Vector2.zero;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
 
         // 사망 중 추가 충돌과 피격을 막는다.
         if (monsterCollider != null)
