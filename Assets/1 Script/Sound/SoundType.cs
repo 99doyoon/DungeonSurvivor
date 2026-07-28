@@ -17,5 +17,6 @@ public enum SFXType
     ItemPickup,
     Countdown,
     GameStart,
-    Explosion
+    Explosion,
+    BossWarning
 }

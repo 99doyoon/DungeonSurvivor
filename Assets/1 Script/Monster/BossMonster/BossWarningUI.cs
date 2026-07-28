@@ -1,71 +1,93 @@
+using System;
+using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class BossWarningUI : MonoBehaviour
 {
-    public static BossWarningUI Instance { get; private set; }
-
     [SerializeField] private GameObject warningPanel;
+    [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TMP_Text warningText;
 
-    private Tween blinkTween;
+    [SerializeField] private float fadeDuration = 0.3f;
+    [SerializeField] private float warningDuration = 1.5f;
+
+    private bool isPlaying;
 
     private void Awake()
     {
-        Instance = this;
-        Hide();
-    }
-
-    public void Show(string message)
-    {
-        if (warningPanel == null ||
-            warningText == null)
-        {
-            return;
-        }
-
-        warningPanel.SetActive(true);
-        warningText.text = message;
-        warningText.alpha = 1f;
-
-        blinkTween?.Kill();
-
-        blinkTween = warningText
-            .DOFade(0.2f, 0.25f)
-            .SetLoops(-1, LoopType.Yoyo)
-            .SetUpdate(true)
-            .SetLink(
-                warningText.gameObject,
-                LinkBehaviour.KillOnDestroy
-            );
-    }
-
-    public void Hide()
-    {
-        blinkTween?.Kill();
-        blinkTween = null;
-
-        if (warningText != null)
-        {
-            warningText.DOKill();
-            warningText.alpha = 1f;
-        }
-
         if (warningPanel != null)
         {
             warningPanel.SetActive(false);
         }
     }
 
+    public void Play(Action onComplete)
+    {
+
+        if (isPlaying)
+        {
+
+            return;
+        }
+
+        StartCoroutine(PlayRoutine(onComplete));
+    }
+
+    private IEnumerator PlayRoutine(Action onComplete)
+    {
+
+        isPlaying = true;
+        Time.timeScale = 0f;
+
+        warningPanel.SetActive(true);
+        warningPanel.transform.SetAsLastSibling();
+
+        canvasGroup.alpha = 0f;
+
+        warningText.text = "WARNING";
+        warningText.rectTransform.localScale = Vector3.one * 0.5f;
+
+        Sequence appearSequence = DOTween.Sequence();
+
+        appearSequence.Append(
+            canvasGroup.DOFade(1f, fadeDuration)
+        );
+
+        appearSequence.Join(
+            warningText.rectTransform
+                .DOScale(Vector3.one, fadeDuration)
+                .SetEase(Ease.OutBack)
+        );
+
+        appearSequence.SetUpdate(true);
+
+        yield return new WaitForSecondsRealtime(warningDuration);
+
+        canvasGroup
+            .DOFade(0f, fadeDuration)
+            .SetUpdate(true);
+
+        yield return new WaitForSecondsRealtime(fadeDuration);
+
+        warningPanel.SetActive(false);
+
+        Time.timeScale = 1f;
+        isPlaying = false;
+
+        onComplete?.Invoke();
+    }
+
     private void OnDisable()
     {
-        blinkTween?.Kill();
-        blinkTween = null;
+        canvasGroup?.DOKill();
 
         if (warningText != null)
         {
-            warningText.DOKill();
+            warningText.rectTransform.DOKill();
         }
+
+        isPlaying = false;
     }
 }

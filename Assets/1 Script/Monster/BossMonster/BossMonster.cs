@@ -27,6 +27,9 @@ public class BossMonster : AttackTouch
     [SerializeField] private float warningDuration = 1.5f;
     [SerializeField] private float introDelay = 0.5f;
 
+    [Header("보스등장 UI")]
+    [SerializeField] private BossWarningUI bossWarningUI;
+
     [Header("참조")]
     [SerializeField] private Transform player;
 
@@ -147,7 +150,6 @@ public class BossMonster : AttackTouch
         {
             rb.linearVelocity = Vector2.zero;
         }
-        BossWarningUI.Instance?.Hide();
         BossHpUI.Instance?.Hide();
     }
 
@@ -666,13 +668,9 @@ public class BossMonster : AttackTouch
 
         BossHpUI.Instance?.Hide();
 
-        BossWarningUI.Instance?.Show("WARNING");
-
         yield return new WaitForSecondsRealtime(
             warningDuration
         );
-
-        BossWarningUI.Instance?.Hide();
 
         if (enemyBase != null)
         {

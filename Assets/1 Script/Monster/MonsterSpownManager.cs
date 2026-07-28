@@ -24,6 +24,13 @@ public class MonsterSpawnManager : MonoBehaviour
     [SerializeField]
     private BossSpawnSchedule bossSpawnSchedule;
 
+    [Header("보스 등장 연출")]
+    [SerializeField] private BossWarningUI bossWarningUI;
+
+
+    // 현재 보스 등장 연출이 진행 중인지
+    private bool isBossWarningPlaying;
+
     // 게임 시작 후 흐른 전체 시간
     private float elapsedTime;
 
@@ -214,6 +221,10 @@ public class MonsterSpawnManager : MonoBehaviour
         if (bossSpawnSchedule == null)
             return;
 
+        // 경고 연출 중에는 다른 보스 소환을 시작하지 않는다.
+        if (isBossWarningPlaying)
+            return;
+
         List<BossSpawnData> bossList =
             bossSpawnSchedule.bossSpawnList;
 
@@ -233,13 +244,54 @@ public class MonsterSpawnManager : MonoBehaviour
             if (elapsedTime < bossData.spawnTime)
                 continue;
 
-            // 보스 소환에 성공한 경우에만
-            // 해당 인덱스를 소환 완료 목록에 추가한다.
-            if (SpawnBoss(bossData))
-            {
-                spawnedBossIndexes.Add(i);
-            }
+            // 람다식에서 사용할 현재 인덱스를 따로 저장
+            int bossIndex = i;
+
+            RequestBossSpawn(bossIndex, bossData);
+
+            // 한 번에 한 보스의 경고 연출만 시작
+            return;
         }
+    }
+
+    private void RequestBossSpawn(
+    int bossIndex,
+    BossSpawnData bossData)
+    {
+        isBossWarningPlaying = true;
+
+        if (bossWarningUI != null)
+        {
+            bossWarningUI.Play(() =>
+            {
+                CompleteBossSpawnRequest(
+                    bossIndex,
+                    bossData
+                );
+            });
+        }
+        else
+        {
+            CompleteBossSpawnRequest(
+                bossIndex,
+                bossData
+            );
+        }
+    }
+
+    private void CompleteBossSpawnRequest(
+    int bossIndex,
+    BossSpawnData bossData)
+    {
+        bool spawnSucceeded =
+            SpawnBoss(bossData);
+
+        if (spawnSucceeded)
+        {
+            spawnedBossIndexes.Add(bossIndex);
+        }
+
+        isBossWarningPlaying = false;
     }
 
     /// <summary>
