@@ -26,6 +26,7 @@ public class RewardButton : MonoBehaviour,
     [SerializeField] private TMP_Text rewardNameText;
     [SerializeField] private TMP_Text descriptionText;
 
+    private bool isSelected;
     private Vector2 originalPosition;
     private Tween currentTween;
 
@@ -51,6 +52,9 @@ public class RewardButton : MonoBehaviour,
         RewardData data,
         Action<RewardData> action)
     {
+        isSelected = false;
+        cardButton.interactable = true;
+
         rewardData = data;
         selectAction = action;
 
@@ -64,12 +68,55 @@ public class RewardButton : MonoBehaviour,
 
     private void SelectReward()
     {
+        if (isSelected)
+        {
+            return;
+        }
+
         if (rewardData == null || selectAction == null)
         {
             return;
         }
 
-        selectAction.Invoke(rewardData);
+        isSelected = true;
+        cardButton.interactable = false;
+
+        PlaySelectAnimation(() =>
+        {
+            selectAction.Invoke(rewardData);
+        });
+    }
+
+    private void PlaySelectAnimation(Action onComplete)
+    {
+        currentTween?.Kill();
+        rectTransform.DOKill();
+
+        Sequence sequence = DOTween.Sequence();
+
+        // 먼저 살짝 커짐
+        sequence.Append(
+            rectTransform
+                .DOScale(Vector3.one * 1.2f, 0.12f)
+                .SetEase(Ease.OutQuad)
+        );
+
+        // 이후 작아지면서 사라짐
+        sequence.Append(
+            rectTransform
+                .DOScale(Vector3.zero, 0.2f)
+                .SetEase(Ease.InBack)
+        );
+
+        // Time.timeScale이 0이어도 실행
+        sequence.SetUpdate(true);
+
+        sequence.OnComplete(() =>
+        {
+            onComplete?.Invoke();
+        });
+
+        currentTween = sequence;
     }
 
     public void PlayAppearAnimation(float delay)
