@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class RewardManager : MonoBehaviour
 {
@@ -46,7 +45,6 @@ public class RewardManager : MonoBehaviour
     {
         rewardPanel.SetActive(true);
 
-        // 보상 선택 중 게임 정지
         Time.timeScale = 0f;
 
         List<RewardData> selectedRewards = GetRandomRewards(3);
@@ -55,10 +53,17 @@ public class RewardManager : MonoBehaviour
         {
             if (i < selectedRewards.Count)
             {
-                rewardButtons[i].gameObject.SetActive(true);
-                rewardButtons[i].SetReward(
+                RewardButton rewardButton = rewardButtons[i];
+
+                rewardButton.gameObject.SetActive(true);
+
+                rewardButton.SetReward(
                     selectedRewards[i],
-                    SelectReward);
+                    SelectReward
+                );
+
+                float delay = i * 0.12f;
+                rewardButton.PlayAppearAnimation(delay);
             }
             else
             {
