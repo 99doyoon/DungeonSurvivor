@@ -143,6 +143,12 @@ public class MonsterSpawnManager : MonoBehaviour
         if (monster == null)
             return;
 
+        // OnEnable이나 풀 내부 코드가 위치를 바꾸는지 확인하기 위한 임시 보정
+        monster.transform.SetPositionAndRotation(
+            spawnPos,
+            Quaternion.identity
+        );
+
         EnemyBase enemy =
             monster.GetComponent<EnemyBase>();
 
