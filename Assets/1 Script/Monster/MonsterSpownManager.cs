@@ -204,7 +204,10 @@ public class MonsterSpawnManager : MonoBehaviour
             return false;
         }
 
+        EnemyHpBar bossHpBar =
         CreateHpBar(spawnedBossEnemy);
+
+        bossHpBar?.PlayBossAppearAnimation();
 
 
         // 보스 음악으로 변경
@@ -298,11 +301,21 @@ public class MonsterSpawnManager : MonoBehaviour
     /// <summary>
     /// 몬스터 또는 보스의 체력 바를 생성한다.
     /// </summary>
-    private void CreateHpBar(EnemyBase enemy)
+    private EnemyHpBar CreateHpBar(EnemyBase enemy)
     {
+        if (enemy == null)
+        {
+            return null;
+        }
+
         if (uiCanvas == null)
         {
-            return;
+            return null;
+        }
+
+        if (ObjectPool.instance == null)
+        {
+            return null;
         }
 
         GameObject hpBarObj =
@@ -311,9 +324,10 @@ public class MonsterSpawnManager : MonoBehaviour
             );
 
         if (hpBarObj == null)
-            return;
+        {
+            return null;
+        }
 
-        // 체력 바를 UI Canvas의 자식으로 설정
         hpBarObj.transform.SetParent(
             uiCanvas.transform,
             false
@@ -328,10 +342,12 @@ public class MonsterSpawnManager : MonoBehaviour
         if (hpBar == null)
         {
             ReturnPoolObject(hpBarObj);
-            return;
+            return null;
         }
 
         hpBar.SetTarget(enemy);
+
+        return hpBar;
     }
 
     /// <summary>

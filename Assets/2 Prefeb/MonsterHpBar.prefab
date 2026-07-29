@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 3357852776944954479}
   - component: {fileID: 6338574216169880554}
   - component: {fileID: -1063832556751051055}
+  - component: {fileID: 1504019934302474535}
   m_Layer: 5
   m_Name: MonsterHpBar
   m_TagString: Untagged
@@ -214,7 +215,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHpBar
   hpBar: {fileID: 6338574216169880554}
+  rectTransform: {fileID: 3357852776944954479}
+  canvasGroup: {fileID: 1504019934302474535}
+  appearDuration: 0.4
+  startOffsetY: 80
   offset: {x: 0, y: 1, z: 0}
+--- !u!225 &1504019934302474535
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416611785138801300}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8995692353429060329
 GameObject:
   m_ObjectHideFlags: 0
