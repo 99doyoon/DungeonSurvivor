@@ -34,6 +34,10 @@ public class MonsterSpawnManager : MonoBehaviour
     [Header("보스 HP바")]
     [SerializeField] private BossHpBar bossHpBar;
 
+    [Header("엘리트 몬스터")]
+    [SerializeField]
+    private EliteMonsterData eliteMonsterData;
+
 
     // 현재 보스 등장 연출이 진행 중인지
     private bool isBossWarningPlaying;
@@ -149,18 +153,27 @@ public class MonsterSpawnManager : MonoBehaviour
             Quaternion.identity
         );
 
-        EnemyBase enemy =
-            monster.GetComponent<EnemyBase>();
+        EnemyBase enemy = monster.GetComponent<EnemyBase>();
 
         if (enemy == null)
         {
-
             ReturnPoolObject(monster);
             return;
         }
 
+        bool isElite =
+            eliteMonsterData != null &&
+            Random.value <
+            eliteMonsterData.spawnChance;
+
+        enemy.SetElite(
+            isElite,
+            eliteMonsterData
+        );
+
         CreateHpBar(enemy);
     }
+
 
     private bool SpawnBoss(BossSpawnData bossData)
     {

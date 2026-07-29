@@ -180,6 +180,16 @@ public abstract class ChracterAnimation : MonoBehaviour
             .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
     }
 
+    public void SetOriginColor(Color color)
+    {
+        originColor = color;
+
+        if (sr != null)
+        {
+            sr.color = originColor;
+        }
+    }
+
     private void OnDisable()
     {
         hitSequence?.Kill();

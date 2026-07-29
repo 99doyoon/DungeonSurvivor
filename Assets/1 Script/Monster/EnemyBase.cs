@@ -1,6 +1,7 @@
 using System;
-using UnityEngine;
 using System.Collections;
+using System.ComponentModel;
+using UnityEngine;
 
 public class EnemyBase : CharacterStatus, IPoolable
 {
@@ -15,15 +16,19 @@ public class EnemyBase : CharacterStatus, IPoolable
     [Header("넉백")]
     [SerializeField]
     private Rigidbody2D rb;
-
     [SerializeField]
     private float knockbackDuration = 0.2f;
-
     private bool isKnockback;
-
     public bool IsKnockback => isKnockback;
-
     private Coroutine knockbackCoroutine;
+
+    [Header("엘리트 몬스터")]
+    private bool isElite;
+    private EliteMonsterData currentEliteData;
+    private Vector3 originalScale;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    public bool IsElite => isElite;
 
     public PoolType PoolType =>
         monsterData != null
@@ -42,6 +47,20 @@ public class EnemyBase : CharacterStatus, IPoolable
 
     public event Action<float, float> OnHpChanged;
     public event Action<EnemyBase> OnInitialized;
+
+    protected virtual void Awake()
+    {
+        originalScale = transform.localScale;
+
+        spriteRenderer =
+            GetComponentInChildren<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            originalColor =
+                spriteRenderer.color;
+        }
+    }
 
     protected virtual void OnEnable()
     {
@@ -301,14 +320,136 @@ public class EnemyBase : CharacterStatus, IPoolable
         knockbackCoroutine = null;
     }
 
-    public int GetExp() =>
-        monsterData != null ? monsterData.Exp : 0;
+    public void SetElite(
+    bool elite,
+    EliteMonsterData eliteData)
+    {
+        isElite = elite;
+        currentEliteData = eliteData;
 
-    public float GetMoveSpeed() =>
-        monsterData != null ? monsterData.moveSpeed : 0f;
+        transform.localScale = originalScale;
 
-    public float GetDamage() =>
-        monsterData != null ? monsterData.damage : 0f;
+        Color displayColor =
+        isElite && currentEliteData != null
+            ? currentEliteData.eliteColor
+            : originalColor;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = displayColor;
+        }
+
+        if (monsterAnimation == null)
+        {
+            monsterAnimation =
+                GetComponentInChildren<MonsterAnimation>();
+        }
+
+        if (monsterAnimation != null)
+        {
+            monsterAnimation.SetOriginColor(
+                displayColor
+            );
+        }
+
+        if (!isElite || currentEliteData == null)
+        {
+            maxHp =
+                monsterData != null
+                    ? monsterData.maxHp
+                    : 0f;
+
+            nowHp = maxHp;
+
+            OnHpChanged?.Invoke(
+                nowHp,
+                maxHp
+            );
+
+            return;
+        }
+
+        maxHp =
+            monsterData.maxHp *
+            currentEliteData.hpMultiplier;
+
+        nowHp = maxHp;
+
+        transform.localScale =
+            originalScale *
+            currentEliteData.scaleMultiplier;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color =
+                currentEliteData.eliteColor;
+        }
+
+        OnHpChanged?.Invoke(
+            nowHp,
+            maxHp
+        );
+
+        if (TryGetComponent(
+            out AttackTouch attackTouch))
+                {
+                    attackTouch.SetDamage(
+                        GetDamage()
+                    );
+                }
+    }
+    public int GetExp()
+    {
+        int baseExp =
+            monsterData != null
+                ? monsterData.Exp
+                : 0;
+
+        if (!isElite ||
+            currentEliteData == null)
+        {
+            return baseExp;
+        }
+
+        return Mathf.RoundToInt(
+            baseExp *
+            currentEliteData.expMultiplier
+        );
+    }
+
+    public float GetMoveSpeed()
+    {
+        float baseSpeed =
+            monsterData != null
+                ? monsterData.moveSpeed
+                : 0f;
+
+        if (!isElite ||
+            currentEliteData == null)
+        {
+            return baseSpeed;
+        }
+
+        return baseSpeed *
+               currentEliteData.moveSpeedMultiplier;
+    }
+
+    public float GetDamage()
+    {
+        float baseDamage =
+            monsterData != null
+                ? monsterData.damage
+                : 0f;
+
+        if (!isElite ||
+            currentEliteData == null)
+        {
+            return baseDamage;
+        }
+
+        return baseDamage *
+               currentEliteData.damageMultiplier;
+    }
 
     public float GetAttackDistance() =>
         monsterData != null ? monsterData.attackDistance : 0f;
