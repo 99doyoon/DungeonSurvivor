@@ -116,14 +116,13 @@ public class MonsterSpawnManager : MonoBehaviour
             );
 
         GameObject monster =
-            ObjectPool.instance.GetObject(
-                monsterType,
-                spawnPos,
-                Quaternion.identity
-            );
+            ObjectPool.instance.GetObject(monsterType);
 
         if (monster == null)
             return;
+
+        monster.transform.position = spawnPos;
+        monster.transform.rotation = Quaternion.identity;
 
         EnemyBase enemy =
             monster.GetComponent<EnemyBase>();

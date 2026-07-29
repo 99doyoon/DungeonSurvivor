@@ -197,33 +197,6 @@ public class ObjectPool : MonoBehaviour
         return component;
     }
 
-    public GameObject GetObject(
-    PoolType type,
-    Vector3 position,
-    Quaternion rotation)
-    {
-        if (!pools.ContainsKey(type))
-        {
-            return null;
-        }
-
-        if (pools[type].Count == 0)
-        {
-            return null;
-        }
-
-        GameObject obj = pools[type].Dequeue();
-
-        obj.transform.SetPositionAndRotation(
-            position,
-            rotation
-        );
-
-        obj.SetActive(true);
-
-        return obj;
-    }
-
     //이 함수의 목적은"IPoolable을 구현한 오브젝트를 다시 풀에 넣는다."
 
     public void ReturnObject(GameObject go, PoolType type)
