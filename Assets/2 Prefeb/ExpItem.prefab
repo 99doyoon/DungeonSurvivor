@@ -137,6 +137,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b14d28486334a45ab601dee229536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExpItem
+  magnetRange: 4
+  moveSpeed: 7
+  acceleration: 12
+  scatterDistance: 0.7
+  scatterDuration: 0.2
+  expAmount: 1
 --- !u!58 &-3544260168190607621
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -167,7 +173,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

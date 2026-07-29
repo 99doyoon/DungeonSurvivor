@@ -129,28 +129,34 @@ public class EnemyBase : CharacterStatus, IPoolable
     protected virtual void DropExp()
     {
         GameObject expItem =
-            ObjectPool.instance.GetObject(PoolType.ExpItem);
+            ObjectPool.instance.GetObject(
+                PoolType.ExpItem,
+                transform.position,
+                Quaternion.identity
+            );
 
         if (expItem == null)
         {
             return;
         }
 
-        if (!expItem.TryGetComponent(out ExpItem exp))
+        if (!expItem.TryGetComponent(
+            out ExpItem exp))
         {
             IPoolable poolable =
                 expItem.GetComponent<IPoolable>();
 
             if (poolable != null)
             {
-                ObjectPool.instance.ReturnObject(poolable);
+                ObjectPool.instance.ReturnObject(
+                    poolable
+                );
             }
 
             return;
         }
 
         exp.SetExp(GetExp());
-        expItem.transform.position = transform.position;
     }
 
     public override void TakeDamage(float damage)
