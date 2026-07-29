@@ -31,8 +31,6 @@ public class BossHpUI : MonoBehaviour
             bossHpSlider.maxValue = 1f;
             bossHpSlider.value = 1f;
         }
-
-        Hide();
     }
 
     private void Update()

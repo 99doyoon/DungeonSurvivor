@@ -27,6 +27,9 @@ public class MonsterSpawnManager : MonoBehaviour
     [Header("보스 등장 연출")]
     [SerializeField] private BossWarningUI bossWarningUI;
 
+    [Header("보스 HP바")]
+    [SerializeField] private BossHpBar bossHpBar;
+
 
     // 현재 보스 등장 연출이 진행 중인지
     private bool isBossWarningPlaying;
@@ -182,17 +185,16 @@ public class MonsterSpawnManager : MonoBehaviour
             );
 
         GameObject boss =
-            ObjectPool.instance.GetObject(
-                bossPoolType
-            );
+         ObjectPool.instance.GetObject(
+             bossPoolType,
+             spawnPosition,
+             Quaternion.identity
+         );
 
         if (boss == null)
         {
             return false;
         }
-
-        boss.transform.position = spawnPosition;
-        boss.transform.rotation = Quaternion.identity;
 
         EnemyBase spawnedBossEnemy =
             boss.GetComponent<EnemyBase>();
@@ -204,7 +206,13 @@ public class MonsterSpawnManager : MonoBehaviour
             return false;
         }
 
-        CreateHpBar(spawnedBossEnemy);
+        if (bossHpBar != null)
+        {
+            bossHpBar.Show(
+                spawnedBossEnemy,
+                 "BOSS"
+            );
+        }
 
 
         // 보스 음악으로 변경
