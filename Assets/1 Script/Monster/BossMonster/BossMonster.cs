@@ -33,6 +33,13 @@ public class BossMonster : AttackTouch
     [Header("참조")]
     [SerializeField] private Transform player;
 
+    [Header("AI 컴포넌트")]
+    [SerializeField]
+    private MonsterMoveController moveController;
+
+    [SerializeField]
+    private MonoBehaviour attackController;
+
     private EnemyBase enemyBase;
     private Collider2D bossCollider;
 
@@ -47,6 +54,19 @@ public class BossMonster : AttackTouch
     // 직전에 실행한 패턴 번호
     // 같은 패턴이 연속으로 실행되는 것을 방지하기 위해 사용
     private int previousPattern = -1;
+
+    public void SetAIActive(bool active)
+    {
+        if (moveController != null)
+        {
+            moveController.enabled = active;
+        }
+
+        if (attackController != null)
+        {
+            attackController.enabled = active;
+        }
+    }
 
     private void Awake()
     {

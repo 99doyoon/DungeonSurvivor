@@ -27,6 +27,10 @@ public class MonsterSpawnManager : MonoBehaviour
     [Header("보스 등장 연출")]
     [SerializeField] private BossWarningUI bossWarningUI;
 
+    [Header("보스 카메라 연출")]
+    [SerializeField]
+    private BossCameraDirector bossCameraDirector;
+
     [Header("보스 HP바")]
     [SerializeField] private BossHpBar bossHpBar;
 
@@ -93,6 +97,17 @@ public class MonsterSpawnManager : MonoBehaviour
     /// </summary>
     private void UpdateNormalMonsterSpawn()
     {
+        if (isBossWarningPlaying)
+        {
+            return;
+        }
+
+        if (bossCameraDirector != null &&
+            bossCameraDirector.IsPlaying)
+        {
+            return;
+        }
+
         if (spawnTimer < spawnInterval)
             return;
 
@@ -206,17 +221,61 @@ public class MonsterSpawnManager : MonoBehaviour
             return false;
         }
 
-        if (bossHpBar != null)
+        BossMonster bossMonster =
+    boss.GetComponent<BossMonster>();
+
+        if (bossMonster != null)
         {
-            bossHpBar.Show(
-                spawnedBossEnemy,
-                 "BOSS"
-            );
+            bossMonster.SetAIActive(false);
         }
 
+        SoundManager.Instance?.PlayBgm(
+            BGMType.Boss
+        );
 
-        // 보스 음악으로 변경
-        SoundManager.Instance.PlayBgm(BGMType.Boss);
+        if (bossCameraDirector != null)
+        {
+            bossCameraDirector.Play(
+                boss.transform,
+                player,
+
+                // 카메라가 보스에 도착했을 때
+                () =>
+                {
+                    if (bossHpBar != null)
+                    {
+                        bossHpBar.Show(
+                            spawnedBossEnemy,
+                            "BOSS"
+                        );
+                    }
+                },
+
+                // 카메라가 플레이어에게 돌아온 뒤
+                () =>
+                {
+                    if (bossMonster != null)
+                    {
+                        bossMonster.SetAIActive(true);
+                    }
+                }
+            );
+        }
+        else
+        {
+            if (bossHpBar != null)
+            {
+                bossHpBar.Show(
+                    spawnedBossEnemy,
+                    "BOSS"
+                );
+            }
+
+            if (bossMonster != null)
+            {
+                bossMonster.SetAIActive(true);
+            }
+        }
 
         return true;
     }

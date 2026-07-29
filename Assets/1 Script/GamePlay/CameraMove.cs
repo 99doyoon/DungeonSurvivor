@@ -2,25 +2,54 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    [SerializeField] Transform target;
-    float smoothSpeed;
+    [SerializeField] private Transform target;
+    [SerializeField] private float smoothSpeed = 0.2f;
 
-    Vector3 velocity;
+    private Vector3 velocity;
+    private bool canFollow = true;
 
-    Vector3 targetPos;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-        smoothSpeed = 0.2f;
+        if (!canFollow || target == null)
+        {
+            return;
+        }
+
+        Vector3 targetPos = new Vector3(
+            target.position.x,
+            target.position.y,
+            transform.position.z
+        );
+
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            targetPos,
+            ref velocity,
+            smoothSpeed
+        );
+    }
+
+    public void SetFollowActive(bool active)
+    {
+        canFollow = active;
+
+        // 이전 SmoothDamp 속도가 남지 않도록 초기화
         velocity = Vector3.zero;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SnapToTarget()
     {
-        targetPos = new Vector3(target.position.x, target.position.y, transform.position.z);
+        if (target == null)
+        {
+            return;
+        }
 
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothSpeed);
+        transform.position = new Vector3(
+            target.position.x,
+            target.position.y,
+            transform.position.z
+        );
+
+        velocity = Vector3.zero;
     }
 }

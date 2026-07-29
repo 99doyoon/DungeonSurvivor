@@ -55,7 +55,10 @@ MonoBehaviour:
   bossAnimation: {fileID: 0}
   warningDuration: 1.5
   introDelay: 0.5
+  bossWarningUI: {fileID: 0}
   player: {fileID: 0}
+  moveController: {fileID: 0}
+  attackController: {fileID: 0}
 --- !u!50 &9020287268216352411
 Rigidbody2D:
   serializedVersion: 5
