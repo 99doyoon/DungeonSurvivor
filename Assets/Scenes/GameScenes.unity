@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMove
   target: {fileID: 2005569291}
+  smoothSpeed: 0
 --- !u!114 &30352627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2782,6 +2783,7 @@ GameObject:
   - component: {fileID: 589313431}
   - component: {fileID: 589313430}
   - component: {fileID: 589313432}
+  - component: {fileID: 589313433}
   m_Layer: 5
   m_Name: BossHpPanel
   m_TagString: Untagged
@@ -2860,6 +2862,27 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &589313433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589313428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f64d8c38314a54a8cc3097bbc7f60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHpBar
+  panelRect: {fileID: 589313429}
+  canvasGroup: {fileID: 589313432}
+  hpSlider: {fileID: 2145877042}
+  bossNameText: {fileID: 1065361991}
+  fadeDuration: 0.25
+  moveDuration: 0.45
+  fillDuration: 0.7
+  startOffsetY: 100
+  hideDuration: 0.35
 --- !u!1 &594934267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,7 +3332,6 @@ GameObject:
   m_Component:
   - component: {fileID: 673209965}
   - component: {fileID: 673209966}
-  - component: {fileID: 673209967}
   m_Layer: 5
   m_Name: BossHpUIManager
   m_TagString: Untagged
@@ -3353,27 +3375,6 @@ MonoBehaviour:
   bossHpSlider: {fileID: 2145877042}
   bossNameText: {fileID: 1065361991}
   smoothSpeed: 3
---- !u!114 &673209967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673209964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f64d8c38314a54a8cc3097bbc7f60e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossHpBar
-  panelRect: {fileID: 673209965}
-  canvasGroup: {fileID: 589313432}
-  hpSlider: {fileID: 2145877042}
-  bossNameText: {fileID: 1065361991}
-  fadeDuration: 0.25
-  moveDuration: 0.45
-  fillDuration: 0.7
-  startOffsetY: 100
-  hideDuration: 0.35
 --- !u!1 &715040479
 GameObject:
   m_ObjectHideFlags: 0
@@ -5037,7 +5038,9 @@ MonoBehaviour:
     weight: 5
   bossSpawnSchedule: {fileID: 11400000, guid: d7b9533d3c04b714190016010790bfca, type: 2}
   bossWarningUI: {fileID: 1511545728}
-  bossHpBar: {fileID: 673209967}
+  bossCameraDirector: {fileID: 1624836504}
+  bossHpBar: {fileID: 589313433}
+  eliteMonsterData: {fileID: 11400000, guid: 681379d7efd0bea4195f1d43103e35be, type: 2}
 --- !u!1 &1319006691
 GameObject:
   m_ObjectHideFlags: 0
@@ -7385,6 +7388,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624510079}
   m_CullTransparentMesh: 1
+--- !u!1 &1624836503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624836505}
+  - component: {fileID: 1624836504}
+  m_Layer: 0
+  m_Name: BossCameraDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1624836504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624836503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51698d4e7d02e0e44b9be1007b1dc942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossCameraDirector
+  playerMoveController: {fileID: 0}
+  mainCamera: {fileID: 30352623}
+  cameraFollow: {fileID: 30352626}
+  moveToBossDuration: 1
+  bossViewDuration: 1
+  returnDuration: 1.5
+  bossOffset: {x: 0, y: 0, z: 0}
+  playerOffset: {x: 0, y: 0, z: 0}
+--- !u!4 &1624836505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624836503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 448, y: 203.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1659452591
 GameObject:
   m_ObjectHideFlags: 0
@@ -9721,3 +9776,4 @@ SceneRoots:
   - {fileID: 1036960876}
   - {fileID: 1868750503245364472}
   - {fileID: 1722529021}
+  - {fileID: 1624836505}

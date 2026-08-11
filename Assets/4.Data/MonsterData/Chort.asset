@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Chort
   poolType: 10
-  maxHp: 30
+  maxHp: 20
   moveSpeed: 3
   damage: 10
   attackDistance: 4

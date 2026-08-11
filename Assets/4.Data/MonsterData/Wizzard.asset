@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   monsterName: Wizzard
   poolType: 19
-  maxHp: 30
+  maxHp: 60
   moveSpeed: 3
   damage: 20
-  attackDistance: 4
+  attackDistance: 7
   projectileSpeed: 5
   attackDelay: 1
   Exp: 10
